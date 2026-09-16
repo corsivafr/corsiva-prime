@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   Corsiva Prime — DA Corsiva (dark canvas, Geist + Inter), déclinée en noir, blanc et bleu.
+   Deux mondes qui alternent : sections sombres (canvas #090909) et sections claires (blanc,
+   blanc bleuté). Le bleu est un signal : liens, accents, une carte spotlight par page.
+   ══════════════════════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: dark;
+  --canvas: #090909;
+  --surface-1: #141414;
+  --surface-2: #1c1c1c;
+  --hairline: #262626;
+  --hairline-soft: #1a1a1a;
+  --ink: #ffffff;
+  --ink-2: rgba(255, 255, 255, 0.62);
+  --ink-3: rgba(255, 255, 255, 0.42);
+  --blue: #0099ff;
+  --blue-deep: #0045ff;
+  --blue-ink: #062a6b;
+  --blue-tint: #e6f2ff;
+  --light: #ffffff;
+  --light-2: #f4f6fa;
+  --light-3: #e9eef7;
+  --night: #0a0a0a;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--canvas);
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-color: #2a2a2a var(--canvas);
+}
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-feature-settings: 'cv01', 'cv05', 'cv09', 'cv11', 'ss03', 'ss07';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 8px; border: 2px solid var(--canvas); }
+
+/* Display : Geist médium, tracking très négatif (cadence Framer / Corsiva OS). */
+h1, h2, .display {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+}
+h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
+h3.display, h4.display { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; }
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+::selection { background: rgba(0, 153, 255, 0.35); }
+
+/* ── Sections claires : tout ce qui est écrit pour le sombre bascule ── */
+.light {
+  background: var(--light);
+  color: var(--night);
+  --ink: #0a0a0a;
+  --ink-2: rgba(10, 10, 10, 0.64);
+  --ink-3: rgba(10, 10, 10, 0.44);
+  --surface-1: #f4f6fa;
+  --surface-2: #e9eef7;
+  --hairline: rgba(10, 10, 10, 0.1);
+  --hairline-soft: rgba(10, 10, 10, 0.06);
+  --canvas: #ffffff;
+  color-scheme: light;
+}
+.light-2 { background: var(--light-2); }
+.light-3 { background: var(--light-3); }
+
+/* ── Boutons (couche components : les utilitaires Tailwind, dont .hidden, gardent la main) ── */
+@layer components {
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 22px; border-radius: 100px;
+  font-family: var(--font-inter), system-ui, sans-serif; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em;
+  transition: transform 0.25s var(--ease), background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: #ffffff; color: #000000; }
+.btn-primary:hover { background: #f0f0f0; }
+.light .btn-primary { background: #0a0a0a; color: #ffffff; }
+.light .btn-primary:hover { background: #222; }
+.btn-secondary { background: var(--surface-1); color: var(--ink); border: 1px solid var(--hairline); }
+.btn-secondary:hover { background: var(--surface-2); }
+.btn-blue { background: var(--blue-deep); color: #fff; box-shadow: 0 10px 30px rgba(0, 69, 255, 0.25); }
+.btn-blue:hover { background: #0039d6; }
+.btn-tonal { background: rgba(0, 153, 255, 0.14); color: var(--blue); border: 1px solid rgba(0, 153, 255, 0.35); }
+.light .btn-tonal { background: rgba(0, 69, 255, 0.08); color: var(--blue-deep); border-color: rgba(0, 69, 255, 0.3); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--hairline); }
+.btn-ghost:hover { border-color: rgba(255, 255, 255, 0.4); }
+.light .btn-ghost:hover { border-color: rgba(10, 10, 10, 0.4); }
+.btn .arrow { transition: transform 0.25s var(--ease); }
+.btn:hover .arrow { transform: translateX(4px); }
+
+}
+
+/* ── Cartes ── */
+.card { background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 20px; }
+.light .card { background: #ffffff; border-color: rgba(10, 10, 10, 0.08); box-shadow: 0 1px 2px rgba(10, 10, 10, 0.04); }
+.light-2 .card, .light-3 .card { background: #ffffff; }
+.lift { transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+  .light .lift:hover { box-shadow: 0 24px 60px rgba(6, 42, 107, 0.12); border-color: rgba(0, 69, 255, 0.25); }
+  .zoom-media img, .zoom-media video { transition: transform 0.8s var(--ease); }
+  .zoom-media:hover img, .zoom-media:hover video { transform: scale(1.04); }
+}
+/* Carte spotlight bleue : une par page au plus, comme les cartes dégradées de la DA. */
+.spotlight {
+  background: radial-gradient(120% 120% at 0% 0%, #0099ff 0%, #0045ff 55%, #062a6b 100%);
+  color: #fff; border-radius: 30px;
+}
+.spotlight .muted { color: rgba(255, 255, 255, 0.72); }
+
+/* ── Révélation au défilement (CSS pur ; .in posé par components/Reveal.tsx) ──
+   Spécificité : la variante visible « html.js .rise.in » doit toujours battre « html.js .rise ». */
+html.js .rise, html.js .rise-left, html.js .rise-scale, html.js .rise-blur {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+html.js .rise { transform: translate3d(0, 18px, 0); }
+html.js .rise-left { transform: translate3d(-24px, 0, 0); }
+html.js .rise-scale { transform: scale(0.96); }
+html.js .rise-blur { filter: blur(8px); transform: translate3d(0, 10px, 0); }
+html.js .rise.in, html.js .rise-left.in, html.js .rise-scale.in, html.js .rise-blur.in {
+  opacity: 1; transform: none; filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .rise, html.js .rise-left, html.js .rise-scale, html.js .rise-blur { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* Entrées du hero, indépendantes du défilement */
+.hero-in { opacity: 0; transform: translateY(16px); animation: heroin 0.9s var(--ease) forwards; }
+@keyframes heroin { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-in { animation: none; opacity: 1; transform: none; } }
+
+/* Défilé infini (marques, chiffres) */
+.marquee { overflow: hidden; }
+.marquee-track { display: flex; width: max-content; animation: marquee 34s linear infinite; will-change: transform; }
+@keyframes marquee { to { transform: translate3d(-25%, 0, 0); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* Compteur qui défile (simulateur) */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Filet fin qui se trace */
+.filet { height: 1px; width: 72px; background: var(--blue); transform-origin: left; }
+html.js .filet { transform: scaleX(0); transition: transform 0.8s var(--ease) 0.15s; }
+html.js .filet.in { transform: scaleX(1); }
+
+/* Grain très discret sur les sections sombres, comme sur les sites Corsiva */
+.grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.035; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Champs de formulaire */
+.field {
+  width: 100%; min-height: 50px; padding: 12px 14px; border-radius: 10px;
+  background: var(--surface-1); color: var(--ink); border: 1px solid var(--hairline);
+  font: inherit; font-size: 16px; transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.field::placeholder { color: var(--ink-3); }
+.field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0, 153, 255, 0.18); }
+.light .field { background: #ffffff; border-color: rgba(10, 10, 10, 0.14); }
+.label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 6px; }
+
+/* Seconde ligne des titres : bleu clair sur sombre, bleu profond sur clair */
+.title-b { color: var(--blue); }
+.light .title-b { color: var(--blue-deep); }
+.muted { color: var(--ink-2); }
+
+/* Contrôle segmenté (simulateur) */
+.seg { display: inline-flex; padding: 4px; border-radius: 100px; background: var(--surface-2); border: 1px solid var(--hairline); }
+.seg button { min-height: 40px; padding: 0 16px; border-radius: 100px; font-size: 13.5px; font-weight: 500; color: var(--ink-2); transition: background-color 0.25s var(--ease), color 0.25s var(--ease); }
+.seg button[aria-pressed='true'] { background: var(--ink); color: var(--canvas); }
+.light .seg button[aria-pressed='true'] { background: #0a0a0a; color: #fff; }
+
+/* Résultats verrouillés tant que la simulation n'est pas lancée */
+.locked { filter: blur(10px); opacity: 0.55; pointer-events: none; user-select: none; transition: filter 0.6s var(--ease), opacity 0.6s var(--ease); }
+.unlocked { filter: none; opacity: 1; }
+
+input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; appearance: textfield; }
+input[type='range'] { accent-color: var(--blue-deep); width: 100%; }
+
+/* Hero : voile bas pour lire le texte sur la vidéo */
+.hero-veil { background: linear-gradient(180deg, rgba(9,9,9,0.35) 0%, rgba(9,9,9,0.15) 35%, rgba(9,9,9,0.78) 78%, #090909 100%); }
+.scroll-cue { animation: cue 1.8s var(--ease) infinite; }
+@keyframes cue { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(8px); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+
+/* Pages légales */
+.legal h2 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin-bottom: 10px; }
+.legal p + p { margin-top: 10px; }
+.legal a { color: var(--blue-deep); text-decoration: underline; text-underline-offset: 3px; }
+.legal ul { list-style: disc; padding-left: 20px; }
+.legal li + li { margin-top: 4px; }
+.legal mark { background: rgba(0,69,255,0.1); color: var(--blue-deep); padding: 0 4px; border-radius: 4px; }

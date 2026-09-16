@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+.next
+.next.nosync
+out/
+
+# env / secrets — jamais versionnés
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# OS / éditeur
+.DS_Store
+.vscode/
+.idea/
+tsconfig.tsbuildinfo

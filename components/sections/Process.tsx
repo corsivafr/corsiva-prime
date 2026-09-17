@@ -12,7 +12,7 @@ export default function Process({ compact = false }: { compact?: boolean }) {
         <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
           <div className="lg:col-span-4 lg:sticky lg:top-28 self-start">
             <Title a="Comment ça" b="fonctionne." />
-            <Lead className="mt-6">Cinq phases, environ cinq semaines de l&apos;accord à la livraison. Vous validez, nous exécutons.</Lead>
+            <Lead className="mt-4">Cinq phases, environ cinq semaines de l&apos;accord à la livraison. Vous validez, nous exécutons.</Lead>
             <div className="rise flex items-baseline gap-3 mt-8" style={d(0.14)}>
               <span className="display tabular text-[56px] leading-none" style={{ color: 'var(--blue)' }}>5</span>
               <span className="text-[15px]" style={{ color: 'var(--ink-2)' }}>semaines, durée totale indicative</span>

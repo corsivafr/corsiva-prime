@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal'
 import Catalogue from '@/components/Catalogue'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import CTA from '@/components/sections/CTA'
-import { Section, Wrap, Title, Lead } from '@/components/ui'
+import { SecHead, Section, Wrap } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -29,10 +29,7 @@ export default function Page() {
       />
       <Section tone="light-2" id="catalogue">
         <Wrap>
-          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-10">
-            <div className="lg:col-span-7"><Title a="Choisissez" b="votre prochaine voiture." /></div>
-            <div className="lg:col-span-5"><Lead>Ouvrez une fiche : photos, prix France et Allemagne, malus et TVA évités, puis composez votre package. Un modèle absent ? On le source.</Lead></div>
-          </Reveal>
+          <SecHead a="Choisissez" b="votre prochaine voiture.">Ouvrez une fiche : photos, prix France et Allemagne, malus et TVA évités, puis composez votre package. Un modèle absent ? On le source.</SecHead>
           <Suspense fallback={<div className="card p-10 text-center text-[14px]" style={{ color: 'var(--ink-3)' }}>Chargement du catalogue…</div>}>
             <Catalogue />
           </Suspense>

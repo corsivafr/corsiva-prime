@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
-import Tilt from '@/components/fx/Tilt'
-import { Section, Wrap, Title, Lead, Arrow, d } from '@/components/ui'
+import { Section, Wrap, Arrow, d, SecHead } from '@/components/ui'
 import { VEHICULES } from '@/lib/catalogue'
 import { euro, simuler } from '@/lib/malus'
 
@@ -13,12 +12,7 @@ export default function Exemples({ showCta = true, ids = ['m3', 'g', '911-gts'] 
   return (
     <Section tone="light" id="exemples">
       <Wrap>
-        <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-12 sm:mb-16">
-          <div className="lg:col-span-7"><Title a="Des écarts" b="qui changent tout." /></div>
-          <div className="lg:col-span-5">
-            <Lead>Trois véhicules relevés sur des offres réelles. Prix France, prix Allemagne, malus 2026 et TVA : l’avantage total, poste par poste.</Lead>
-          </div>
-        </Reveal>
+        <SecHead a="Des écarts" b="qui changent tout.">Trois véhicules relevés sur des offres réelles. Prix France, prix Allemagne, malus 2026 et TVA : l’avantage total, poste par poste.</SecHead>
 
         <Reveal as="ul" className="grid grid-cols-1 lg:grid-cols-3 gap-5 list-none">
           {cars.map((v, i) => {
@@ -27,7 +21,7 @@ export default function Exemples({ showCta = true, ids = ['m3', 'g', '911-gts'] 
             const ratio = Math.round((c.prixAllemagneHT / c.prixFranceTTC) * 100)
             return (
               <li key={v.id} className="rise rise-scale" style={d(0.08 * (i + 1))}>
-                <Tilt className="h-full rounded-[24px]">
+                <div className="h-full rounded-[24px]">
                   <Link href={`/catalogue?v=${v.id}`} className="card lift flex flex-col h-full overflow-hidden rounded-[24px] group">
                     <div className="relative" style={{ aspectRatio: '4 / 3', background: '#0a0a0a' }}>
                       {v.cover ? (
@@ -80,7 +74,7 @@ export default function Exemples({ showCta = true, ids = ['m3', 'g', '911-gts'] 
                       </div>
                     </div>
                   </Link>
-                </Tilt>
+                </div>
               </li>
             )
           })}

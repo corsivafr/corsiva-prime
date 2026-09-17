@@ -6,7 +6,7 @@ import SimulateurSection from '@/components/sections/SimulateurSection'
 import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
-import { Section, Wrap, Title, Lead, d } from '@/components/ui'
+import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 import { euro, PLAFOND_MALUS, ANNEE_BAREME } from '@/lib/malus'
 
@@ -39,10 +39,7 @@ export default function Page() {
 
       <Section tone="light">
         <Wrap>
-          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-12 sm:mb-16">
-            <div className="lg:col-span-7"><Title a="Comment" b="ça marche." /></div>
-            <div className="lg:col-span-5"><Lead>Quatre mécanismes, tous prévus par le droit européen, mis en œuvre avec des juristes. Voici exactement ce qui se passe.</Lead></div>
-          </Reveal>
+          <SecHead a="Comment" b="ça marche.">Quatre mécanismes, tous prévus par le droit européen, mis en œuvre avec des juristes. Voici exactement ce qui se passe.</SecHead>
           <Reveal as="ol" className="grid grid-cols-1 md:grid-cols-2 gap-5 list-none">
             {BLOCS.map((b, i) => (
               <li key={b.n} className="rise rise-scale card lift p-7 sm:p-8 flex flex-col" style={d(0.08 * (i + 1))}>
@@ -57,16 +54,16 @@ export default function Page() {
 
       <Section>
         <Wrap>
-          <Reveal className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <Reveal className="blueband rise rise-scale grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
               { v: euro(PLAFOND_MALUS), t: 'de malus au plafond', s: `Barème ${ANNEE_BAREME}, dès 192 g/km de CO₂. Non supporté.` },
               { v: '20 %', t: 'de TVA', s: 'Récupérée par la société, sur le prix d’achat hors taxes.' },
               { v: '27', t: 'pays', s: 'Le véhicule circule dans toute l’Union européenne.' },
-            ].map((c, i) => (
-              <div key={c.t} className={`rise rise-scale p-7 sm:p-8 ${i === 0 ? 'spotlight' : 'card'}`} style={{ ...d(0.08 * (i + 1)), borderRadius: 30 }}>
-                <p className="display tabular leading-none" style={{ fontSize: 'clamp(40px, 5vw, 60px)' }}>{c.v}</p>
+            ].map((c) => (
+              <div key={c.t}>
+                <p className="display tabular leading-none" style={{ fontSize: 'clamp(40px, 5vw, 64px)' }}>{c.v}</p>
                 <p className="text-[17px] font-semibold mt-3">{c.t}</p>
-                <p className={`text-[14px] mt-1.5 ${i === 0 ? 'muted' : ''}`} style={i === 0 ? undefined : { color: 'var(--ink-2)' }}>{c.s}</p>
+                <p className="text-[14px] mt-1.5" style={{ color: 'rgba(255,255,255,0.78)' }}>{c.s}</p>
               </div>
             ))}
           </Reveal>

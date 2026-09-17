@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import Reveal from '@/components/Reveal'
 
 export const d = (s: number): CSSProperties => ({ ['--d' as string]: `${s}s` }) as CSSProperties
 
@@ -22,34 +23,43 @@ export function Check({ blue = false }: { blue?: boolean }) {
   )
 }
 
-/* Titre de section : Geist, deux lignes, la seconde en bleu (sur sombre : bleu clair ; sur clair : bleu profond). */
-export function Title({ a, b, center = false, size = 'lg' }: { a: string; b?: string; center?: boolean; size?: 'lg' | 'xl' }) {
-  const fs = size === 'xl' ? 'clamp(40px, 6.4vw, 78px)' : 'clamp(34px, 5vw, 60px)'
+/* Titre de section façon Corsiva OS : Geist 600, deux lignes, la seconde en dégradé bleu. */
+export function Title({ a, b, center = false, className = '' }: { a: string; b?: string; center?: boolean; className?: string }) {
   return (
-    <h2 className={`rise display ${center ? 'text-center' : ''}`} style={{ fontSize: fs }}>
+    <h2 className={`rise h-sec ${center ? 'text-center' : ''} ${className}`}>
       {a}
       {b && (
         <>
           <br />
-          <span className="title-b">{b}</span>
+          <span className="grad-blue">{b}</span>
         </>
       )}
     </h2>
   )
 }
 
-export function Lead({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function Lead({ children, className = '', style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   return (
-    <p className={`rise text-[16.5px] sm:text-[18px] leading-[1.45] max-w-xl ${className}`} style={{ ...d(0.08), color: 'var(--ink-2)', letterSpacing: '-0.01em' }}>
+    <p className={`rise lead ${className}`} style={{ ...d(0.08), ...style }}>
       {children}
     </p>
   )
 }
 
-export function Section({ children, className = '', id, tone = 'dark' }: { children: ReactNode; className?: string; id?: string; tone?: 'dark' | 'light' | 'light-2' | 'light-3' }) {
-  const cls = tone === 'dark' ? 'grain relative' : tone === 'light' ? 'light' : `light ${tone}`
+/* Tête de section centrée (titre + lead), comme sur corsiva-os.com. */
+export function SecHead({ a, b, children, align = 'center', className = '' }: { a: string; b?: string; children?: ReactNode; align?: 'center' | 'left'; className?: string }) {
   return (
-    <section id={id} className={`${cls} py-20 sm:py-28 ${className}`}>
+    <Reveal className={`sechead ${align === 'left' ? 'left' : ''} ${className}`}>
+      <Title a={a} b={b} />
+      {children && <Lead>{children}</Lead>}
+    </Reveal>
+  )
+}
+
+export function Section({ children, className = '', id, tone = 'dark', glow = false, grad = false, style }: { children: ReactNode; className?: string; id?: string; tone?: 'dark' | 'light' | 'light-2' | 'light-3'; glow?: boolean; grad?: boolean; style?: CSSProperties }) {
+  const cls = tone === 'dark' ? `relative ${glow ? 'sec-glow-blue' : ''} ${grad ? 'sec-grad-blue' : ''}` : tone === 'light' ? 'light' : `light ${tone}`
+  return (
+    <section id={id} className={`${cls} py-20 sm:py-28 ${className}`} style={style}>
       {children}
     </section>
   )

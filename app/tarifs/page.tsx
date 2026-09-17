@@ -6,7 +6,7 @@ import Configurateur from '@/components/Configurateur'
 import Exemples from '@/components/sections/Exemples'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
-import { Section, Wrap, Title, Lead, d } from '@/components/ui'
+import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -37,19 +37,13 @@ export default function Page() {
       <Packages />
       <Section tone="light-3" id="configurateur">
         <Wrap>
-          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-10">
-            <div className="lg:col-span-7"><Title a="Composez" b="votre package." /></div>
-            <div className="lg:col-span-5"><Lead>Choisissez le service, cochez les options, sélectionnez un véhicule du catalogue si vous le souhaitez : le récapitulatif se met à jour et part avec votre demande.</Lead></div>
-          </Reveal>
+          <SecHead a="Composez" b="votre package.">Choisissez le service, cochez les options, sélectionnez un véhicule du catalogue si vous le souhaitez : le récapitulatif se met à jour et part avec votre demande.</SecHead>
           <Reveal className="rise"><Configurateur allowVehicule /></Reveal>
         </Wrap>
       </Section>
       <Section tone="light">
         <Wrap>
-          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-12">
-            <div className="lg:col-span-7"><Title a="Pourquoi" b="pas de prix affiché." /></div>
-            <div className="lg:col-span-5"><Lead>Parce qu’un import à 60 000 € et un import à 250 000 € ne demandent ni le même travail, ni la même structuration. Trois principes, en revanche, ne changent jamais.</Lead></div>
-          </Reveal>
+          <SecHead a="Pourquoi" b="pas de prix affiché.">Parce qu’un import à 60 000 € et un import à 250 000 € ne demandent ni le même travail, ni la même structuration. Trois principes, en revanche, ne changent jamais.</SecHead>
           <Reveal as="ul" className="grid grid-cols-1 md:grid-cols-3 gap-5 list-none">
             {PRINCIPES.map((p, i) => (
               <li key={p.t} className="rise rise-scale card lift p-7" style={d(0.08 * (i + 1))}>

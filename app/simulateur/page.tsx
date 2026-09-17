@@ -3,7 +3,7 @@ import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import SimulateurSection from '@/components/sections/SimulateurSection'
 import CTA from '@/components/sections/CTA'
-import { Section, Wrap, Title, Lead, d } from '@/components/ui'
+import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 import { euro, malusCO2, malusMasse, decoteOccasion, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE, TVA } from '@/lib/malus'
 
@@ -45,10 +45,7 @@ export default function Page() {
 
       <Section id="regle">
         <Wrap>
-          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-12 sm:mb-16">
-            <div className="lg:col-span-7"><Title a="La règle" b="de calcul, complète." /></div>
-            <div className="lg:col-span-5"><Lead>Rien n’est caché : les barèmes ci-dessous sont ceux publiés par l’administration pour {ANNEE_BAREME}. Le simulateur les applique tels quels.</Lead></div>
-          </Reveal>
+          <SecHead a="La règle" b="de calcul, complète.">Rien n’est caché : les barèmes ci-dessous sont ceux publiés par l’administration pour {ANNEE_BAREME}. Le simulateur les applique tels quels.</SecHead>
 
           <Reveal as="ol" className="grid grid-cols-1 md:grid-cols-2 gap-5 list-none mb-5">
             {[

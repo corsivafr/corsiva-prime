@@ -37,7 +37,8 @@ export default function Page() {
         a="Simulez"
         b="votre gain."
         lead="Prix France, prix Allemagne, CO₂, masse : la règle complète du malus 2026 et la TVA, appliquées à la voiture que vous visez."
-        image="/media/photos/m3-face.jpg"
+        image="/media/photos/m3-lac-8.jpg"
+        imageMobile="/media/photos/m3-lac-portrait.jpg"
         position="center 45%"
       />
       <SimulateurSection full />

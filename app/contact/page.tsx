@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import Image from 'next/image'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
@@ -26,8 +27,9 @@ export default function Page() {
         a="Votre prochaine voiture"
         b="vous attend en Allemagne."
         lead="Parlons de votre projet. Un conseiller vous répond sous 24 h, avec un premier chiffrage."
-        image="/media/photos/m3-interieur.jpg"
-        position="center 50%"
+        image="/media/photos/m3-volant.jpg"
+        imageMobile="/media/photos/m3-lac-portrait.jpg"
+        position="center 45%"
       />
 
       <Section tone="light" id="formulaire">
@@ -55,7 +57,7 @@ export default function Page() {
               </ul>
             </div>
             <div className="lg:col-span-7 rise" style={d(0.12)}>
-              <ContactForm />
+              <Suspense fallback={null}><ContactForm /></Suspense>
             </div>
           </Reveal>
         </Wrap>

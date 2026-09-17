@@ -1,53 +1,70 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import AutoVideo from '@/components/AutoVideo'
+import Parallax from '@/components/fx/Parallax'
+import CountUp from '@/components/fx/CountUp'
 import { Wrap, Arrow } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
-const FAITS = [
-  { v: '≈ 5', u: 'semaines', s: 'de l’accord à la livraison' },
-  { v: '80 000 €', u: 'de malus', s: 'plafond 2026, non supporté' },
-  { v: '20 %', u: 'de TVA', s: 'non supportée par la société' },
-]
-
-/* Hero de la home : vidéo M3 plein écran, accroche du brief, deux boutons, trois faits. */
+/* Hero de la home : la M3 CS du groupe en plein cadre (paysage sur grand écran, portrait sur mobile),
+   Ken Burns lent + parallaxe, titre révélé ligne par ligne, trois faits en cartes de verre. */
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden" style={{ minHeight: '100svh', background: '#0a0a0a' }}>
-      <div className="absolute inset-0">
-        <AutoVideo src="/media/video/m3-garage-1080.mp4" poster="/media/video/m3-garage-poster.jpg" alt="BMW M3 Competition dans le garage Corsiva" sizes="100vw" objectPosition="center 45%" />
-        <div className="absolute inset-0 hero-veil" />
-      </div>
+    <>
+    <section className="relative overflow-hidden" style={{ minHeight: '100svh', background: '#070707' }}>
+      <Parallax speed={0.18} className="absolute inset-0" style={{ inset: '-8% 0' }}>
+        <div className="absolute inset-0 kenburns">
+          <Image src="/media/photos/m3-lac-1.jpg" alt="BMW M3 CS du groupe Corsiva au bord du lac" fill priority quality={84} sizes="100vw" className="object-cover hidden sm:block" style={{ objectPosition: '62% 55%' }} />
+          <Image src="/media/photos/m3-lac-portrait.jpg" alt="BMW M3 CS du groupe Corsiva au bord du lac" fill priority quality={84} sizes="100vw" className="object-cover sm:hidden" style={{ objectPosition: '50% 70%' }} />
+        </div>
+      </Parallax>
+      <div className="absolute inset-0 hero-veil" />
+      <div className="absolute inset-x-0 top-0 h-40" style={{ background: 'linear-gradient(180deg, rgba(9,9,9,0.55), transparent)' }} />
+      <div className="pointer-events-none absolute -left-40 bottom-0 w-[620px] h-[420px] glow-blue" aria-hidden="true" />
 
-      <Wrap className="relative flex flex-col justify-end" style={{ minHeight: '100svh', paddingTop: 120, paddingBottom: 40 }}>
+      <Wrap className="relative flex flex-col justify-end" style={{ minHeight: '100svh', paddingTop: 120, paddingBottom: 36 }}>
         <div className="max-w-4xl">
-          <h1 className="hero-in" style={{ fontSize: 'clamp(44px, 8vw, 112px)', animationDelay: '0.15s' }}>
-            Votre voiture
-            <br />
-            d’Allemagne, <span style={{ color: 'var(--blue)' }}>clé en main.</span>
+          <h1 className="lines" style={{ fontSize: 'clamp(46px, 8.2vw, 116px)' }}>
+            <span className="ln"><span style={{ ['--d' as string]: '0.15s' }}>Votre voiture</span></span>
+            <span className="ln"><span style={{ ['--d' as string]: '0.28s' }}>d’Allemagne,</span></span>
+            <span className="ln"><span style={{ ['--d' as string]: '0.41s', color: 'var(--blue)' }}>clé en main.</span></span>
           </h1>
-          <p className="hero-in text-[17px] sm:text-[20px] leading-[1.45] mt-6 max-w-2xl" style={{ color: 'rgba(255,255,255,0.74)', animationDelay: '0.32s' }}>
+          <p className="hero-in text-[17px] sm:text-[20px] leading-[1.45] mt-6 max-w-2xl" style={{ color: 'rgba(255,255,255,0.76)', animationDelay: '0.7s' }}>
             Sourcing, import, immatriculation. Votre voiture de vos rêves livrée sans une seule contrainte.
           </p>
-          <div className="hero-in flex flex-col sm:flex-row gap-3 mt-8" style={{ animationDelay: '0.46s' }}>
-            <Link href="/contact" className="btn btn-primary">Parlons de votre projet <Arrow /></Link>
+          <div className="hero-in flex flex-col sm:flex-row gap-3 mt-8" style={{ animationDelay: '0.85s' }}>
+            <Link href="/catalogue" className="btn btn-primary">Voir le catalogue <Arrow /></Link>
             <Link href="/simulateur" className="btn btn-blue">Simuler mon gain</Link>
-            <a href={SITE.phoneTel} className="btn" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.22)', backdropFilter: 'blur(10px)' }}>{SITE.phone}</a>
+            <a href={SITE.phoneTel} className="btn glass" style={{ color: '#fff' }}>{SITE.phone}</a>
           </div>
         </div>
 
-        <ul className="hero-in grid grid-cols-1 sm:grid-cols-3 gap-px mt-14 sm:mt-20 rounded-[20px] overflow-hidden list-none" style={{ animationDelay: '0.62s', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-          {FAITS.map((f) => (
-            <li key={f.u} className="px-6 py-4 sm:py-5 flex flex-col items-start gap-1" style={{ background: 'rgba(9,9,9,0.35)' }}>
-              <span className="display tabular text-[30px] sm:text-[36px] leading-none whitespace-nowrap">{f.v} <span className="text-[16px] sm:text-[18px]" style={{ color: 'var(--blue)' }}>{f.u}</span></span>
-              <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.62)' }}>{f.s}</span>
-            </li>
-          ))}
+        <ul className="hero-in hidden sm:grid sm:grid-cols-3 gap-3 mt-20 list-none" style={{ animationDelay: '1.05s' }}>
+          <li className="glass rounded-[20px] px-6 py-5">
+            <p className="display text-[34px] sm:text-[40px] leading-none">≈ <CountUp value={5} /> <span className="text-[17px]" style={{ color: 'var(--blue)' }}>semaines</span></p>
+            <p className="text-[13px] mt-2" style={{ color: 'rgba(255,255,255,0.66)' }}>de l’accord à la livraison</p>
+          </li>
+          <li className="glass rounded-[20px] px-6 py-5">
+            <p className="display text-[34px] sm:text-[40px] leading-none"><CountUp value={80000} format="euro" /> <span className="text-[17px]" style={{ color: 'var(--blue)' }}>de malus</span></p>
+            <p className="text-[13px] mt-2" style={{ color: 'rgba(255,255,255,0.66)' }}>plafond 2026, non supporté</p>
+          </li>
+          <li className="glass rounded-[20px] px-6 py-5">
+            <p className="display text-[34px] sm:text-[40px] leading-none"><CountUp value={20} suffix=" %" /> <span className="text-[17px]" style={{ color: 'var(--blue)' }}>de TVA</span></p>
+            <p className="text-[13px] mt-2" style={{ color: 'rgba(255,255,255,0.66)' }}>non supportée par la société</p>
+          </li>
         </ul>
       </Wrap>
 
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-3 hidden sm:block scroll-cue" aria-hidden="true">
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-2 hidden sm:block scroll-cue" aria-hidden="true">
         <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
       </div>
     </section>
+
+      {/* Sur mobile, les trois chiffres passent sous la photo pour laisser la M3 visible. */}
+      <ul className="sm:hidden grid grid-cols-1 gap-3 px-5 pb-8 -mt-2 list-none relative" style={{ background: 'var(--canvas)' }}>
+        <li className="card px-5 py-4"><p className="display text-[30px] leading-none">≈ <CountUp value={5} /> <span className="text-[15px]" style={{ color: 'var(--blue)' }}>semaines</span></p><p className="text-[12.5px] mt-1.5" style={{ color: 'var(--ink-2)' }}>de l’accord à la livraison</p></li>
+        <li className="card px-5 py-4"><p className="display text-[30px] leading-none"><CountUp value={80000} format="euro" /> <span className="text-[15px]" style={{ color: 'var(--blue)' }}>de malus</span></p><p className="text-[12.5px] mt-1.5" style={{ color: 'var(--ink-2)' }}>plafond 2026, non supporté</p></li>
+        <li className="card px-5 py-4"><p className="display text-[30px] leading-none"><CountUp value={20} suffix=" %" /> <span className="text-[15px]" style={{ color: 'var(--blue)' }}>de TVA</span></p><p className="text-[12.5px] mt-1.5" style={{ color: 'var(--ink-2)' }}>non supportée par la société</p></li>
+      </ul>
+    </>
   )
 }

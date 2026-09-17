@@ -1,14 +1,27 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Arrow } from '@/components/ui'
+import { OPTIONS, PACKAGES } from '@/lib/catalogue'
 
 const SERVICES = ['Import depuis l’Allemagne', 'Import + immatriculation européenne', 'Immatriculation européenne seule', 'Je ne sais pas encore']
 
+/* Formulaire de contact. Pré-rempli quand on arrive depuis le catalogue (?vehicule=&package=&options=). */
 export default function ContactForm() {
+  const sp = useSearchParams()
   const [f, setF] = useState({ nom: '', tel: '', email: '', service: SERVICES[1], projet: '', site: '' })
   const [etat, setEtat] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value })
+
+  useEffect(() => {
+    const veh = sp.get('vehicule'); const pkg = sp.get('package'); const opts = sp.get('options')
+    if (!veh && !pkg && !opts) return
+    const P = PACKAGES.find((p) => p.id === pkg)
+    const names = (opts || '').split(',').map((id) => OPTIONS.find((o) => o.id === id)?.name).filter(Boolean)
+    const lignes = [veh ? `Véhicule : ${veh}` : '', P ? `Package : ${P.name}` : '', names.length ? `Options : ${names.join(', ')}` : ''].filter(Boolean)
+    setF((x) => ({ ...x, service: pkg === 'import' ? SERVICES[0] : pkg === 'import-immat' ? SERVICES[1] : x.service, projet: lignes.join('\n') + '\n\n' }))
+  }, [sp])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()

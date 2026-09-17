@@ -30,8 +30,8 @@ export default function Page() {
         a="Une optimisation fiscale"
         b="légale et encadrée."
         lead="Grâce à une solution d’immatriculation encadrée, la fiscalité de votre véhicule est fortement réduite, en toute conformité."
-        video="/media/video/taycan-servolex-1080.mp4"
-        poster="/media/video/taycan-servolex-poster.jpg"
+        image="/media/photos/m3-garage-3-4.jpg"
+        imageMobile="/media/photos/m3-lac-portrait.jpg"
         position="center 50%"
         primary={{ href: '/simulateur', label: 'Simuler mon gain' }}
         secondary={{ href: '/contact', label: 'Parlons de votre projet' }}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import Packages from '@/components/sections/Packages'
+import Configurateur from '@/components/Configurateur'
 import Exemples from '@/components/sections/Exemples'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
@@ -27,12 +28,22 @@ export default function Page() {
         a="Des packages clairs,"
         b="une proposition sur mesure."
         lead="Les montants ne sont pas publiés : chaque projet reçoit une proposition personnalisée, indexée sur la valeur réellement créée."
-        image="/media/photos/taycan-detail.jpg"
-        position="center 50%"
+        image="/media/photos/m3-lac-5.jpg"
+        imageMobile="/media/photos/m3-lac-portrait.jpg"
+        position="center 60%"
         primary={{ href: '/contact', label: 'Demander une proposition' }}
         secondary={{ href: '/simulateur', label: 'Simuler mon gain' }}
       />
       <Packages />
+      <Section tone="light-3" id="configurateur">
+        <Wrap>
+          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-10">
+            <div className="lg:col-span-7"><Title a="Composez" b="votre package." /></div>
+            <div className="lg:col-span-5"><Lead>Choisissez le service, cochez les options, sélectionnez un véhicule du catalogue si vous le souhaitez : le récapitulatif se met à jour et part avec votre demande.</Lead></div>
+          </Reveal>
+          <Reveal className="rise"><Configurateur allowVehicule /></Reveal>
+        </Wrap>
+      </Section>
       <Section tone="light">
         <Wrap>
           <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end mb-12">

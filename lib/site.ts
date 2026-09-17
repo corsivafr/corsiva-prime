@@ -16,6 +16,7 @@ export const SITE = {
 export const NAV = [
   { label: 'Import', href: '/import' },
   { label: 'Immatriculation', href: '/immatriculation' },
+  { label: 'Catalogue', href: '/catalogue' },
   { label: 'Comment ça fonctionne', href: '/comment-ca-fonctionne' },
   { label: 'Tarifs', href: '/tarifs' },
   { label: 'Contact', href: '/contact' },
@@ -50,9 +51,8 @@ export const EXEMPLES = {
       malus: 80_000,
       tva: 21_500,
       total: 126_900,
-      img: '/media/photos/m3-3-4-avant.jpg',
-      video: '/media/video/m3-garage-1080.mp4',
-      poster: '/media/video/m3-garage-poster.jpg',
+      img: '/media/photos/m3-garage-3-4.jpg',
+      catalogue: 'm3',
     },
     {
       modele: 'Mercedes Classe G 2026',
@@ -63,8 +63,7 @@ export const EXEMPLES = {
       tva: 38_600,
       total: 134_600,
       img: '/media/photos/g-3-4-avant.jpg',
-      video: '/media/video/g-2025-1080.mp4',
-      poster: '/media/video/g-2025-poster.jpg',
+      catalogue: 'g',
     },
   ],
   occasions: [
@@ -76,7 +75,7 @@ export const EXEMPLES = {
       ecart: 10_000,
       tva: 38_000,
       total: 48_000,
-      img: '/media/photos/taycan-3-4-avant.jpg',
+      catalogue: '911-gts',
     },
   ],
 }

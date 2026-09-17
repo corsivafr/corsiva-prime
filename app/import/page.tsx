@@ -33,12 +33,13 @@ export default function Page() {
         a="La bonne voiture,"
         b="au vrai prix allemand."
         lead="On la trouve, on la contrôle, on la négocie, on la livre chez vous. Vous n’avez qu’à récupérer les clés."
-        image="/media/photos/m3-3-4-avant-2.jpg"
+        image="/media/photos/m3-chambery.jpg"
+        imageMobile="/media/photos/m3-lac-portrait.jpg"
         position="center 55%"
         primary={{ href: '/contact', label: 'Parlons de votre projet' }}
-        secondary={{ href: '/simulateur', label: 'Simuler mon gain' }}
+        secondary={{ href: '/catalogue', label: 'Voir le catalogue' }}
       />
-      <BrandMarquee />
+      <BrandMarquee title={false} />
 
       <Section tone="light">
         <Wrap>

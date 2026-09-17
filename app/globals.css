@@ -200,7 +200,7 @@ input[type='number'] { -moz-appearance: textfield; appearance: textfield; }
 input[type='range'] { accent-color: var(--blue-deep); width: 100%; }
 
 /* Hero : voile bas pour lire le texte sur la vidéo */
-.hero-veil { background: linear-gradient(180deg, rgba(9,9,9,0.35) 0%, rgba(9,9,9,0.15) 35%, rgba(9,9,9,0.78) 78%, #090909 100%); }
+.hero-veil { background: linear-gradient(180deg, rgba(9,9,9,0.28) 0%, rgba(9,9,9,0.08) 34%, rgba(9,9,9,0.7) 76%, #090909 100%); }
 .scroll-cue { animation: cue 1.8s var(--ease) infinite; }
 @keyframes cue { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(8px); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
@@ -212,3 +212,74 @@ input[type='range'] { accent-color: var(--blue-deep); width: 100%; }
 .legal ul { list-style: disc; padding-left: 20px; }
 .legal li + li { margin-top: 4px; }
 .legal mark { background: rgba(0,69,255,0.1); color: var(--blue-deep); padding: 0 4px; border-radius: 4px; }
+
+/* ══ Profondeur et mouvement ══════════════════════════════════════════════ */
+/* Ken Burns très lent sur les fonds photo */
+.kenburns { animation: kenburns 28s ease-out forwards; transform-origin: 60% 50%; }
+@keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+@media (prefers-reduced-motion: reduce) { .kenburns { animation: none; } }
+
+/* Titre révélé ligne par ligne */
+.lines .ln { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.lines .ln > span { display: block; transform: translateY(112%); animation: lnin 1.1s var(--ease) forwards; animation-delay: var(--d, 0s); }
+@keyframes lnin { to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .lines .ln > span { animation: none; transform: none; } }
+
+/* Verre */
+.glass { background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255, 255, 255, 0.12); }
+.light .glass { background: rgba(255, 255, 255, 0.72); border-color: rgba(10, 10, 10, 0.08); }
+
+/* Inclinaison 3D (components/fx/Tilt) */
+.tilt { position: relative; transform-style: preserve-3d; }
+.tilt-on { transition: transform 0.35s var(--ease); transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.tilt-on:hover { transition: transform 0.08s linear; }
+.tilt-layer { transform: translateZ(28px); }
+.tilt-glare { pointer-events: none; position: absolute; inset: 0; border-radius: inherit; opacity: 0; transition: opacity 0.35s var(--ease);
+  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.14), transparent 55%); }
+.tilt-on:hover .tilt-glare { opacity: 1; }
+.light .tilt-glare { background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(0, 69, 255, 0.08), transparent 55%); }
+
+/* Barres de comparaison des prix (fiches véhicule) */
+.bar { height: 10px; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+.bar-fill { display: block; height: 100%; width: 0; border-radius: 6px; transition: width 1.3s var(--ease) 0.25s; }
+.in .bar-fill, html:not(.js) .bar-fill, .bars-on .bar-fill { width: var(--w); }
+
+/* Défilé inverse (seconde rangée de logos) */
+.marquee-track.reverse { animation-direction: reverse; animation-duration: 44s; }
+.marquee-track.slow { animation-duration: 52s; }
+
+/* Volet du catalogue */
+.drawer-veil { animation: veilin 0.4s var(--ease) both; }
+@keyframes veilin { from { opacity: 0; } to { opacity: 1; } }
+.drawer { animation: drawerin 0.55s var(--ease) both; }
+@keyframes drawerin { from { transform: translateY(100%); } to { transform: none; } }
+@media (min-width: 1024px) { @keyframes drawerin { from { transform: translateX(100%); } to { transform: none; } } }
+@media (prefers-reduced-motion: reduce) { .drawer, .drawer-veil { animation: none; } }
+
+/* Panneau qui apparaît (onglets services, configurateur) */
+.pop { animation: popin 0.5s var(--ease) both; animation-delay: var(--d, 0s); }
+@keyframes popin { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .pop { animation: none; } }
+
+/* Case à cocher stylée (options) */
+.opt { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 15px; border: 1px solid var(--hairline); background: var(--surface-1); cursor: pointer; transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease), transform 0.25s var(--ease); text-align: left; width: 100%; }
+.opt:hover { border-color: rgba(0, 153, 255, 0.45); }
+.opt[aria-pressed='true'] { border-color: var(--blue); background: rgba(0, 153, 255, 0.08); }
+.light .opt { background: #fff; }
+.light .opt[aria-pressed='true'] { border-color: var(--blue-deep); background: rgba(0, 69, 255, 0.05); }
+.opt .box { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--hairline); margin-top: 2px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease); }
+.opt[aria-pressed='true'] .box { background: var(--blue-deep); border-color: var(--blue-deep); }
+.opt .box svg { opacity: 0; transform: scale(0.6); transition: opacity 0.2s var(--ease), transform 0.2s var(--ease); }
+.opt[aria-pressed='true'] .box svg { opacity: 1; transform: none; }
+
+/* Barre de progression des onglets services */
+.tab-progress { position: absolute; left: 0; bottom: 0; height: 2px; background: var(--blue); width: 0; }
+.tab-progress.run { animation: tabprog var(--dur, 6s) linear forwards; }
+@keyframes tabprog { to { width: 100%; } }
+
+/* Grille de fond très discrète (sections sombres profondes) */
+.gridlines { background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%); }
+.glow-blue { background: radial-gradient(closest-side, rgba(0, 99, 255, 0.35), transparent); filter: blur(30px); }
+
+/* Vignette photo : dégradé bas pour lire les textes */
+.photo-veil { background: linear-gradient(180deg, rgba(9,9,9,0) 40%, rgba(9,9,9,0.82) 100%); }

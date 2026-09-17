@@ -37,9 +37,9 @@ export default function Page() {
         a="Cinq phases,"
         b="environ cinq semaines."
         lead="De l’accord à la remise des clés, vous savez à chaque instant où en est votre voiture. Voici le déroulé, sans zone d’ombre."
-        video="/media/video/g-2025-1080.mp4"
-        poster="/media/video/g-2025-poster.jpg"
-        position="center 50%"
+        image="/media/photos/m3-lac-route.jpg"
+        imageMobile="/media/photos/m3-lac-portrait.jpg"
+        position="center 60%"
         primary={{ href: '/contact', label: 'Parlons de votre projet' }}
         secondary={{ href: '/tarifs', label: 'Voir les packages' }}
       />

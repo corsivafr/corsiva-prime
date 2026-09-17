@@ -277,8 +277,13 @@ input[type='range'] { accent-color: var(--blue-deep); width: 100%; }
 .tab-progress.run { animation: tabprog var(--dur, 6s) linear forwards; }
 @keyframes tabprog { to { width: 100%; } }
 
-/* Grille de fond très discrète (sections sombres profondes) */
-.gridlines { background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%); }
+/* Grille de fond très discrète (sections sombres profondes). Sans mask-image : un dégradé couleur
+   canvas posé par-dessus fait le même fondu, et le compositeur ne rend plus d'écran noir. */
+.gridlines { background-image:
+  radial-gradient(ellipse at 50% 0%, rgba(9,9,9,0) 25%, rgba(9,9,9,0.9) 70%, #090909 85%),
+  linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 72px 72px, 72px 72px; }
 .glow-blue { background: radial-gradient(closest-side, rgba(0, 99, 255, 0.35), transparent); filter: blur(30px); }
 
 /* Vignette photo : dégradé bas pour lire les textes */

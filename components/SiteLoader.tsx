@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { HERO_IMAGES } from '@/lib/site'
 
 /* Écran de chargement : voile canvas avec le logo Corsiva Prime et un filet bleu qui court.
    Rendu côté serveur (donc visible dès le premier octet), retiré une fois la page chargée
@@ -23,7 +24,11 @@ export default function SiteLoader() {
       setState('leaving')
       leaveTimer = window.setTimeout(() => setState('gone'), 650)
     }
-    const onLoad = () => window.setTimeout(leave, Math.max(0, MIN - (performance.now() - t0)))
+    // Les fonds de hero de toutes les pages sont chargés maintenant : chaque page s'ouvrira avec son image déjà là.
+    const mobile = window.matchMedia('(max-width: 639px)').matches
+    const heroes = Object.values(HERO_IMAGES).map((h) => (mobile ? h.m : h.d))
+    const images = Promise.all(heroes.map((src) => new Promise<void>((res) => { const im = new Image(); im.onload = () => res(); im.onerror = () => res(); im.src = src })))
+    const onLoad = () => { images.then(() => window.setTimeout(leave, Math.max(0, MIN - (performance.now() - t0)))) }
     if (document.readyState === 'complete') onLoad()
     else window.addEventListener('load', onLoad, { once: true })
     const safety = window.setTimeout(leave, MAX)

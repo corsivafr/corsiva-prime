@@ -27,8 +27,7 @@ export default function Page() {
         a="Votre prochaine voiture"
         b="vous attend en Allemagne."
         lead="Parlons de votre projet. Un conseiller vous rappelle rapidement, avec un premier chiffrage."
-        image="/media/photos/paris.jpg"
-        position="center 40%"
+        hero="contact"
       />
 
       <Section tone="light" id="formulaire">
@@ -70,7 +69,7 @@ export default function Page() {
             </div>
             <div className="lg:col-span-6">
               <Title a="Une équipe à Paris," b="partout en France." />
-              <Lead className="mt-6">Corsiva Prime est une entité du groupe Corsiva : location de prestige, conciergerie et sourcing depuis Chambéry, 4,9 sur Google. Nos conseillers vous reçoivent à Paris et se déplacent partout en France : Paris, Lyon, Chambéry, Annecy.</Lead>
+              <Lead className="mt-6">Corsiva Prime est une entité du groupe Corsiva, noté 4,9 sur Google. Nos conseillers vous reçoivent à Paris et se déplacent partout en France : Paris, Lyon, Chambéry, Annecy.</Lead>
               <div className="rise grid grid-cols-2 gap-4 mt-8" style={d(0.16)}>
                 <div className="card p-5"><p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Horaires</p><p className="text-[16px] font-semibold mt-1">7j/7 · 9h – 18h</p></div>
                 <div className="card p-5"><p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Déplacements</p><p className="text-[16px] font-semibold mt-1">{SITE.villes.join(' · ')}</p></div>

@@ -1,21 +1,24 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import HeroPicture from '@/components/HeroPicture'
 import { Arrow } from '@/components/ui'
+import type { HeroKey } from '@/lib/site'
 
 /* Hero des pages intérieures, même grammaire que la home : centré, titre en deux lignes (dégradé),
-   lead, deux pills ; photo M3 CS en retrait sous un halo bleu. */
+   lead, deux pills ; photo en retrait sous un halo bleu, affichée immédiatement. */
 export default function PageHero({
-  a, b, lead, image, position = 'center', primary, secondary, children,
+  a, b, lead, hero, position = 'center', primary, secondary, children,
 }: {
-  a: string; b: string; lead: string; image: string; imageMobile?: string; position?: string
-  primary?: { href: string; label: string }; secondary?: { href: string; label: string }; children?: ReactNode; tall?: boolean
+  a: string; b: string; lead: string; hero: HeroKey; position?: string
+  primary?: { href: string; label: string; external?: boolean }; secondary?: { href: string; label: string; external?: boolean }; children?: ReactNode
 }) {
+  const Btn = ({ b, cls }: { b: { href: string; label: string; external?: boolean }; cls: string }) =>
+    b.external ? <a href={b.href} target="_blank" rel="noopener noreferrer" className={cls}>{b.label} <Arrow /></a> : <Link href={b.href} className={cls}>{b.label} <Arrow /></Link>
   return (
     <header className="relative overflow-hidden flex items-center" style={{ minHeight: 'min(78svh, 760px)', padding: '150px 0 80px', background: '#090909' }}>
       <div className="absolute inset-0" aria-hidden="true">
-        <Image src={image} alt="" fill priority quality={80} sizes="100vw" className="object-cover kenburns" style={{ objectPosition: position, opacity: 0.4 }} />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(9,9,9,0.6) 0%, rgba(9,9,9,0.15) 45%, rgba(9,9,9,0.6) 80%, #090909 100%)' }} />
+        <HeroPicture hero={hero} position={position} opacity={0.4} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(9,9,9,0.6) 0%, rgba(9,9,9,0.3) 45%, rgba(9,9,9,0.62) 80%, #090909 100%)' }} />
       </div>
       <div className="hero-glow" aria-hidden="true" />
       <div className="relative max-w-wrap mx-auto px-5 sm:px-6 lg:px-8 text-center w-full">
@@ -27,8 +30,8 @@ export default function PageHero({
         <p className="hin lead mx-auto" style={{ ['--d' as string]: '0.18s', margin: '22px auto 0', maxWidth: '56ch', lineHeight: 1.6 }}>{lead}</p>
         {(primary || secondary) && (
           <div className="hin flex flex-wrap justify-center gap-3 mt-8" style={{ ['--d' as string]: '0.3s' }}>
-            {primary && <Link href={primary.href} className="btn-cta">{primary.label} <Arrow /></Link>}
-            {secondary && <Link href={secondary.href} className="btn-w">{secondary.label} <Arrow /></Link>}
+            {primary && <Btn b={primary} cls="btn-cta" />}
+            {secondary && <Btn b={secondary} cls="btn-w" />}
           </div>
         )}
         {children}

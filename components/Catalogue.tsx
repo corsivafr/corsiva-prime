@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import Configurateur from '@/components/Configurateur'
-import { Arrow } from '@/components/ui'
-import { VEHICULES, MARQUES, CATEGORIES, ETATS, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
+import { Arrow, Check } from '@/components/ui'
+import Link from 'next/link'
+import { VEHICULES, MARQUES, CATEGORIES, ETATS, PACKAGES, OPTIONS, prixFinal, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
+import { SITE } from '@/lib/site'
 import { simuler, euro } from '@/lib/malus'
 
 const nom = (v: Vehicule) => `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}`
@@ -27,6 +28,7 @@ function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number })
             )}
             <div className="absolute inset-0 photo-veil" />
             <div className="absolute top-4 left-4 flex gap-2">
+              <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: '#0099ff', color: '#fff' }}>Pépite</span>
               <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.92)', color: '#0a0a0a' }}>{v.etat === 'occasion' ? 'Occasion · moins de 5 000 km' : ETATS[v.etat]}</span>
               <span className="text-[12px] font-medium px-2.5 py-1 rounded-full" style={{ background: 'rgba(20,20,20,0.75)', color: '#fff', border: '1px solid rgba(255,255,255,0.18)' }}>{CATEGORIES[v.categorie]}</span>
             </div>
@@ -36,13 +38,23 @@ function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number })
             </div>
           </div>
           <div className="p-5 flex-1 flex flex-col">
-            <p className="text-[13.5px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>{v.detail}</p>
-            <div className="flex items-end justify-between gap-3 mt-auto pt-5">
-              <div>
-                <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>{r ? 'Avantage estimé' : 'Chiffrage'}</p>
-                <p className="display tabular text-[26px] leading-none mt-1" style={{ color: 'var(--blue-deep)' }}>{r ? euro(r.avantageTotal) : 'Sur demande'}</p>
+            <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>Tarif final client, tout compris</p>
+            <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(30px, 2.6vw, 36px)', color: 'var(--blue-deep)' }}>{r && v.chiffres ? euro(prixFinal(v.chiffres)) : 'Sur demande'}</p>
+            {r && v.chiffres && (
+              <div className="grid grid-cols-2 gap-2 mt-4">
+                <div className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--surface-1)' }}>
+                  <p className="text-[12px] leading-tight" style={{ color: 'var(--ink-3)' }}>vs en France, malus inclus</p>
+                  <p className="tabular text-[15px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(v.chiffres.prixFranceTTC + r.malusTotal)}</p>
+                </div>
+                <div className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--blue-tint)' }}>
+                  <p className="text-[12px] leading-tight" style={{ color: 'var(--blue-ink)' }}>Votre économie</p>
+                  <p className="tabular text-[15px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixFranceTTC + r.malusTotal - prixFinal(v.chiffres))}</p>
+                </div>
               </div>
-              <span className="btn-w btn-sm">Fiche <Arrow /></span>
+            )}
+            <div className="flex items-end justify-between gap-3 mt-auto pt-5">
+              <p className="text-[13px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>{v.detail}</p>
+              <span className="btn-w btn-sm flex-shrink-0">Fiche <Arrow /></span>
             </div>
           </div>
         </button>
@@ -54,7 +66,17 @@ function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number })
 /* ── Volet fiche + configurateur ── */
 function Volet({ v, onClose }: { v: Vehicule; onClose: () => void }) {
   const [idx, setIdx] = useState(0)
+  const [opts, setOpts] = useState<string[]>([])
+  const [souhaits, setSouhaits] = useState('')
   const r = v.chiffres ? simuler(v.chiffres) : null
+  const final = v.chiffres ? prixFinal(v.chiffres) : null
+  const coutFrance = v.chiffres && r ? v.chiffres.prixFranceTTC + r.malusTotal : null
+  const nomV = nom(v)
+  const qs = new URLSearchParams({ vehicule: nomV, package: 'import-immat' })
+  if (opts.length) qs.set('options', opts.join(','))
+  if (souhaits.trim()) qs.set('souhaits', souhaits.trim().slice(0, 600))
+  const contactHref = `/contact?${qs.toString()}`
+  const P = PACKAGES.find((p) => p.id === 'import-immat')!
   const closeRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     const prev = document.body.style.overflow
@@ -113,31 +135,60 @@ function Volet({ v, onClose }: { v: Vehicule; onClose: () => void }) {
             </ul>
           </div>
 
-          {/* Chiffres */}
-          {v.chiffres && r && (
-            <div className="card p-5 mt-6 bars-on">
-              <p className="text-[13px] font-semibold mb-3">Le coût réel, relevé chez nos concessions partenaires</p>
-              <div className="flex items-baseline justify-between text-[13px]"><span style={{ color: 'var(--ink-2)' }}>Coût en France, <b style={{ color: 'var(--ink)' }}>malus inclus</b></span><span className="tabular font-semibold">{euro(v.chiffres.prixFranceTTC + r.malusTotal)}</span></div>
-              <p className="text-[12px] mt-0.5 tabular" style={{ color: 'var(--ink-3)' }}>{euro(v.chiffres.prixFranceTTC)} TTC + {euro(r.malusTotal)} de malus 2026{r.decote ? ` (décoté ${Math.round(r.decote * 100)} %, ancienneté retenue ${v.chiffres.occasionMois} mois)` : ''}</p>
-              <div className="bar mt-1.5"><span className="bar-fill" style={{ ['--w' as string]: '100%', background: 'var(--ink)' }} /></div>
-              <div className="flex items-baseline justify-between text-[13px] mt-3"><span style={{ color: 'var(--ink-2)' }}>Prix en Allemagne, <b style={{ color: 'var(--blue-deep)' }}>hors taxes</b></span><span className="tabular font-semibold" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixAllemagneHT)}</span></div>
-              <div className="bar mt-1.5"><span className="bar-fill" style={{ ['--w' as string]: `${Math.round((v.chiffres.prixAllemagneHT / (v.chiffres.prixFranceTTC + r.malusTotal)) * 100)}%`, background: 'var(--blue-deep)' }} /></div>
-              <div className="grid grid-cols-3 gap-2 mt-4">
-                {[{ k: 'Écart de prix', v: euro(r.ecartAchat) }, { k: 'Malus évité', v: euro(r.malusTotal) }, { k: 'TVA 20 % évitée', v: euro(r.tvaEvitee) }].map((x) => (
-                  <div key={x.k} className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--surface-1)' }}>
-                    <p className="text-[12px] leading-tight" style={{ color: 'var(--ink-3)' }}>{x.k}</p>
-                    <p className="tabular text-[14px] font-semibold mt-0.5">{x.v}</p>
-                  </div>
-                ))}
+          {/* Tarif final tout compris, face au coût en France */}
+          {v.chiffres && r && final !== null && coutFrance !== null && (
+            <div className="card p-5 sm:p-6 mt-6 bars-on">
+              <p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Tarif final client, tout compris</p>
+              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(final)}</p>
+              <p className="text-[13px] mt-2" style={{ color: 'var(--ink-2)' }}>Véhicule au prix négocié chez la concession partenaire, structure européenne, déplacement, transport fermé et immatriculation inclus. Sans malus ni TVA à supporter.</p>
+              <div className="grid grid-cols-2 gap-3 mt-5">
+                <div className="rounded-[14px] px-4 py-3.5" style={{ background: 'var(--surface-1)' }}>
+                  <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>vs en France, malus inclus</p>
+                  <p className="tabular text-[20px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(coutFrance)}</p>
+                  <p className="text-[12px] mt-0.5 tabular" style={{ color: 'var(--ink-3)' }}>{euro(v.chiffres.prixFranceTTC)} TTC + {euro(r.malusTotal)} de malus 2026{r.decote ? ` (décoté ${Math.round(r.decote * 100)} %, ancienneté retenue ${v.chiffres.occasionMois} mois)` : ''}</p>
+                </div>
+                <div className="rounded-[14px] px-4 py-3.5" style={{ background: 'var(--blue-tint)' }}>
+                  <p className="text-[12px]" style={{ color: 'var(--blue-ink)' }}>Votre économie</p>
+                  <p className="tabular text-[20px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(coutFrance - final)}</p>
+                  <p className="text-[12px] mt-0.5" style={{ color: 'var(--blue-ink)' }}>par rapport à l’achat en France</p>
+                </div>
               </div>
-              <p className="text-[12px] mt-3" style={{ color: 'var(--ink-3)' }}>CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg (données constructeur indicatives){v.chiffres.occasionMois ? ` · ancienneté retenue : ${v.chiffres.occasionMois} mois (hypothèse, à confirmer sur le véhicule)` : ''}</p>
+              <p className="text-[12px] mt-3" style={{ color: 'var(--ink-3)' }}>CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg (données constructeur indicatives). Tarif final indicatif, proposition personnalisée avant tout engagement.</p>
             </div>
           )}
 
+          {/* Ce qui est inclus */}
+          <div className="mt-6">
+            <h3 className="text-[20px]">Tout est accompagné par Corsiva</h3>
+            <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 list-none">
+              {P.items.map((it) => <li key={it} className="flex items-start gap-2.5 text-[14px] leading-snug"><Check blue /><span>{it}</span></li>)}
+            </ul>
+          </div>
+
+          {/* Configuration au choix */}
           <div className="mt-8">
-            <h3 className="display text-[26px] sm:text-[30px]" style={{ letterSpacing: '-0.03em' }}>Composez votre package</h3>
-            <p className="text-[14px] mt-1.5 mb-5" style={{ color: 'var(--ink-2)' }}>Le service, les options, et l’avantage qui en découle. La proposition suit rapidement.</p>
-            <Configurateur vehicule={v} stacked />
+            <h3 className="text-[20px]">Configurez et optionnez votre véhicule</h3>
+            <p className="text-[14px] mt-1.5" style={{ color: 'var(--ink-2)' }}>Couleur, jantes, intérieur, packs : vous choisissez, nous validons chaque détail avec la concession partenaire et négocions le deal.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+              {OPTIONS.map((o) => (
+                <button key={o.id} type="button" className="opt" aria-pressed={opts.includes(o.id)} onClick={() => setOpts((x) => (x.includes(o.id) ? x.filter((y) => y !== o.id) : [...x, o.id]))}>
+                  <span className="box" aria-hidden="true"><svg viewBox="0 0 20 20" className="w-3 h-3" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10.5l4 4 8-9" /></svg></span>
+                  <span><span className="block text-[14.5px] font-semibold leading-snug">{o.name}</span><span className="block text-[12.5px] mt-0.5" style={{ color: 'var(--ink-2)' }}>{o.text}</span></span>
+                </button>
+              ))}
+            </div>
+            <label htmlFor="souhaits" className="label mt-4">Vos souhaits de configuration</label>
+            <textarea id="souhaits" className="field min-h-[96px] resize-y" placeholder="Couleur, jantes, sellerie, packs, équipements…" value={souhaits} onChange={(e) => setSouhaits(e.target.value)} maxLength={600} />
+          </div>
+
+          {/* Demander */}
+          <div className="mt-6 flex flex-col gap-2.5">
+            <Link href={contactHref} className="btn-cta w-full">Demander cette pépite <Arrow /></Link>
+            <div className="grid grid-cols-2 gap-2.5">
+              <a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="btn-w w-full">Prendre un appel</a>
+              <a href={SITE.phoneTel} className="btn-dark w-full">{SITE.phone}</a>
+            </div>
+            <p className="text-[12px] leading-relaxed text-center" style={{ color: 'var(--ink-3)' }}>Un conseiller vous rappelle rapidement pour valider la configuration et vous adresser la proposition.</p>
           </div>
         </div>
       </div>
@@ -192,7 +243,7 @@ export default function Catalogue({ openId: initialOpen }: { openId?: string }) 
           {list.map((v, i) => <Carte key={v.id} v={v} i={i} onOpen={() => setOpen(v.id)} />)}
         </ul>
       )}
-      <p className="text-[12.5px] mt-6" style={{ color: 'var(--ink-3)' }}>{list.length} modèle{list.length > 1 ? 's' : ''} · Le catalogue présente les modèles les plus demandés : nous sourçons toute marque et tout modèle disponible chez nos concessions partenaires en Allemagne.</p>
+      <p className="text-[12.5px] mt-6" style={{ color: 'var(--ink-3)' }}>{list.length} pépite{list.length > 1 ? 's' : ''} ce mois-ci · Nous dénichons toute marque et tout modèle chez nos concessions partenaires en Allemagne.</p>
 
       {open && <Volet v={open} onClose={() => setOpen(null)} />}
     </div>

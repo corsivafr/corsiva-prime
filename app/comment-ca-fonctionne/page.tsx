@@ -25,7 +25,7 @@ const SEMAINES = [
 
 const SEJOUR = [
   'Déplacement organisé de 3 à 4 jours, en parallèle du sourcing',
-  'Rendez-vous avec l’avocat partenaire : dépôt de capital, banque, acte notarié',
+  'Rendez-vous avec nos avocats partenaires — les détails vous sont présentés lors d’un appel',
   'Hôtel 5 étoiles, transports et restauration inclus',
   'Un accompagnant Corsiva Prime du départ au retour',
 ]
@@ -37,9 +37,7 @@ export default function Page() {
         a="Cinq phases,"
         b="environ cinq semaines."
         lead="De l’accord à la remise des clés, vous savez à chaque instant où en est votre voiture. Voici le déroulé, sans zone d’ombre."
-        image="/media/photos/m3-lac-route.jpg"
-        imageMobile="/media/photos/m3-lac-portrait.jpg"
-        position="center 60%"
+        hero="process"
         primary={{ href: '/contact', label: 'Parlons de votre projet' }}
         secondary={{ href: '/tarifs', label: 'Voir les packages' }}
       />

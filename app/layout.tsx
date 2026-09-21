@@ -4,6 +4,7 @@ import { GeistSans } from 'geist/font/sans'
 import { Analytics } from '@vercel/analytics/react'
 import Header from '@/components/Header'
 import SiteLoader from '@/components/SiteLoader'
+import PepitesPopup from '@/components/PepitesPopup'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { SITE } from '@/lib/site'
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Footer />
         <WhatsAppButton />
+        <PepitesPopup />
         <Analytics />
       </body>
     </html>

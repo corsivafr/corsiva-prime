@@ -12,7 +12,22 @@ export const SITE = {
   legalEntity: 'Corsiva Good',
   legalCountry: 'Bulgarie',
   villes: ['Paris', 'Lyon', 'Chambéry', 'Annecy'],
+  calendly: 'https://calendly.com/corsiva/nouvelle-reunion', // Calendly du groupe, déjà utilisé sur corsiva-os.com
 }
+
+/* Images des heros : une version 1920 px et un recadrage 9:16 pour mobile, préchargées par l'écran
+   de chargement pour que chaque page s'ouvre avec son fond déjà affiché. */
+export const HERO_IMAGES = {
+  home: { d: '/media/hero/home.jpg', m: '/media/hero/home-m.jpg' },
+  import: { d: '/media/hero/import.jpg', m: '/media/hero/import-m.jpg' },
+  malus: { d: '/media/hero/malus.jpg', m: '/media/hero/malus-m.jpg' },
+  catalogue: { d: '/media/hero/catalogue.jpg', m: '/media/hero/catalogue-m.jpg' },
+  process: { d: '/media/hero/process.jpg', m: '/media/hero/process-m.jpg' },
+  tarifs: { d: '/media/hero/tarifs.jpg', m: '/media/hero/tarifs-m.jpg' },
+  simulateur: { d: '/media/hero/simulateur.jpg', m: '/media/hero/simulateur-m.jpg' },
+  contact: { d: '/media/hero/contact.jpg', m: '/media/hero/contact-m.jpg' },
+} as const
+export type HeroKey = keyof typeof HERO_IMAGES
 
 /* Chiffres donnés par le dirigeant (18 sept. 2026). */
 export const STATS = {
@@ -33,11 +48,11 @@ export const NAV = [
 export const ARGUMENTS = [
   {
     title: 'Zéro malus, zéro TVA',
-    text: 'Le véhicule est porté par une société de location européenne, structurée avec nos avocats partenaires : le malus français (jusqu’à 80 000 €) et la TVA (20 %) ne sont pas supportés.',
+    text: 'Le véhicule est porté par une structure européenne encadrée par nos avocats partenaires : le malus français (jusqu’à 80 000 €) et la TVA (20 %) ne sont pas supportés.',
   },
   {
     title: 'Le vrai prix allemand',
-    text: 'En Allemagne, la même voiture coûte des milliers d’euros de moins. Grâce à notre réseau de concessions partenaires et à leurs remises négociées, Corsiva Prime vous fait profiter de cet écart sans contrainte.',
+    text: 'En Allemagne, la même voiture coûte des milliers d’euros de moins. Grâce à notre réseau de concessions partenaires et à leurs remises négociées, Corsiva Prime déniche la pépite et négocie le deal pour vous.',
   },
   {
     title: 'Tout est géré, de A à Z',
@@ -49,7 +64,7 @@ export const ARGUMENTS = [
   },
   {
     title: 'Une entité du groupe Corsiva',
-    text: `Plus de ${STATS.voitures} voitures déjà immatriculées avec Corsiva Prime. L’exigence premium, déjà éprouvée : location de prestige, conciergerie et sourcing depuis Chambéry, ${STATS.noteGoogle} sur Google (${STATS.avisGoogle} avis).`,
+    text: `Plus de ${STATS.voitures} voitures déjà immatriculées avec Corsiva Prime. L’exigence premium du groupe Corsiva, déjà éprouvée : ${STATS.noteGoogle} sur Google (${STATS.avisGoogle} avis).`,
   },
 ]
 
@@ -70,7 +85,7 @@ export const PHASES = [
     n: '03',
     title: 'Structuration européenne',
     duree: '1 à 2 semaines, en parallèle · déplacement 3 à 4 jours',
-    text: 'Création de la société de location porteuse avec avocat partenaire : dépôt de capital, ouverture bancaire, acte notarié. Déplacement organisé, hôtel 5 étoiles, transports et restauration inclus.',
+    text: 'Mise en place de la structure européenne avec nos avocats partenaires. Déplacement organisé, hôtel 5 étoiles, transports et restauration inclus. Les détails vous sont présentés lors d’un appel.'
   },
   {
     n: '04',
@@ -92,12 +107,4 @@ export const FAQ = [
   { q: 'Et l’assurance ?', a: 'Une couverture adaptée, souvent plus simple et plus avantageuse.' },
   { q: 'Puis-je faire seulement l’import, sans l’immatriculation européenne ?', a: 'Oui, tout à fait : les deux services sont indépendants.' },
   { q: 'Comment êtes-vous rémunérés ?', a: 'Une proposition personnalisée, indexée sur la valeur réellement créée.' },
-]
-
-/* Avis clients réels du groupe Corsiva (location premium), publiés sur Google et Mariages.net. */
-export const AVIS = [
-  { nom: 'Sonia', source: 'Google', texte: 'Le rendu était incroyable sur les photos et vidéos. Les chauffeurs ont été parfaits.' },
-  { nom: 'Marc', source: 'Mariages.net', texte: 'La voiture était magnifique, décorée avec soin, et le chauffeur d’une gentillesse et d’un professionnalisme à toute épreuve.' },
-  { nom: 'Wilfried', source: 'Mariages.net', texte: 'Notre conseiller a tout fait pour que tout se passe bien. Le chauffeur était très agréable et professionnel.' },
-  { nom: 'Manon', source: 'Mariages.net', texte: '…nous ne pouvions pas rêver mieux.' },
 ]

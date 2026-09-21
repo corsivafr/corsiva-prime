@@ -2,11 +2,12 @@ import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import { Section, Wrap, SecHead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
+import { Arrow } from '@/components/ui'
 
 /* Cadre et réassurance : montage structuré avec des avocats partenaires, en Bulgarie et en France,
    dans le cadre du droit européen ; badges de conformité ; nos conseillers partout en France. */
 const POINTS = [
-  { t: 'Un cadre juridique encadré', s: 'Chaque montage est structuré avec nos avocats partenaires, en Bulgarie et en France, dans le cadre du droit de l’Union européenne : société de location porteuse, acte notarié, ouverture bancaire.' },
+  { t: 'Un cadre juridique encadré', s: 'Chaque montage est structuré avec nos avocats partenaires, en Bulgarie et en France, dans le cadre du droit de l’Union européenne. Les détails vous sont présentés lors d’un appel.' },
   { t: 'Une optimisation fiscale légale', s: 'Grâce à une solution d’immatriculation encadrée, la fiscalité de votre véhicule est fortement réduite, en toute conformité.' },
   { t: 'Assurance simplifiée et allégée', s: 'Une couverture adaptée, souvent plus simple et moins coûteuse.' },
   { t: 'Roulez partout en Europe', s: 'Le véhicule circule librement dans toute l’Union européenne.' },
@@ -16,7 +17,6 @@ const BADGES = [
   { img: '/media/logos/rgpd.svg', a: 'RGPD', txt: <>Données protégées <b>RGPD</b></> },
   { txt: <>Avocats partenaires <b>France · Bulgarie</b></> },
   { txt: <>TVA <b>intracommunautaire</b></> },
-  { txt: <>Acte <b>notarié</b></> },
 ]
 
 export default function Reassurance() {
@@ -51,6 +51,11 @@ export default function Reassurance() {
               </li>
             ))}
           </ul>
+        </Reveal>
+        <Reveal className="rise mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
+          <p className="text-[14.5px] sm:mr-3" style={{ color: 'var(--ink-2)' }}>Envie d’en savoir plus sur la structure ? Parlons-en de vive voix.</p>
+          <a href={SITE.phoneTel} className="btn-cta">Prendre un appel <Arrow /></a>
+          <a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="btn-w">Réserver un créneau <Arrow /></a>
         </Reveal>
       </Wrap>
     </Section>

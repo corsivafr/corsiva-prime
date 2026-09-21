@@ -13,14 +13,14 @@ import { euro, PLAFOND_MALUS, ANNEE_BAREME } from '@/lib/malus'
 
 export const metadata: Metadata = {
   title: 'Zéro malus, zéro TVA : l’immatriculation en société européenne',
-  description: 'Une société de location porteuse, structurée avec notre avocat partenaire : malus écologique et TVA non supportés, prix allemand, véhicule circulant dans toute l’Union européenne. Une optimisation fiscale légale, encadrée, en toute conformité.',
+  description: 'Une structure européenne encadrée par nos avocats partenaires : malus écologique et TVA non supportés, prix allemand, véhicule circulant dans toute l’Union européenne. Une optimisation fiscale légale, encadrée, en toute conformité. Les détails vous sont présentés lors d’un appel.',
   alternates: { canonical: `${SITE.url}/immatriculation` },
 }
 
 const BLOCS = [
-  { n: '01', t: 'Une société de location porteuse', s: 'Nous créons, avec notre avocat partenaire, une société européenne de location qui acquiert et porte le véhicule : dépôt de capital, ouverture bancaire, acte notarié.' },
+  { n: '01', t: 'Une structure européenne encadrée', s: 'Le véhicule est porté par une structure européenne mise en place avec nos avocats partenaires, en Bulgarie et en France. Son fonctionnement vous est présenté en détail lors d’un appel.' },
   { n: '02', t: 'Le malus n’est pas supporté', s: `Le malus français à l’immatriculation (CO₂ et poids, plafonné à ${euro(PLAFOND_MALUS)} en ${ANNEE_BAREME}) s’applique aux véhicules immatriculés en France. Immatriculé dans un autre État membre, le véhicule n’y est pas soumis.` },
-  { n: '03', t: 'La TVA est récupérée', s: 'La société, assujettie, achète le véhicule hors taxes en Allemagne et récupère la TVA : 20 % du prix d’achat ne sont pas supportés.' },
+  { n: '03', t: 'La TVA est récupérée', s: 'La structure, assujettie, achète le véhicule hors taxes en Allemagne et récupère la TVA : 20 % du prix d’achat ne sont pas supportés.' },
   { n: '04', t: 'Vous roulez partout en Europe', s: 'Le véhicule circule librement dans toute l’Union européenne, avec une assurance simplifiée et allégée.' },
 ]
 
@@ -31,10 +31,9 @@ export default function Page() {
         a="Zéro malus, zéro TVA :"
         b="l’immatriculation européenne."
         lead="Grâce à une solution d’immatriculation encadrée, la fiscalité de votre véhicule est fortement réduite, en toute conformité."
-        image="/media/photos/m3c-portrait.jpg"
-        position="center 35%"
+        hero="malus"
         primary={{ href: '/simulateur', label: 'Simuler mon gain' }}
-        secondary={{ href: '/contact', label: 'Parlons de votre projet' }}
+        secondary={{ href: SITE.calendly, label: 'Prendre un appel', external: true }}
       />
 
       <Section tone="light">
@@ -58,7 +57,7 @@ export default function Page() {
       <SimulateurSection />
       <Process compact />
       <FAQ />
-      <CTA />
+      <CTA appel title={['Envie d’en savoir plus', 'sur la structure ?']} text="Les détails vous sont présentés de vive voix : prenez un appel avec un conseiller ou réservez un créneau." />
     </>
   )
 }

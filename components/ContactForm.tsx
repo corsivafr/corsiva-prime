@@ -15,11 +15,11 @@ export default function ContactForm() {
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value })
 
   useEffect(() => {
-    const veh = sp.get('vehicule'); const pkg = sp.get('package'); const opts = sp.get('options')
-    if (!veh && !pkg && !opts) return
+    const veh = sp.get('vehicule'); const pkg = sp.get('package'); const opts = sp.get('options'); const souhaits = sp.get('souhaits')
+    if (!veh && !pkg && !opts && !souhaits) return
     const P = PACKAGES.find((p) => p.id === pkg)
     const names = (opts || '').split(',').map((id) => OPTIONS.find((o) => o.id === id)?.name).filter(Boolean)
-    const lignes = [veh ? `Véhicule : ${veh}` : '', P ? `Package : ${P.name}` : '', names.length ? `Options : ${names.join(', ')}` : ''].filter(Boolean)
+    const lignes = [veh ? `Véhicule : ${veh}` : '', P ? `Package : ${P.name}` : '', names.length ? `Options : ${names.join(', ')}` : '', souhaits ? `Souhaits de configuration : ${souhaits}` : ''].filter(Boolean)
     setF((x) => ({ ...x, service: pkg === 'import' ? SERVICES[0] : pkg === 'import-immat' ? SERVICES[1] : x.service, projet: lignes.join('\n') + '\n\n' }))
   }, [sp])
 

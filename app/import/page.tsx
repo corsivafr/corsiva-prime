@@ -12,31 +12,30 @@ import { Section, Wrap, Title, Lead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Import de voiture depuis l’Allemagne, clé en main',
-  description: 'Sourcing, inspection, historique, négociation, transport fermé privé et carte grise : Corsiva Prime importe votre voiture d’Allemagne et vous la livre en France. Le vrai prix allemand, sans contrainte.',
+  title: 'Import depuis l’Allemagne, immatriculation en France : tout est géré',
+  description: 'On déniche la pépite chez nos concessions partenaires allemandes, on négocie le deal, vous choisissez vos options. Inspection, transport fermé privé, carte grise française : Corsiva Prime gère tout jusqu’aux plaques.',
   alternates: { canonical: `${SITE.url}/import` },
 }
 
 const INCLUS = [
-  { t: 'Cahier des charges', s: 'Modèle, finition, options, budget, calendrier : on cadre précisément la voiture que vous cherchez.' },
-  { t: 'Sourcing et présélection', s: 'Veille sur l’ensemble du marché allemand, concessions et distributeurs officiels, présélection pour validation.' },
-  { t: 'Inspection et historique', s: 'Contrôle documentaire, historique d’entretien, kilométrage, état réel. Rien n’est acheté sur une photo.' },
-  { t: 'Négociation', s: 'On négocie pour vous, en allemand, sur le prix net. Vous achetez au bon prix.' },
-  { t: 'Transport fermé privé', s: 'Acheminement en camion fermé jusqu’à votre adresse. Aucune route, aucun kilomètre inutile.' },
-  { t: 'Carte grise et formalités', s: 'Quitus fiscal, certificat de conformité, immatriculation : on gère jusqu’aux plaques.' },
+  { t: 'On déniche la pépite', s: 'Nos concessions partenaires en Allemagne nous confient leurs meilleures voitures : neuves, configurables, ou occasions récentes triées sur le volet.' },
+  { t: 'On négocie le deal', s: 'Remises négociées, prix net défendu en allemand. Vous achetez la bonne voiture au bon prix.' },
+  { t: 'Vous choisissez vos options', s: 'Couleur, jantes, sellerie, packs : vous configurez, nous validons chaque détail avec la concession.' },
+  { t: 'On contrôle tout', s: 'Inspection, historique d’entretien, kilométrage, contrôle documentaire. Rien n’est acheté sur une photo.' },
+  { t: 'On livre en transport fermé', s: 'Acheminement en camion fermé privé jusqu’à votre adresse. Aucun kilomètre inutile.' },
+  { t: 'On immatricule en France', s: 'Quitus fiscal, certificat de conformité, carte grise : les formalités françaises sont gérées jusqu’aux plaques.' },
 ]
 
 export default function Page() {
   return (
     <>
       <PageHero
-        a="La bonne voiture,"
-        b="au vrai prix allemand."
-        lead="On la trouve, on la contrôle, on la négocie, on la livre chez vous. Vous n’avez qu’à récupérer les clés."
-        image="/media/photos/m3c-3-4.jpg"
-        position="center 45%"
-        primary={{ href: '/contact', label: 'Parlons de votre projet' }}
-        secondary={{ href: '/catalogue', label: 'Voir le catalogue' }}
+        a="Import d’Allemagne,"
+        b="immatriculée en France."
+        lead="On déniche la pépite chez nos concessions partenaires, on négocie le deal, vous choisissez vos options. Tout est géré, jusqu’aux plaques françaises."
+        hero="import"
+        primary={{ href: '/catalogue', label: 'Voir les pépites du mois' }}
+        secondary={{ href: '/contact', label: 'Parlons de votre projet' }}
       />
       <BrandMarquee title={false} />
 
@@ -44,8 +43,8 @@ export default function Page() {
         <Wrap>
           <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             <div className="lg:col-span-5 lg:sticky lg:top-28 self-start">
-              <Title a="Tout est géré," b="de A à Z." />
-              <Lead className="mt-6">Six étapes, un seul interlocuteur. Vous validez la voiture, nous faisons le reste, en France comme en Allemagne.</Lead>
+              <Title a="Tout est géré," b="de la pépite aux plaques." />
+              <Lead className="mt-6">Un seul interlocuteur, du premier appel à la remise des clés. Vous validez la voiture et vos options, Corsiva accompagne tout le reste, en Allemagne comme en France.</Lead>
               <div className="rise rise-scale zoom-media relative overflow-hidden rounded-[20px] mt-8" style={{ ...d(0.16), aspectRatio: '4 / 3' }}>
                 <Image src="/media/photos/m3-interieur.jpg" alt="Intérieur d’une BMW M3 Competition" fill quality={86} sizes="(max-width: 1023px) 100vw, 40vw" className="object-cover" />
               </div>

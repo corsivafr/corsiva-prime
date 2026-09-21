@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="md:col-span-5 lg:col-span-4">
           <Image src="/media/logos/logo-prime-blanc.png" alt="Corsiva Prime" width={1588} height={224} style={{ width: 210, height: 'auto' }} />
           <p className="text-[14.5px] leading-relaxed mt-5 max-w-sm" style={{ color: 'var(--ink-2)' }}>
-            Zéro malus, zéro TVA : immatriculation européenne et import de voitures premium depuis l’Allemagne, au vrai prix allemand. Une entité du groupe Corsiva.
+            Zéro malus, zéro TVA : immatriculation européenne et import de voitures premium depuis l’Allemagne, au vrai prix allemand. Chaque mois, cinq pépites négociées chez nos concessions partenaires. Une entité du groupe Corsiva.
           </p>
           <div className="flex flex-wrap gap-2 mt-6">
             <span className="legalbadge"><Image src="/media/logos/eu-flag.svg" alt="Union européenne" width={24} height={16} unoptimized style={{ height: 16, width: 'auto', borderRadius: 2 }} /> <span>Droit <b>européen</b></span></span>
@@ -48,9 +48,8 @@ export default function Footer() {
         <div className="md:col-span-12 lg:col-span-3">
           <p className="display text-[15px] font-medium mb-4 text-white" style={{ letterSpacing: '-0.01em' }}>Le groupe Corsiva</p>
           <ul className="flex flex-col gap-2.5 text-[14.5px]" style={{ color: 'var(--ink-2)' }}>
-            <li><a href="https://corsiva.fr" target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-[40px] hover:text-white">Corsiva · location de prestige</a></li>
-            <li><a href="https://corsiva-os.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-[40px] hover:text-white">Corsiva OS · logiciel des loueurs</a></li>
-            <li><a href="https://www.corsiva-mariage.fr" target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-[40px] hover:text-white">Corsiva Mariage</a></li>
+            <li><a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-[40px] hover:text-white">Réserver un appel</a></li>
+            <li><a href="https://corsiva.fr" target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-[40px] hover:text-white">corsiva.fr</a></li>
             <li className="flex gap-4 pt-1">
               <a href="https://www.instagram.com/corsiva.eu" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 min-h-[40px] hover:text-white"><Image src="/media/logos/instagram.png" alt="" width={18} height={18} style={{ width: 18, height: 18 }} /> Instagram</a>
               <a href="https://www.tiktok.com/@corsivafr" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 min-h-[40px] hover:text-white"><Image src="/media/logos/tiktok.svg" alt="" width={16} height={16} unoptimized style={{ width: 16, height: 16, filter: 'brightness(0) invert(1)' }} /> TikTok</a>

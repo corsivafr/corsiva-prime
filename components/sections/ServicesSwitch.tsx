@@ -11,16 +11,16 @@ import { STATS } from '@/lib/site'
 const S = [
   {
     id: 'immat', n: '01', title: 'Immatriculation en société européenne', short: 'Zéro malus, zéro TVA',
-    text: `Une société de location porteuse, structurée avec notre avocat partenaire : ni malus, ni TVA à supporter, ni prix français. Plus de ${STATS.voitures} voitures déjà immatriculées ainsi. Vous roulez partout en Europe.`,
+    text: `Une structure européenne encadrée par nos avocats partenaires : ni malus, ni TVA à supporter, ni prix français. Plus de ${STATS.voitures} voitures déjà immatriculées ainsi. Vous roulez partout en Europe.`,
     img: '/media/photos/m3c-3-4.jpg', pos: 'center 55%',
-    items: ['Société européenne créée avec notre avocat partenaire', 'Déplacement organisé, hôtel 5 étoiles inclus', 'Immatriculation européenne, récupération de TVA', 'Malus français non supporté (jusqu’à 80 000 €)', 'Assurance simplifiée et allégée'],
+    items: ['Structure européenne mise en place avec nos avocats partenaires', 'Déplacement organisé, hôtel 5 étoiles inclus', 'Immatriculation européenne, récupération de TVA', 'Malus français non supporté (jusqu’à 80 000 €)', 'Assurance simplifiée et allégée'],
     delai: 'environ 5 semaines', gain: 'Écart + TVA + malus non supportés', href: '/immatriculation',
   },
   {
-    id: 'import', n: '02', title: 'Import depuis l’Allemagne', short: 'Import clé en main',
-    text: 'On trouve la voiture chez nos concessions partenaires, on négocie la remise, on la contrôle, on la livre en France. Vous immatriculez chez vous, on gère les formalités.',
+    id: 'import', n: '02', title: 'Import depuis l’Allemagne, immatriculée en France', short: 'Import clé en main',
+    text: 'On déniche la pépite chez nos concessions partenaires, on négocie le deal, vous choisissez vos options. Inspection, transport fermé, carte grise française : tout est géré jusqu’aux plaques.',
     img: '/media/photos/rsq8-arriere.jpg', pos: 'center 50%',
-    items: ['Cahier des charges et validation du modèle', 'Réseau de concessions partenaires, remises négociées', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Carte grise et formalités'],
+    items: ['On déniche la pépite chez nos concessions partenaires', 'Configuration et options au choix, deal négocié', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Immatriculation en France : carte grise et formalités gérées'],
     delai: '3 à 4 semaines', gain: 'L’écart de prix allemand, remise comprise', href: '/import',
   },
 ]
@@ -102,7 +102,7 @@ export default function ServicesSwitch() {
           </div>
           <div className="pop flex flex-col sm:flex-row gap-3 mt-6" style={{ ['--d' as string]: '0.5s' }}>
             <Link href={s.href} className="btn-w flex-1">Découvrir <Arrow /></Link>
-            <Link href="/catalogue" className="btn-dark flex-1">Configurer un package</Link>
+            <Link href="/catalogue" className="btn-dark flex-1">Voir les pépites</Link>
           </div>
         </div>
       </div>

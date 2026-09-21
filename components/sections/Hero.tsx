@@ -1,24 +1,18 @@
-import Image, { getImageProps } from 'next/image'
+import Image from 'next/image'
 import Link from 'next/link'
+import HeroPicture from '@/components/HeroPicture'
 import { Arrow } from '@/components/ui'
-import { STATS } from '@/lib/site'
+import { SITE, STATS } from '@/lib/site'
 
 /* Hero façon Corsiva OS, priorité au service malus : badge pill logo, titre en deux lignes (la seconde
-   en dégradé bleu), sous-titre avec la phrase clé en blanc, deux pills, ligne de confiance.
-   Fond : la M3 Competition (dossier « image voiture ») de face, en retrait sous un halo bleu. */
+   en dégradé bleu), sous-titre, deux pills, ligne de confiance. Fond : la M3 Competition vue d'en haut
+   sur la rampe du garage (dossier « image voiture »), affichée immédiatement. */
 export default function Hero() {
-  const { props: desk } = getImageProps({ src: '/media/photos/m3c-face.jpg', alt: '', fill: true, quality: 80, sizes: '100vw' })
-  const { props: mob } = getImageProps({ src: '/media/photos/m3c-face-mobile.jpg', alt: '', fill: true, quality: 80, sizes: '100vw' })
   return (
     <header className="relative overflow-hidden flex items-center hero-pad" style={{ minHeight: 'min(100svh, 980px)', background: '#090909' }}>
       <div className="absolute inset-0" aria-hidden="true">
-        {/* Une seule image téléchargée : cadrage paysage sur grand écran, recadrage 9:16 sur mobile. */}
-        <picture>
-          <source media="(min-width: 640px)" srcSet={desk.srcSet} sizes="100vw" />
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
-          <img {...mob} alt="" className="kenburns" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 60%', opacity: 0.46 }} />
-        </picture>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(9,9,9,0.62) 0%, rgba(9,9,9,0.38) 45%, rgba(9,9,9,0.66) 80%, #090909 100%)' }} />
+        <HeroPicture hero="home" position="center 45%" opacity={0.48} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(9,9,9,0.62) 0%, rgba(9,9,9,0.36) 45%, rgba(9,9,9,0.66) 80%, #090909 100%)' }} />
       </div>
       <div className="hero-glow" aria-hidden="true" />
 
@@ -34,12 +28,12 @@ export default function Hero() {
         </h1>
 
         <p className="hin lead mx-auto" style={{ ['--d' as string]: '0.24s', margin: '22px auto 30px', maxWidth: '60ch', lineHeight: 1.6 }}>
-          <span className="sub-b">Immatriculation européenne et import clé en main.</span> Une société de location porteuse, structurée avec nos avocats partenaires, vous évite le malus (jusqu’à 80 000 €) et la TVA (20 %).<span className="hidden sm:inline"> Notre réseau de concessions partenaires en Allemagne vous obtient le vrai prix allemand, remises comprises.</span>
+          <span className="sub-b">Immatriculation européenne et import clé en main.</span> Une structure européenne encadrée par nos avocats partenaires vous évite le malus (jusqu’à 80 000 €) et la TVA (20 %).<span className="hidden sm:inline"> Nos concessions partenaires en Allemagne nous confient leurs pépites : on négocie le deal, vous choisissez vos options.</span>
         </p>
 
         <div className="hin flex flex-wrap justify-center gap-3" style={{ ['--d' as string]: '0.36s' }}>
-          <Link href="/simulateur" className="btn-cta">Simuler mon gain <Arrow /></Link>
-          <Link href="/immatriculation" className="btn-w">Zéro malus, comment ça marche <Arrow /></Link>
+          <Link href="/catalogue" className="btn-cta">Voir les pépites du mois <Arrow /></Link>
+          <a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="btn-w">Prendre un appel <Arrow /></a>
         </div>
 
         <div className="hin herotrust" style={{ ['--d' as string]: '0.48s' }}>

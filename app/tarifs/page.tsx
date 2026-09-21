@@ -28,8 +28,7 @@ export default function Page() {
         a="Des packages clairs,"
         b="une proposition sur mesure."
         lead="Les montants ne sont pas publiés : chaque projet reçoit une proposition personnalisée, indexée sur la valeur réellement créée."
-        image="/media/photos/m3c-3-4.jpg"
-        position="center 50%"
+        hero="tarifs"
         primary={{ href: '/contact', label: 'Demander une proposition' }}
         secondary={{ href: '/simulateur', label: 'Simuler mon gain' }}
       />

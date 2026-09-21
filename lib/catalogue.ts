@@ -7,6 +7,11 @@ import type { Energie } from '@/lib/malus'
    Les modèles « sur demande » n'ont volontairement aucun prix : rien n'est inventé.
    ───────────────────────────────────────────────────────────────────────────── */
 
+/* Frais tout compris du package immatriculation européenne (tarifs internes du brief : structure européenne
+   + avocat + séjour 3 000 €, transport 1 500 €, frais annexes 4 500 €). Le tarif final client affiché sur les
+   fiches = prix Allemagne HT + ces frais. À valider par le dirigeant avant toute publication définitive. */
+export const FRAIS_TOUT_COMPRIS = 9_000
+
 export type Etat = 'neuf' | 'occasion'
 export type Categorie = 'berline' | 'suv' | 'sport' | 'electrique' | 'compacte'
 
@@ -82,6 +87,9 @@ export const VEHICULES: Vehicule[] = [
   },
 ]
 
+/* Tarif final client, tout compris : le véhicule au prix allemand HT (sans TVA ni malus) + le package. */
+export const prixFinal = (c: Chiffres) => c.prixAllemagneHT + FRAIS_TOUT_COMPRIS
+
 export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche'] as const
 
 export type PackageId = 'import' | 'import-immat'
@@ -91,8 +99,8 @@ export const PACKAGES: { id: PackageId; name: string; court: string; accroche: s
     id: 'import-immat',
     name: 'Import + immatriculation européenne',
     court: 'Import + immatriculation',
-    accroche: 'Le prix allemand, sans malus ni TVA à supporter. Le véhicule est porté par votre société européenne.',
-    items: ['Tout le package Import', 'Société de location porteuse créée avec notre avocat partenaire', 'Déplacement organisé : hôtel 5 étoiles, transports et restauration inclus', 'Immatriculation européenne et récupération de TVA', 'Assurance simplifiée et allégée'],
+    accroche: 'Le prix allemand, sans malus ni TVA à supporter. Le véhicule est porté par une structure européenne encadrée.',
+    items: ['Tout le package Import', 'Structure européenne mise en place avec nos avocats partenaires', 'Déplacement organisé : hôtel 5 étoiles, transports et restauration inclus', 'Immatriculation européenne et récupération de TVA', 'Assurance simplifiée et allégée'],
     duree: 'environ 5 semaines',
     semaines: 5,
     featured: true,
@@ -102,8 +110,8 @@ export const PACKAGES: { id: PackageId; name: string; court: string; accroche: s
     id: 'import',
     name: 'Import',
     court: 'Import seul',
-    accroche: 'La bonne voiture, au bon prix, livrée en France. Vous immatriculez en France.',
-    items: ['Cahier des charges et validation du modèle', 'Sourcing chez nos concessions partenaires, remises négociées', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Carte grise française et formalités'],
+    accroche: 'Import depuis l’Allemagne et immatriculation en France : tout est géré, de la pépite négociée aux plaques.',
+    items: ['On déniche la pépite chez nos concessions partenaires', 'Configuration et options au choix, deal négocié', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Immatriculation en France : carte grise et formalités gérées'],
     duree: '3 à 4 semaines',
     semaines: 4,
     img: '/media/photos/rsq8-arriere.jpg',

@@ -28,9 +28,8 @@ export default function Page() {
         a="Des packages clairs,"
         b="une proposition sur mesure."
         lead="Les montants ne sont pas publiés : chaque projet reçoit une proposition personnalisée, indexée sur la valeur réellement créée."
-        image="/media/photos/m3-lac-5.jpg"
-        imageMobile="/media/photos/m3-lac-portrait.jpg"
-        position="center 60%"
+        image="/media/photos/m3c-3-4.jpg"
+        position="center 50%"
         primary={{ href: '/contact', label: 'Demander une proposition' }}
         secondary={{ href: '/simulateur', label: 'Simuler mon gain' }}
       />
@@ -41,9 +40,9 @@ export default function Page() {
           <Reveal className="rise"><Configurateur allowVehicule /></Reveal>
         </Wrap>
       </Section>
-      <Section tone="light">
+      <Section glow>
         <Wrap>
-          <SecHead a="Pourquoi" b="pas de prix affiché.">Parce qu’un import à 60 000 € et un import à 250 000 € ne demandent ni le même travail, ni la même structuration. Trois principes, en revanche, ne changent jamais.</SecHead>
+          <SecHead a="Pourquoi" b="pas de prix affiché.">Parce qu’une citadine premium et une supercar ne demandent ni le même travail, ni la même structuration. Trois principes, en revanche, ne changent jamais.</SecHead>
           <Reveal as="ul" className="grid grid-cols-1 md:grid-cols-3 gap-5 list-none">
             {PRINCIPES.map((p, i) => (
               <li key={p.t} className="rise rise-scale card lift p-7" style={d(0.08 * (i + 1))}>
@@ -57,7 +56,7 @@ export default function Page() {
       </Section>
       <Exemples />
       <FAQ tone="dark" />
-      <CTA title={['Recevez votre proposition', 'sous 48 h.']} text="Décrivez-nous la voiture visée : un conseiller vous rappelle et vous adresse un chiffrage complet, poste par poste." />
+      <CTA title={['Recevez votre proposition', 'rapidement.']} text="Décrivez-nous la voiture visée : un conseiller vous rappelle et vous adresse un chiffrage complet, poste par poste." />
     </>
   )
 }

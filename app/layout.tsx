@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import { GeistSans } from 'geist/font/sans'
 import { Analytics } from '@vercel/analytics/react'
 import Header from '@/components/Header'
+import SiteLoader from '@/components/SiteLoader'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { SITE } from '@/lib/site'
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: 'Corsiva Prime — Votre voiture d’Allemagne, clé en main', template: '%s | Corsiva Prime' },
   description:
-    'Sourcing, import et immatriculation européenne. Corsiva Prime vous fait profiter du vrai prix allemand, gère tout de A à Z et structure votre projet avec ses avocats partenaires. Devis sous 24 h.',
+    'Sourcing, import et immatriculation européenne. Corsiva Prime vous fait profiter du vrai prix allemand, gère tout de A à Z et structure votre projet avec ses avocats partenaires. Devis rapide.',
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body style={{ background: '#090909', margin: 0 }}>
         {/* html.js : les révélations au défilement ne masquent le contenu que si le script tourne */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <SiteLoader />
         <Header />
         {children}
         <Footer />

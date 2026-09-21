@@ -33,9 +33,8 @@ export default function Page() {
         a="La bonne voiture,"
         b="au vrai prix allemand."
         lead="On la trouve, on la contrôle, on la négocie, on la livre chez vous. Vous n’avez qu’à récupérer les clés."
-        image="/media/photos/m3-chambery.jpg"
-        imageMobile="/media/photos/m3-lac-portrait.jpg"
-        position="center 55%"
+        image="/media/photos/m3c-3-4.jpg"
+        position="center 45%"
         primary={{ href: '/contact', label: 'Parlons de votre projet' }}
         secondary={{ href: '/catalogue', label: 'Voir le catalogue' }}
       />

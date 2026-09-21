@@ -19,7 +19,7 @@ export default function PageHero({
       </div>
       <div className="hero-glow" aria-hidden="true" />
       <div className="relative max-w-wrap mx-auto px-5 sm:px-6 lg:px-8 text-center w-full">
-        <h1 className="h-hero hin mx-auto" style={{ ['--d' as string]: '0.05s', maxWidth: 1000, fontSize: 'clamp(40px, 6vw, 78px)' }}>
+        <h1 className="h-hero h-hero-sm hin mx-auto" style={{ ['--d' as string]: '0.05s', maxWidth: 1000 }}>
           {a}
           <br />
           <span className="grad-blue">{b}</span>

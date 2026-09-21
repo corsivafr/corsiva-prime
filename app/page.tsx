@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Hero from '@/components/sections/Hero'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import Arguments from '@/components/sections/Arguments'
+import Chiffres from '@/components/sections/Chiffres'
+import Reel from '@/components/sections/Reel'
 import Services from '@/components/sections/Services'
 import Exemples from '@/components/sections/Exemples'
 import Process from '@/components/sections/Process'
@@ -34,9 +36,11 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Hero />
       <BrandMarquee />
-      <Arguments lead="Le même modèle, la même finition, une fiscalité qui n’a rien à voir. Nous prenons tout en charge, de la première annonce à la remise des clés." />
+      <Arguments lead="Le même modèle, la même finition, une fiscalité qui n’a rien à voir. Nous prenons tout en charge, de la concession partenaire à la remise des clés." />
+      <Chiffres />
       <Services />
       <Exemples />
+      <Reel />
       <Process compact />
       <SimulateurSection />
       <Temoignages />

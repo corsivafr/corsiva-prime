@@ -16,7 +16,7 @@
   --hairline-soft: #1a1a1a;
   --ink: #ffffff;
   --ink-2: rgba(255, 255, 255, 0.62);
-  --ink-3: rgba(255, 255, 255, 0.42);
+  --ink-3: rgba(255, 255, 255, 0.54);
   --blue: #0099ff;
   --blue-deep: #0045ff;
   --blue-ink: #062a6b;
@@ -56,8 +56,8 @@ h1, h2, .display {
   letter-spacing: -0.045em;
   line-height: 0.96;
 }
-h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
-h3.display, h4.display { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; }
+h3 { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; letter-spacing: -0.04em; }
+h4 { font-weight: 600; letter-spacing: -0.015em; }
 
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
 ::selection { background: rgba(0, 153, 255, 0.35); }
@@ -68,7 +68,7 @@ h3.display, h4.display { font-family: var(--font-geist-sans), system-ui, sans-se
   color: var(--night);
   --ink: #0a0a0a;
   --ink-2: rgba(10, 10, 10, 0.64);
-  --ink-3: rgba(10, 10, 10, 0.44);
+  --ink-3: rgba(10, 10, 10, 0.6);
   --surface-1: #f4f6fa;
   --surface-2: #e9eef7;
   --hairline: rgba(10, 10, 10, 0.1);
@@ -84,7 +84,7 @@ h3.display, h4.display { font-family: var(--font-geist-sans), system-ui, sans-se
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 48px; padding: 0 22px; border-radius: 100px;
-  font-family: var(--font-inter), system-ui, sans-serif; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em;
+  font-family: var(--font-inter), system-ui, sans-serif; font-size: 14.5px; font-weight: 600; letter-spacing: -0.01em;
   transition: transform 0.25s var(--ease), background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
   white-space: nowrap;
 }
@@ -293,19 +293,23 @@ input[type='range'] { accent-color: var(--blue-deep); width: 100%; }
    Têtes de section centrées, seconde ligne en dégradé bleu, cartes charbon à filet, une carte
    spotlight bleue par grille, bandes bleues profondes, pill CTA bleu lumineux, fond sombre. */
 body { letter-spacing: -0.011em; line-height: 1.5; }
-h1, h2, h3, .display { letter-spacing: -0.045em; }
-.h-sec { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: clamp(34px, 4.6vw, 56px); line-height: 1.02; letter-spacing: -0.045em; margin-bottom: 16px; }
-.h-hero { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; font-size: clamp(38px, 6.6vw, 88px); line-height: 0.94; letter-spacing: -0.05em; }
+h1, h2, .display { letter-spacing: -0.045em; }
+.h-sec { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: clamp(32px, 4.9vw, 60px); line-height: 0.98; letter-spacing: -0.05em; margin-bottom: 16px; overflow-wrap: anywhere; }
+.h-hero { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; font-size: clamp(38px, 6.9vw, 90px); line-height: 0.92; letter-spacing: -0.052em; overflow-wrap: anywhere; }
+.h-hero-sm { font-size: clamp(36px, 6vw, 78px); }
 .grad-blue { background: linear-gradient(110deg, #fff 10%, #7cc4ff 45%, #0099ff 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .light .grad-blue { background: linear-gradient(110deg, #062a6b 5%, #0045ff 55%, #0099ff 95%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .sechead { text-align: center; max-width: 780px; margin: 0 auto 50px; }
+@media (max-width: 639px) { .sechead { margin-bottom: 32px; } .lead { font-size: 15.5px; } }
 .sechead.left { text-align: left; margin-left: 0; }
 .lead { font-size: clamp(16px, 2vw, 19px); color: var(--ink-2); max-width: 58ch; line-height: 1.55; }
 .sechead .lead { margin: 0 auto; }
 .sechead.left .lead { margin-left: 0; }
 .sub-b { color: var(--ink); font-weight: 600; }
 
-/* Pills : CTA bleu lumineux (Geist 600), pill blanche, pill charbon */
+/* Pills : CTA bleu lumineux (Geist 600), pill blanche, pill charbon — en couche components pour que
+   les utilitaires (hidden, sm:inline-flex…) gardent la main. */
+@layer components {
 .btn-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: #fff; background: #0099ff; border-radius: 100px; padding: 13px 24px; min-height: 48px; position: relative; box-shadow: 0 16px 38px rgba(0, 153, 255, 0.42); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); white-space: nowrap; }
 .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 22px 52px rgba(0, 153, 255, 0.55); }
 .btn-cta .arrow { transition: transform 0.25s var(--ease); }
@@ -317,6 +321,8 @@ h1, h2, h3, .display { letter-spacing: -0.045em; }
 .btn-dark { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-size: 14.5px; font-weight: 600; color: var(--ink); background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 100px; padding: 12px 22px; min-height: 48px; transition: background-color 0.2s var(--ease), transform 0.2s var(--ease); white-space: nowrap; }
 .btn-dark:hover { background: var(--surface-2); transform: translateY(-1px); }
 .btn-sm { min-height: 40px; padding: 9px 16px; font-size: 13.5px; }
+
+}
 
 /* Badge pill du hero (logo) et ligne de confiance */
 .pillbadge { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-geist-sans), system-ui, sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em; padding: 10px 22px; border-radius: 100px; color: #fff; background: rgba(0, 153, 255, 0.1); border: 1px solid rgba(0, 153, 255, 0.38); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 30px rgba(0, 0, 0, 0.35); backdrop-filter: blur(10px); }
@@ -337,9 +343,9 @@ h1, h2, h3, .display { letter-spacing: -0.045em; }
 @media (max-width: 639px) { .fvgrid { grid-template-columns: 1fr; } }
 .fvcard { background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; }
 .fvspot { border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; color: #fff; position: relative; overflow: hidden; background: radial-gradient(130% 150% at 14% 0%, #3aacff, #0099ff 46%, #073a7a); }
-.fvi { width: 40px; height: 40px; border-radius: 10px; background: var(--surface-2); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 22px; }
+.fvi { width: 44px; height: 44px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--hairline); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 22px; }
 .fvspot .fvi { background: rgba(255, 255, 255, 0.18); }
-.fvi svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.fvi svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .fvspot .fvi svg { stroke: #fff; }
 .fvcard h3, .fvspot h3 { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: -0.04em; margin-bottom: 10px; color: #fff; }
 .fvcard p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
@@ -380,3 +386,98 @@ h1, h2, h3, .display { letter-spacing: -0.045em; }
 
 /* Le grain et la grille ne servent plus : la profondeur vient des ambiances bleues. */
 .grain::after, .gridlines { display: none; }
+
+/* ══ Écran de chargement ═══════════════════════════════════════════════════ */
+.sl-veil { position: fixed; inset: 0; z-index: 200; background: #090909; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s var(--ease), visibility 0.6s; }
+.sl-leave { opacity: 0; visibility: hidden; }
+html:not(.js) .sl-veil { display: none; }
+.sl-lockup { text-align: center; animation: slin 0.9s var(--ease) both; }
+.sl-lockup img { height: 24px; width: auto; display: block; margin: 0 auto; }
+.sl-line { display: block; width: 150px; height: 1px; background: rgba(255, 255, 255, 0.12); margin: 24px auto 0; overflow: hidden; border-radius: 1px; }
+.sl-line span { display: block; height: 100%; width: 40%; background: #0099ff; animation: slbar 1.3s var(--ease) infinite; }
+@keyframes slin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes slbar { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+
+/* ══ Téléphone (reel réseaux sociaux) ═════════════════════════════════════ */
+.phone { position: relative; width: min(300px, 78vw); aspect-ratio: 9 / 19; border-radius: 44px; background: #000; border: 8px solid #1c1c1c; box-shadow: 0 0 0 1px #2a2a2a, 0 50px 120px rgba(0, 153, 255, 0.16), 0 30px 60px rgba(0, 0, 0, 0.6); overflow: hidden; }
+.phone video, .phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.phone-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; border-radius: 100px; background: #000; z-index: 2; box-shadow: 0 0 0 1px #111; }
+
+/* ══ Grille de valeur à 3 colonnes (4 cartes + spotlight sur 2 colonnes) ═════ */
+.fvgrid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.fvgrid3 .span2 { grid-column: span 2; }
+@media (max-width: 1023px) { .fvgrid3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px) { .fvgrid3 { grid-template-columns: 1fr; } .fvgrid3 .span2 { grid-column: span 1; } }
+
+/* ══ Badges de conformité (section juridique, pied de page) ═══════════════ */
+.legalbadge { display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px 9px 11px; border-radius: 100px; border: 1px solid var(--hairline); background: var(--surface-1); font-size: 12.5px; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+.legalbadge img, .legalbadge svg { height: 16px; width: auto; display: block; }
+.legalbadge b { color: var(--ink); font-weight: 600; }
+
+/* Carte formule avec visuel */
+.plan-media { position: relative; margin: -34px -30px 22px; height: 170px; border-radius: 30px 30px 0 0; overflow: hidden; }
+.plan-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,20,20,0) 40%, var(--surface-1) 100%); }
+.plan.featured .plan-media::after { background: linear-gradient(180deg, rgba(20,20,20,0) 40%, #141414 100%); }
+
+/* ══ Barre de navigation : la pilule flottante de corsiva-os.com ═══════════ */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 110; display: flex; justify-content: center; padding: 14px 16px; }
+.navpill { display: flex; align-items: center; gap: 6px; background: rgba(12, 12, 12, 0.55); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 100px; padding: 7px 9px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); transition: background 0.3s, border-color 0.3s; }
+.navbar.scrolled .navpill { background: rgba(10, 10, 10, 0.82); border-color: rgba(255, 255, 255, 0.14); }
+.navpill .brand { display: flex; align-items: center; padding: 0 14px 0 10px; min-height: 40px; }
+.navpill .links { align-items: center; gap: 2px; }
+.navpill .links a { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: -0.015em; color: rgba(255, 255, 255, 0.65); padding: 9px 15px; border-radius: 100px; white-space: nowrap; transition: color 0.2s, background-color 0.2s; }
+.navpill .links a:hover, .navpill .links a.on { color: #fff; background: rgba(255, 255, 255, 0.08); }
+.navright { display: flex; align-items: center; gap: 6px; margin-left: 8px; }
+.navtel { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.16); color: #fff; transition: background 0.2s; }
+.navtel:hover { background: rgba(255, 255, 255, 0.12); }
+.navtel svg { width: 17px; height: 17px; }
+.burger { position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.16); color: #fff; cursor: pointer; }
+.burger::before { content: ''; width: 16px; height: 2px; border-radius: 2px; background: #fff; box-shadow: 0 -5px 0 #fff, 0 5px 0 #fff; display: block; transition: 0.25s var(--ease); }
+.burger.open::before { box-shadow: none; transform: rotate(45deg); }
+.burger.open::after { content: ''; position: absolute; width: 16px; height: 2px; border-radius: 2px; background: #fff; transform: rotate(-45deg); }
+@media (max-width: 1023px) {
+  .navbar { padding: 12px 14px; }
+  .navpill { width: 100%; justify-content: space-between; background: rgba(10, 10, 10, 0.38); backdrop-filter: blur(24px) saturate(1.5); -webkit-backdrop-filter: blur(24px) saturate(1.5); border-color: rgba(255, 255, 255, 0.13); border-radius: 24px; padding: 8px 10px; }
+  .navbar.scrolled .navpill { background: rgba(10, 10, 10, 0.6); }
+  .navright { margin-left: 0; }
+}
+.navmenu { position: fixed; top: 80px; left: 12px; right: 12px; max-height: calc(100svh - 100px); overflow-y: auto; border-radius: 24px; background: rgba(12, 12, 12, 0.97); border: 1px solid rgba(255, 255, 255, 0.13); padding: 12px; display: flex; flex-direction: column; gap: 4px; backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65); animation: dropdn 0.32s var(--ease); }
+.navmenu > a { font-size: 17px; font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; letter-spacing: -0.02em; padding: 15px 18px; min-height: 52px; display: flex; align-items: center; border-radius: 15px; color: rgba(255, 255, 255, 0.85); }
+.navmenu > a.on { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.navmenu > a:active { background: rgba(255, 255, 255, 0.12); }
+@keyframes dropdn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .navmenu { animation: none; } }
+
+/* ══ Mobile : rythme et lisibilité ═════════════════════════════════════════ */
+@media (max-width: 639px) {
+  .py-20 { padding-top: 56px !important; padding-bottom: 56px !important; }
+  .plan { padding: 26px 20px; }
+  .plan-media { margin: -26px -20px 18px; height: 150px; border-radius: 30px 30px 0 0; }
+  .plan-price { font-size: 32px; }
+  .blueband .display { font-size: clamp(26px, 7.5vw, 40px) !important; }
+  .blueband { padding: 28px 20px; }
+  .rdvband .h-sec { font-size: 30px; }
+  .herotrust { gap: 8px 14px; }
+  .herotrust .ht { font-size: 12px; }
+  .legalbadge { font-size: 12px; padding: 8px 12px 8px 10px; white-space: normal; text-align: left; }
+  .fvcard, .fvspot { padding: 24px 20px; }
+  .phone { width: min(280px, 76vw); }
+  .navmenu { top: 74px; }
+  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl-scroll table { min-width: 100%; }
+}
+
+/* Carte dense (réassurance, reel) : la carte charbon, un titre de 18 px, pas de surcharge de .fvcard */
+.card-dense { background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 20px; padding: 22px 22px 20px; display: flex; flex-direction: column; }
+.card-dense h3 { font-size: 18px; letter-spacing: -0.03em; color: #fff; margin: 12px 0 6px; }
+.card-dense > svg + h3 { margin-top: 10px; }
+.card-dense p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
+
+/* Écran de chargement : repli CSS si l'hydratation ne vient jamais */
+.sl-veil { animation: slautohide 0.6s var(--ease) 4s forwards; }
+@keyframes slautohide { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+@media (prefers-reduced-motion: reduce) { .sl-lockup, .sl-line span { animation: none; } .sl-veil { animation: slautohide 0.2s linear 0.3s forwards; } }
+
+/* Hero : respiration verticale, plus courte sur mobile */
+.hero-pad { padding: 140px 0 90px; }
+@media (max-width: 639px) { .hero-pad { padding: 112px 0 64px; } }

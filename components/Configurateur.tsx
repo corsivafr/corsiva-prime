@@ -89,11 +89,11 @@ export default function Configurateur({ vehicule, allowVehicule = false, default
 
           <div className="grid grid-cols-2 gap-3 mt-6">
             <div className="rounded-[15px] p-3.5" style={{ background: 'rgba(255,255,255,0.12)' }}>
-              <p className="text-[11.5px] muted">Délai indicatif</p>
+              <p className="text-[12px] muted">Délai indicatif</p>
               <p className="text-[15px] font-semibold mt-0.5">{P.duree}</p>
             </div>
             <div className="rounded-[15px] p-3.5" style={{ background: 'rgba(255,255,255,0.12)' }}>
-              <p className="text-[11.5px] muted">Options</p>
+              <p className="text-[12px] muted">Options</p>
               <p className="text-[15px] font-semibold mt-0.5">{opts.length === 0 ? 'Aucune' : `${opts.length} retenue${opts.length > 1 ? 's' : ''}`}</p>
             </div>
           </div>
@@ -130,10 +130,10 @@ export default function Configurateur({ vehicule, allowVehicule = false, default
           </ul>
 
           <div className="flex flex-col gap-2.5 mt-6">
-            <Link href={contactHref} className="btn btn-primary w-full">Demander ce package <Arrow /></Link>
+            <Link href={contactHref} className="btn-w w-full">Demander ce package <Arrow /></Link>
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn w-full" style={{ background: 'rgba(255,255,255,0.14)', color: '#fff', border: '1px solid rgba(255,255,255,0.28)' }}>Envoyer sur WhatsApp</a>
           </div>
-          <p className="text-[11.5px] mt-4 leading-relaxed muted">Proposition personnalisée sous 48 h, indexée sur la valeur réellement créée. Avantage indicatif, non contractuel (barème 2026).</p>
+          <p className="text-[12px] mt-4 leading-relaxed muted">Proposition personnalisée, indexée sur la valeur réellement créée. Avantage indicatif, non contractuel (barème 2026).</p>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ export default function Reveal({
     const targets = Array.from(root.querySelectorAll(TARGETS))
     if (root.matches(TARGETS)) targets.unshift(root)
     if (targets.length === 0) return
-    if (typeof IntersectionObserver === 'undefined') {
+    if (typeof IntersectionObserver === 'undefined' || navigator.webdriver) {
       targets.forEach((t) => t.classList.add('in'))
       return
     }

@@ -18,7 +18,7 @@ export default function Process({ compact = false }: { compact?: boolean }) {
               <span className="text-[15px]" style={{ color: 'var(--ink-2)' }}>semaines, durée totale indicative</span>
             </div>
             {compact && (
-              <Link href="/comment-ca-fonctionne" className="rise btn btn-secondary mt-8" style={d(0.2)}>
+              <Link href="/comment-ca-fonctionne" className="rise btn-dark mt-8" style={d(0.2)}>
                 Le déroulé en détail <Arrow />
               </Link>
             )}

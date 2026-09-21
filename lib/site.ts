@@ -11,11 +11,19 @@ export const SITE = {
   group: 'Corsiva',
   legalEntity: 'Corsiva Good',
   legalCountry: 'Bulgarie',
+  villes: ['Paris', 'Lyon', 'Chambéry', 'Annecy'],
+}
+
+/* Chiffres donnés par le dirigeant (18 sept. 2026). */
+export const STATS = {
+  voitures: 48, // véhicules déjà immatriculés avec Corsiva Prime
+  avisGoogle: '+100',
+  noteGoogle: '4,9',
 }
 
 export const NAV = [
+  { label: 'Zéro malus', href: '/immatriculation' },
   { label: 'Import', href: '/import' },
-  { label: 'Immatriculation', href: '/immatriculation' },
   { label: 'Catalogue', href: '/catalogue' },
   { label: 'Comment ça fonctionne', href: '/comment-ca-fonctionne' },
   { label: 'Tarifs', href: '/tarifs' },
@@ -24,8 +32,12 @@ export const NAV = [
 
 export const ARGUMENTS = [
   {
+    title: 'Zéro malus, zéro TVA',
+    text: 'Le véhicule est porté par une société de location européenne, structurée avec nos avocats partenaires : le malus français (jusqu’à 80 000 €) et la TVA (20 %) ne sont pas supportés.',
+  },
+  {
     title: 'Le vrai prix allemand',
-    text: 'En Allemagne, la même voiture coûte des milliers d’euros de moins. Corsiva Prime vous fait profiter de cet écart sans contrainte.',
+    text: 'En Allemagne, la même voiture coûte des milliers d’euros de moins. Grâce à notre réseau de concessions partenaires et à leurs remises négociées, Corsiva Prime vous fait profiter de cet écart sans contrainte.',
   },
   {
     title: 'Tout est géré, de A à Z',
@@ -37,48 +49,9 @@ export const ARGUMENTS = [
   },
   {
     title: 'Une entité du groupe Corsiva',
-    text: 'L’exigence premium, déjà éprouvée : location de prestige, conciergerie et sourcing depuis Chambéry, 4,9 sur Google.',
+    text: `Plus de ${STATS.voitures} voitures déjà immatriculées avec Corsiva Prime. L’exigence premium, déjà éprouvée : location de prestige, conciergerie et sourcing depuis Chambéry, ${STATS.noteGoogle} sur Google (${STATS.avisGoogle} avis).`,
   },
 ]
-
-export const EXEMPLES = {
-  neufs: [
-    {
-      modele: 'BMW M3 Competition 2025',
-      prixFrance: 133_000,
-      prixAllemagne: 107_600,
-      ecart: 25_400,
-      malus: 80_000,
-      tva: 21_500,
-      total: 126_900,
-      img: '/media/photos/m3-garage-3-4.jpg',
-      catalogue: 'm3',
-    },
-    {
-      modele: 'Mercedes Classe G 2026',
-      prixFrance: 209_000,
-      prixAllemagne: 193_000,
-      ecart: 16_000,
-      malus: 80_000,
-      tva: 38_600,
-      total: 134_600,
-      img: '/media/photos/g-3-4-avant.jpg',
-      catalogue: 'g',
-    },
-  ],
-  occasions: [
-    {
-      modele: 'Porsche 911 (992) GTS',
-      detail: 'occasion, moins de 8 000 km',
-      prixFrance: 200_000,
-      prixAllemagne: 190_000,
-      ecart: 10_000,
-      tva: 38_000,
-      total: 48_000,
-      catalogue: '911-gts',
-    },
-  ],
-}
 
 export const PHASES = [
   {

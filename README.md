@@ -34,7 +34,7 @@ Sans clé, les routes API répondent quand même : le simulateur affiche le rés
 
 ## Où vit quoi
 
-- `lib/site.ts` — textes du brief (arguments, exemples chiffrés, phases, FAQ, coordonnées).
+- `lib/site.ts` — textes du brief (arguments, phases, FAQ, coordonnées, chiffres du dirigeant) ; `lib/catalogue.ts` — véhicules, chiffres et packages.
 - `lib/malus.ts` — barèmes légaux 2026 (malus CO₂, malus au poids, décote occasion) et la règle de calcul du simulateur. Sources : LF n° 2025-127, fiche service-public F35947.
 - `components/Simulateur.tsx` — le simulateur (déverrouillage téléphone + e-mail, POST `/api/simulation`).
 - `app/api/simulation`, `app/api/contact` — envoi Resend (équipe + copie au prospect), échappement HTML, pot de miel.

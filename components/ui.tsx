@@ -13,13 +13,9 @@ export function Arrow({ className = 'w-4 h-4' }: { className?: string }) {
 
 export function Check({ blue = false }: { blue?: boolean }) {
   return (
-    <span
-      className="flex-shrink-0 w-5 h-5 rounded-full inline-flex items-center justify-center mt-0.5"
-      style={{ background: blue ? 'rgba(0,69,255,0.12)' : 'rgba(0,153,255,0.16)' }}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 20 20" className="w-3 h-3" fill="none" stroke={blue ? '#0045ff' : '#0099ff'} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10.5l4 4 8-9" /></svg>
-    </span>
+    <svg viewBox="0 0 20 20" className="flex-shrink-0 w-[18px] h-[18px] mt-0.5" fill="none" stroke={blue ? '#0045ff' : '#0099ff'} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 10.5l4 4 8-9" />
+    </svg>
   )
 }
 

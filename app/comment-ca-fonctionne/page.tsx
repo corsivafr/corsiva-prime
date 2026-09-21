@@ -68,7 +68,7 @@ export default function Page() {
         <Wrap>
           <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 lg:items-center">
             <div className="lg:col-span-6 rise rise-scale zoom-media relative overflow-hidden rounded-[30px]" style={{ aspectRatio: '4 / 3' }}>
-              <Image src="/media/photos/cayenne-interieur.jpg" alt="Intérieur d’un Porsche Cayenne" fill quality={86} sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
+              <Image src="/media/photos/urus-interieur-2.jpg" alt="Intérieur d’un véhicule importé" fill quality={86} sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
             </div>
             <div className="lg:col-span-6">
               <Title a="Le déplacement," b="organisé de bout en bout." />
@@ -84,7 +84,7 @@ export default function Page() {
       </Section>
 
       <Packages lead={false} />
-      <FAQ tone="light" />
+      <FAQ />
       <CTA />
     </>
   )

@@ -44,12 +44,12 @@ export const VEHICULES: Vehicule[] = [
     version: '2025',
     etat: 'neuf',
     categorie: 'sport',
-    detail: 'Berline sport, configuration sur mesure en concession allemande.',
-    cover: '/media/photos/m3-lac-1.jpg',
-    coverPosition: 'center 60%',
-    photos: ['/media/photos/m3-lac-1.jpg', '/media/photos/m3-garage-3-4.jpg', '/media/photos/m3-volant.jpg', '/media/photos/m3-sieges.jpg', '/media/photos/m3-garage-arriere.jpg', '/media/photos/m3-lac-5.jpg'],
+    detail: 'Berline sport, configuration sur mesure chez une concession partenaire allemande.',
+    cover: '/media/photos/m3c-face.jpg',
+    coverPosition: 'center 55%',
+    photos: ['/media/photos/m3c-face.jpg', '/media/photos/m3c-3-4.jpg', '/media/photos/m3c-portrait.jpg', '/media/photos/m3-volant.jpg', '/media/photos/m3-sieges.jpg'],
     chiffres: { prixFranceTTC: 133_000, prixAllemagneHT: 107_600, co2: 230, masse: 1_780, energie: 'thermique', occasionMois: 0 },
-    points: ['Neuf, configurée à votre goût', 'Malus 2026 au plafond en France', 'Livraison France en transport fermé'],
+    points: ['Neuve, configurée à votre goût', 'Malus 2026 au plafond en France', 'Livraison France en transport fermé'],
   },
   {
     id: 'g',
@@ -60,9 +60,9 @@ export const VEHICULES: Vehicule[] = [
     etat: 'neuf',
     categorie: 'suv',
     detail: 'Le tout-terrain de luxe, très recherché, aux délais souvent plus courts en Allemagne.',
-    cover: '/media/photos/g-3-4-avant.jpg',
-    coverPosition: 'center 55%',
-    photos: ['/media/photos/g-3-4-avant.jpg', '/media/photos/g-3-4-arriere.jpg', '/media/photos/g-interieur.jpg', '/media/photos/g-detail.jpg'],
+    cover: '/media/photos/g63-face.jpg',
+    coverPosition: 'center 50%',
+    photos: ['/media/photos/g63-face.jpg', '/media/photos/g63-arriere.jpg', '/media/photos/g63-detail.jpg'],
     chiffres: { prixFranceTTC: 209_000, prixAllemagneHT: 193_000, co2: 285, masse: 2_545, energie: 'thermique', occasionMois: 0 },
     points: ['Neuf, millésime 2026', 'Malus CO₂ et poids au plafond en France', 'Covering possible avant livraison'],
   },
@@ -73,49 +73,12 @@ export const VEHICULES: Vehicule[] = [
     modele: '911 (992) GTS',
     etat: 'occasion',
     categorie: 'sport',
-    detail: 'Occasion récente, moins de 8 000 km, sélectionnée chez un distributeur officiel.',
-    photos: [],
-    chiffres: { prixFranceTTC: 200_000, prixAllemagneHT: 190_000, co2: 255, masse: 1_595, energie: 'thermique', occasionMois: 12 },
-    points: ['Occasion récente, historique contrôlé', 'Décote du malus selon l’ancienneté', 'Inspection avant achat'],
-  },
-  {
-    id: 'taycan',
-    marque: 'Porsche',
-    logo: '/media/logos/porsche.svg',
-    modele: 'Taycan',
-    etat: 'neuf',
-    categorie: 'electrique',
-    detail: 'Berline électrique : pas de malus, la TVA et l’écart de prix restent.',
-    cover: '/media/photos/taycan-3-4-avant.jpg',
-    coverPosition: 'center 60%',
-    photos: ['/media/photos/taycan-3-4-avant.jpg', '/media/photos/taycan-profil.jpg', '/media/photos/taycan-detail.jpg'],
-    points: ['Électrique : exonérée de malus', 'TVA 20 % non supportée par la société', 'Chiffrage sur demande'],
-  },
-  {
-    id: 'cayenne',
-    marque: 'Porsche',
-    logo: '/media/logos/porsche.svg',
-    modele: 'Cayenne',
-    etat: 'neuf',
-    categorie: 'suv',
-    detail: 'SUV premium, fortement taxé au poids en France.',
-    cover: '/media/photos/cayenne-3-4-avant.jpg',
+    detail: 'Occasion récente, état neuf, moins de 5 000 km, sélectionnée chez un distributeur officiel.',
+    cover: '/media/photos/911-avant.jpg',
     coverPosition: 'center 45%',
-    photos: ['/media/photos/cayenne-3-4-avant.jpg', '/media/photos/cayenne-interieur.jpg'],
-    points: ['Malus au poids élevé en France', 'Neuf ou occasion récente', 'Chiffrage sur demande'],
-  },
-  {
-    id: 'cla',
-    marque: 'Mercedes-Benz',
-    logo: '/media/logos/mercedes.svg',
-    modele: 'CLA',
-    etat: 'occasion',
-    categorie: 'compacte',
-    detail: 'Coupé quatre portes, très présent sur le marché allemand de l’occasion récente.',
-    cover: '/media/photos/cla-3-4-avant.jpg',
-    coverPosition: 'center 55%',
-    photos: ['/media/photos/cla-3-4-avant.jpg'],
-    points: ['Occasion récente', 'Large choix en Allemagne', 'Chiffrage sur demande'],
+    photos: ['/media/photos/911-avant.jpg', '/media/photos/911-arriere.jpg'],
+    chiffres: { prixFranceTTC: 200_000, prixAllemagneHT: 190_000, co2: 255, masse: 1_595, energie: 'thermique', occasionMois: 12 },
+    points: ['Occasion récente, moins de 5 000 km', 'Décote du malus selon l’ancienneté', 'Inspection avant achat'],
   },
 ]
 
@@ -123,16 +86,7 @@ export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche'] as const
 
 export type PackageId = 'import' | 'import-immat'
 
-export const PACKAGES: { id: PackageId; name: string; court: string; accroche: string; items: string[]; duree: string; semaines: number; featured?: boolean }[] = [
-  {
-    id: 'import',
-    name: 'Import',
-    court: 'Import seul',
-    accroche: 'La bonne voiture, au bon prix, livrée en France. Vous immatriculez en France.',
-    items: ['Cahier des charges et validation du modèle', 'Sourcing en Allemagne et négociation', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Carte grise française et formalités'],
-    duree: '3 à 4 semaines',
-    semaines: 4,
-  },
+export const PACKAGES: { id: PackageId; name: string; court: string; accroche: string; items: string[]; duree: string; semaines: number; featured?: boolean; img: string }[] = [
   {
     id: 'import-immat',
     name: 'Import + immatriculation européenne',
@@ -142,14 +96,24 @@ export const PACKAGES: { id: PackageId; name: string; court: string; accroche: s
     duree: 'environ 5 semaines',
     semaines: 5,
     featured: true,
+    img: '/media/photos/g63-arriere.jpg',
+  },
+  {
+    id: 'import',
+    name: 'Import',
+    court: 'Import seul',
+    accroche: 'La bonne voiture, au bon prix, livrée en France. Vous immatriculez en France.',
+    items: ['Cahier des charges et validation du modèle', 'Sourcing chez nos concessions partenaires, remises négociées', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Carte grise française et formalités'],
+    duree: '3 à 4 semaines',
+    semaines: 4,
+    img: '/media/photos/rsq8-arriere.jpg',
   },
 ]
 
+export const OPTIONS_IMG = '/media/photos/urus-interieur.jpg'
+
 export const OPTIONS: { id: string; name: string; text: string }[] = [
-  { id: 'covering', name: 'Covering complet', text: 'Teinte au choix, posé avant la livraison.' },
-  { id: 'preparation', name: 'Préparation esthétique', text: 'Détail complet et protection avant remise des clés.' },
-  { id: 'revente', name: 'Accompagnement à la revente', text: 'Estimation, mise en vente et accompagnement le jour venu.' },
-  { id: 'conciergerie', name: 'Conciergerie du groupe Corsiva', text: 'Entretien, gardiennage, convoyage : on s’occupe de la voiture.' },
+  { id: 'covering', name: 'Covering complet', text: 'Teinte au choix, posé pendant la phase d’acquisition, avant la livraison.' },
 ]
 
 export const CATEGORIES: Record<Categorie, string> = { berline: 'Berline', suv: 'SUV', sport: 'Sport', electrique: 'Électrique', compacte: 'Compacte' }

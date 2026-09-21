@@ -19,14 +19,14 @@ const DECOTE_ROWS = [3, 12, 24, 36, 60, 120, 180, 181]
 
 function Tab({ head, rows }: { head: [string, string]; rows: [string, string][] }) {
   return (
-    <table className="w-full text-[14px] tabular">
+    <div className="tbl-scroll"><table className="w-full text-[14px] tabular">
       <thead><tr className="text-left text-[12.5px]" style={{ color: 'var(--ink-3)' }}><th className="py-2 font-medium">{head[0]}</th><th className="py-2 font-medium text-right">{head[1]}</th></tr></thead>
       <tbody>
         {rows.map((r) => (
           <tr key={r[0]} className="border-t" style={{ borderColor: 'var(--hairline)' }}><td className="py-2.5">{r[0]}</td><td className="py-2.5 text-right font-medium">{r[1]}</td></tr>
         ))}
       </tbody>
-    </table>
+    </table></div>
   )
 }
 
@@ -37,9 +37,8 @@ export default function Page() {
         a="Simulez"
         b="votre gain."
         lead="Prix France, prix Allemagne, CO₂, masse : la règle complète du malus 2026 et la TVA, appliquées à la voiture que vous visez."
-        image="/media/photos/m3-lac-8.jpg"
-        imageMobile="/media/photos/m3-lac-portrait.jpg"
-        position="center 45%"
+        image="/media/photos/m3c-face.jpg"
+        position="center 55%"
       />
       <SimulateurSection full />
 

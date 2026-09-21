@@ -42,7 +42,7 @@ export default function ContactForm() {
           <svg viewBox="0 0 20 20" className="w-5 h-5" fill="none" stroke="#0045ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10.5l4 4 8-9" /></svg>
         </span>
         <h3 className="text-[22px] mt-4">Message bien reçu.</h3>
-        <p className="text-[15px] mt-2" style={{ color: 'var(--ink-2)' }}>Un conseiller vous rappelle sous 24 h, 7j/7 de 9h à 18h.</p>
+        <p className="text-[15px] mt-2" style={{ color: 'var(--ink-2)' }}>Un conseiller vous rappelle rapidement, 7j/7 de 9h à 18h.</p>
       </div>
     )
   }
@@ -63,11 +63,11 @@ export default function ContactForm() {
         <textarea id="c-projet" className="field min-h-[130px] resize-y" value={f.projet} onChange={set('projet')} placeholder="Modèle visé, budget, calendrier, neuf ou occasion…" maxLength={2000} />
       </div>
       <input type="text" name="site" value={f.site} onChange={set('site')} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-      <button type="submit" className="btn btn-primary w-full sm:w-auto sm:self-start" disabled={etat === 'sending'}>
+      <button type="submit" className="btn-w w-full sm:w-auto sm:self-start" disabled={etat === 'sending'}>
         {etat === 'sending' ? 'Envoi…' : 'Envoyer mon projet'} <Arrow />
       </button>
       {etat === 'error' && <p className="text-[13px]" style={{ color: '#ef4444' }}>Vérifiez le nom, le téléphone et l’e-mail, puis réessayez.</p>}
-      <p className="text-[11.5px] leading-relaxed" style={{ color: 'var(--ink-3)' }}>Vos données servent uniquement à traiter votre demande. Elles ne sont jamais cédées.</p>
+      <p className="text-[12px] leading-relaxed" style={{ color: 'var(--ink-3)' }}>Vos données servent uniquement à traiter votre demande. Elles ne sont jamais cédées.</p>
     </form>
   )
 }

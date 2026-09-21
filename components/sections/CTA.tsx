@@ -4,7 +4,7 @@ import { Wrap, Arrow } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 /* Appel à l'action final : la bande RDV de Corsiva OS — panneau nuit, filet bleu, halo, centré. */
-export default function CTA({ title = ['Votre prochaine voiture', 'vous attend en Allemagne.'], text = 'Parlons de votre projet. Un conseiller vous répond sous 24 h, avec un premier chiffrage.' }: { title?: [string, string]; text?: string }) {
+export default function CTA({ title = ['Votre prochaine voiture', 'vous attend en Allemagne.'], text = 'Parlons de votre projet. Un conseiller vous rappelle rapidement, avec un premier chiffrage.' }: { title?: [string, string]; text?: string }) {
   return (
     <section className="relative py-20 sm:py-28">
       <Wrap>

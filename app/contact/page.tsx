@@ -10,7 +10,7 @@ import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Contact : parlons de votre projet',
-  description: 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime vous répond 7j/7 de 9h à 18h et vous reçoit à Paris, sur rendez-vous.',
+  description: 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime vous répond 7j/7 de 9h à 18h, vous reçoit à Paris et se déplace partout en France : Paris, Lyon, Chambéry, Annecy.',
   alternates: { canonical: `${SITE.url}/contact` },
 }
 
@@ -18,18 +18,17 @@ export default function Page() {
   const cartes = [
     { t: 'Téléphone', v: SITE.phone, s: '7j/7, de 9h à 18h', href: SITE.phoneTel, icon: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /> },
     { t: 'WhatsApp', v: 'Écrire un message', s: 'Réponse rapide, photos et annonces bienvenues', href: SITE.whatsapp, ext: true, icon: <path d="M4 20l1.3-3.9A8 8 0 1 1 8.2 19.1L4 20zM9 9.5c.3 2.4 2.8 4.9 5.2 5.2l1.2-1.2-1.8-.9-.9.6c-.9-.4-1.8-1.3-2.2-2.2l.6-.9-.9-1.8L9 9.5z" /> },
-    { t: 'E-mail', v: SITE.email, s: 'Réponse sous 24 h', href: `mailto:${SITE.email}`, icon: <path d="M4 6h16v12H4zM4 7l8 6 8-6" /> },
-    { t: 'Nos équipes', v: 'Paris, sur rendez-vous', s: 'Groupe Corsiva · siège à Chambéry', href: '#formulaire', icon: <path d="M12 21s7-4.4 7-10.5A7 7 0 0 0 5 10.5C5 16.6 12 21 12 21zM12 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" /> },
+    { t: 'E-mail', v: SITE.email, s: 'Réponse rapide', href: `mailto:${SITE.email}`, icon: <path d="M4 6h16v12H4zM4 7l8 6 8-6" /> },
+    { t: 'Nos conseillers', v: SITE.villes.join(' · '), s: 'Reçus à Paris, déplacements partout en France', href: '#formulaire', icon: <path d="M12 21s7-4.4 7-10.5A7 7 0 0 0 5 10.5C5 16.6 12 21 12 21zM12 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" /> },
   ]
   return (
     <>
       <PageHero
         a="Votre prochaine voiture"
         b="vous attend en Allemagne."
-        lead="Parlons de votre projet. Un conseiller vous répond sous 24 h, avec un premier chiffrage."
-        image="/media/photos/m3-volant.jpg"
-        imageMobile="/media/photos/m3-lac-portrait.jpg"
-        position="center 45%"
+        lead="Parlons de votre projet. Un conseiller vous rappelle rapidement, avec un premier chiffrage."
+        image="/media/photos/paris.jpg"
+        position="center 40%"
       />
 
       <Section tone="light" id="formulaire">
@@ -67,14 +66,14 @@ export default function Page() {
         <Wrap>
           <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:items-center">
             <div className="lg:col-span-6 rise rise-scale zoom-media relative overflow-hidden rounded-[30px]" style={{ aspectRatio: '16 / 10' }}>
-              <Image src="/media/photos/taycan-profil.jpg" alt="Porsche Taycan du groupe Corsiva" fill quality={86} sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
+              <Image src="/media/photos/paris.jpg" alt="Paris" fill quality={86} sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
             </div>
             <div className="lg:col-span-6">
-              <Title a="Une équipe à Paris," b="un groupe en Savoie." />
-              <Lead className="mt-6">Corsiva Prime est une entité du groupe Corsiva : location de prestige, conciergerie et sourcing depuis Chambéry, 4,9 sur Google. Nos conseillers vous reçoivent à Paris, sur rendez-vous.</Lead>
+              <Title a="Une équipe à Paris," b="partout en France." />
+              <Lead className="mt-6">Corsiva Prime est une entité du groupe Corsiva : location de prestige, conciergerie et sourcing depuis Chambéry, 4,9 sur Google. Nos conseillers vous reçoivent à Paris et se déplacent partout en France : Paris, Lyon, Chambéry, Annecy.</Lead>
               <div className="rise grid grid-cols-2 gap-4 mt-8" style={d(0.16)}>
                 <div className="card p-5"><p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Horaires</p><p className="text-[16px] font-semibold mt-1">7j/7 · 9h – 18h</p></div>
-                <div className="card p-5"><p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Siège du groupe</p><p className="text-[16px] font-semibold mt-1">Chambéry, Savoie</p></div>
+                <div className="card p-5"><p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Déplacements</p><p className="text-[16px] font-semibold mt-1">{SITE.villes.join(' · ')}</p></div>
               </div>
             </div>
           </Reveal>

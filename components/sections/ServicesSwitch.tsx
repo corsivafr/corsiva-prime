@@ -4,23 +4,24 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Arrow, Check } from '@/components/ui'
+import { STATS } from '@/lib/site'
 
 /* Les deux services en onglets : le visuel change en fondu, la liste se redéploie à chaque bascule.
    Défilement automatique toutes les 7 s jusqu'au premier clic. */
 const S = [
   {
-    id: 'import', n: '01', title: 'Import depuis l’Allemagne', short: 'Import',
-    text: 'On trouve la voiture, on la contrôle, on la négocie, on la livre en France. Vous immatriculez chez vous, on gère les formalités.',
-    img: '/media/photos/m3-aeroport-2.jpg', pos: 'center 55%',
-    items: ['Cahier des charges et validation du modèle', 'Sourcing chez les distributeurs officiels', 'Inspection, historique, négociation', 'Transport fermé privé jusqu’à chez vous', 'Carte grise et formalités'],
-    delai: '3 à 4 semaines', gain: 'L’écart de prix allemand', href: '/import',
+    id: 'immat', n: '01', title: 'Immatriculation en société européenne', short: 'Zéro malus, zéro TVA',
+    text: `Une société de location porteuse, structurée avec notre avocat partenaire : ni malus, ni TVA à supporter, ni prix français. Plus de ${STATS.voitures} voitures déjà immatriculées ainsi. Vous roulez partout en Europe.`,
+    img: '/media/photos/m3c-3-4.jpg', pos: 'center 55%',
+    items: ['Société européenne créée avec notre avocat partenaire', 'Déplacement organisé, hôtel 5 étoiles inclus', 'Immatriculation européenne, récupération de TVA', 'Malus français non supporté (jusqu’à 80 000 €)', 'Assurance simplifiée et allégée'],
+    delai: 'environ 5 semaines', gain: 'Écart + TVA + malus non supportés', href: '/immatriculation',
   },
   {
-    id: 'immat', n: '02', title: 'Immatriculation en société européenne', short: 'Immatriculation',
-    text: 'Une société de location porteuse, structurée avec notre avocat partenaire : ni malus, ni TVA à supporter, ni prix français. Vous roulez partout en Europe.',
-    img: '/media/photos/m3-garage-3-4.jpg', pos: 'center 55%',
-    items: ['Société européenne créée avec notre avocat partenaire', 'Déplacement organisé, hôtel 5 étoiles inclus', 'Immatriculation européenne, récupération de TVA', 'Malus français non supporté', 'Assurance simplifiée et allégée'],
-    delai: 'environ 5 semaines', gain: 'Écart + TVA + malus non supportés', href: '/immatriculation',
+    id: 'import', n: '02', title: 'Import depuis l’Allemagne', short: 'Import clé en main',
+    text: 'On trouve la voiture chez nos concessions partenaires, on négocie la remise, on la contrôle, on la livre en France. Vous immatriculez chez vous, on gère les formalités.',
+    img: '/media/photos/rsq8-arriere.jpg', pos: 'center 50%',
+    items: ['Cahier des charges et validation du modèle', 'Réseau de concessions partenaires, remises négociées', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Carte grise et formalités'],
+    delai: '3 à 4 semaines', gain: 'L’écart de prix allemand, remise comprise', href: '/import',
   },
 ]
 const DUR = 7000
@@ -44,7 +45,8 @@ export default function ServicesSwitch() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8">
       {/* ── Visuel ── */}
-      <div className="lg:col-span-7 relative overflow-hidden rounded-[30px]" style={{ aspectRatio: '4 / 3', background: '#0a0a0a', minHeight: 320 }}>
+      {/* Pas de min-height ici : avec aspect-ratio, une hauteur minimale se transfère en largeur minimale et fait déborder le mobile. */}
+      <div className="lg:col-span-7 relative overflow-hidden rounded-[30px]" style={{ aspectRatio: '4 / 3', background: '#0a0a0a' }}>
         {S.map((x, k) => (
           <Image key={x.id} src={x.img} alt="" fill quality={84} sizes="(max-width: 1023px) 100vw, 58vw" className="object-cover"
             style={{ objectPosition: x.pos, opacity: k === i ? 1 : 0, transform: k === i ? 'scale(1)' : 'scale(1.06)', transition: 'opacity 0.9s var(--ease), transform 1.4s var(--ease)' }} />
@@ -90,17 +92,17 @@ export default function ServicesSwitch() {
           </ul>
           <div className="pop grid grid-cols-2 gap-3 mt-6" style={{ ['--d' as string]: '0.4s' }}>
             <div className="rounded-[15px] p-3.5" style={{ background: 'var(--surface-2)' }}>
-              <p className="text-[11.5px]" style={{ color: 'var(--ink-3)' }}>Délai indicatif</p>
+              <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>Délai indicatif</p>
               <p className="text-[14.5px] font-semibold mt-0.5">{s.delai}</p>
             </div>
             <div className="rounded-[15px] p-3.5" style={{ background: 'var(--surface-2)' }}>
-              <p className="text-[11.5px]" style={{ color: 'var(--ink-3)' }}>Votre gain</p>
+              <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>Votre gain</p>
               <p className="text-[14.5px] font-semibold mt-0.5" style={{ color: 'var(--blue)' }}>{s.gain}</p>
             </div>
           </div>
           <div className="pop flex flex-col sm:flex-row gap-3 mt-6" style={{ ['--d' as string]: '0.5s' }}>
-            <Link href={s.href} className="btn btn-primary flex-1">Découvrir <Arrow /></Link>
-            <Link href="/catalogue" className="btn btn-secondary flex-1">Configurer un package</Link>
+            <Link href={s.href} className="btn-w flex-1">Découvrir <Arrow /></Link>
+            <Link href="/catalogue" className="btn-dark flex-1">Configurer un package</Link>
           </div>
         </div>
       </div>

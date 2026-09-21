@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { simuler, euro, type Energie, type Resultat, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
 import { Arrow } from '@/components/ui'
+import { VEHICULES } from '@/lib/catalogue'
+import { SITE } from '@/lib/site'
 
 /* Points de départ : prix du brief ; CO₂ et masse = données constructeur indicatives (WLTP),
    à vérifier sur le certificat de conformité du véhicule visé. */
-const PRESETS = [
-  { id: 'm3', label: 'BMW M3 Competition', prixFR: 133_000, prixDE: 107_600, co2: 230, masse: 1_780, energie: 'thermique' as Energie, mois: 0 },
-  { id: 'g', label: 'Mercedes Classe G 500', prixFR: 209_000, prixDE: 193_000, co2: 285, masse: 2_545, energie: 'thermique' as Energie, mois: 0 },
-  { id: '911', label: 'Porsche 911 GTS · occasion', prixFR: 200_000, prixDE: 190_000, co2: 255, masse: 1_595, energie: 'thermique' as Energie, mois: 12 },
-]
+const PRESETS = VEHICULES.filter((v) => v.chiffres).map((v) => ({
+  id: v.id,
+  label: `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}${v.etat === 'occasion' ? ' · occasion' : ''}`,
+  prixFR: v.chiffres!.prixFranceTTC, prixDE: v.chiffres!.prixAllemagneHT, co2: v.chiffres!.co2, masse: v.chiffres!.masse, energie: v.chiffres!.energie, mois: v.chiffres!.occasionMois,
+}))
 
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s)
 const isPhone = (s: string) => { const d = s.replace(/\D/g, ''); return d.length >= 9 && d.length <= 15 }
@@ -63,6 +65,8 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
   const [site, setSite] = useState('')
   const [etat, setEtat] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const [res, setRes] = useState<Resultat | null>(null)
+  const [mailed, setMailed] = useState(false)
+  const [sendFailed, setSendFailed] = useState(false)
   const resultRef = useRef<HTMLDivElement>(null)
 
   const applyPreset = (id: string) => {
@@ -87,11 +91,11 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
       const r = await fetch('/api/simulation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       const j = await r.json()
       if (!r.ok || !j.ok) throw new Error(j.error || 'erreur')
-      setRes(j.resultat as Resultat); setEtat('done')
+      setRes(j.resultat as Resultat); setMailed(!!j.mailed); setSendFailed(false); setEtat('done')
       window.setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80)
     } catch {
-      // Le calcul est local : on affiche quand même le résultat, l'équipe est prévenue par les journaux serveur.
-      setRes(apercu); setEtat(apercu ? 'done' : 'error')
+      // Le calcul est local : on affiche le résultat, mais on dit clairement que la demande n'est pas partie.
+      setRes(apercu); setMailed(false); setSendFailed(true); setEtat(apercu ? 'done' : 'error')
     }
   }
 
@@ -155,7 +159,7 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
         {/* ── Déverrouillage : téléphone + e-mail ── */}
         <div className="rounded-[15px] p-4 sm:p-5" style={{ background: 'var(--surface-2)', border: '1px solid var(--hairline)' }}>
           <p className="text-[15px] font-semibold" style={{ letterSpacing: '-0.01em' }}>Lancer la simulation</p>
-          <p className="text-[13px] mt-1" style={{ color: 'var(--ink-2)' }}>Le détail vous est envoyé par e-mail et un conseiller vous rappelle sous 24 h.</p>
+          <p className="text-[13px] mt-1" style={{ color: 'var(--ink-2)' }}>Un conseiller vous rappelle rapidement pour le valider avec vous.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
             <div>
               <label htmlFor="sim-tel" className="label">Téléphone</label>
@@ -167,12 +171,12 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
             </div>
           </div>
           <input type="text" name="site" value={site} onChange={(e) => setSite(e.target.value)} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-          <button type="submit" className="btn btn-blue w-full mt-4" disabled={!valid || !contactOk || etat === 'sending'} style={!valid || !contactOk ? { opacity: 0.55, boxShadow: 'none' } : undefined}>
+          <button type="submit" className="btn-cta w-full mt-4" disabled={!valid || !contactOk || etat === 'sending'} style={!valid || !contactOk ? { opacity: 0.55, boxShadow: 'none' } : undefined}>
             {etat === 'sending' ? 'Calcul en cours…' : etat === 'done' ? 'Relancer la simulation' : 'Lancer la simulation'} <Arrow />
           </button>
           {!contactOk && (tel || email) && <p className="text-[12px] mt-2" style={{ color: 'var(--ink-3)' }}>Un téléphone et un e-mail valides sont nécessaires pour lancer le calcul.</p>}
           {etat === 'error' && <p className="text-[13px] mt-2" style={{ color: '#ef4444' }}>Vérifiez les valeurs saisies.</p>}
-          <p className="text-[11.5px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>En lançant la simulation, vous acceptez d’être recontacté par Corsiva Prime au sujet de votre projet. Vos données ne sont jamais cédées.</p>
+          <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>En lançant la simulation, vous acceptez d’être recontacté par Corsiva Prime au sujet de votre projet. Vos données ne sont jamais cédées.</p>
         </div>
       </form>
 
@@ -189,6 +193,8 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
             </p>
           )}
           <p className="text-[13px] mt-4 muted">{modele || 'Votre véhicule'} · {occasion ? `occasion, ${mois} mois` : 'neuf'} · barème {ANNEE_BAREME}</p>
+          {unlocked && !sendFailed && <p className="text-[12.5px] mt-2 muted">{mailed ? 'Le détail vous a été envoyé par e-mail. ' : ''}Un conseiller vous rappelle rapidement.</p>}
+          {unlocked && sendFailed && <p className="text-[12.5px] mt-2" style={{ color: '#ffd7d7' }}>Votre demande n’a pas pu être transmise. Appelez-nous au {SITE.phone} ou réessayez dans un instant.</p>}
         </div>
 
         <div className={`card p-6 sm:p-7 ${unlocked ? 'unlocked' : 'locked'}`} aria-hidden={!unlocked}>

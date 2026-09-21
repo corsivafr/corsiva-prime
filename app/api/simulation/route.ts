@@ -43,6 +43,7 @@ export async function POST(req: Request) {
     ${ligne('État', esc(etat))}
     ${ligne('Énergie', libEnergie)}
     ${ligne('Prix France TTC', euro(prixFranceTTC))}
+    ${ligne('Coût réel en France, malus inclus', euro(prixFranceTTC + r.malusTotal))}
     ${ligne('Prix Allemagne HT', euro(prixAllemagneHT))}
     ${ligne('CO₂ WLTP / masse', `${co2} g/km · ${masse} kg`)}
     ${ligne('Écart d’achat', euro(r.ecartAchat))}
@@ -61,12 +62,12 @@ export async function POST(req: Request) {
        ${ligne('E-mail', `<a href="mailto:${esc(email)}" style="color:#0045ff;text-decoration:none">${esc(email)}</a>`)}
      </table>
      ${tableau}
-     <p style="margin:16px 0 0;font-size:12px;color:rgba(10,10,10,0.5)">Barème ${ANNEE_BAREME} (loi de finances n° 2025-127, fiche service-public F35947). À rappeler sous 24 h.</p>`
+     <p style="margin:16px 0 0;font-size:12px;color:rgba(10,10,10,0.5)">Barème ${ANNEE_BAREME} (loi de finances n° 2025-127, fiche service-public F35947). À rappeler.</p>`
   )
 
   const htmlProspect = gabarit(
     `Votre simulation Corsiva Prime : ${euro(r.avantageTotal)} d’avantage estimé`,
-    `<p style="margin:0 0 12px;font-size:15px;line-height:1.5">Bonjour,<br>voici le détail de la simulation que vous venez de lancer sur ${esc(SITE.name)}. Un conseiller vous rappelle sous 24 h pour la valider avec vous.</p>
+    `<p style="margin:0 0 12px;font-size:15px;line-height:1.5">Bonjour,<br>voici le détail de la simulation que vous venez de lancer sur ${esc(SITE.name)}. Un conseiller vous rappelle rapidement pour la valider avec vous.</p>
      ${tableau}
      <p style="margin:18px 0 0;font-size:12.5px;line-height:1.5;color:rgba(10,10,10,0.6)">Simulation indicative et non contractuelle, calculée sur le barème français ${ANNEE_BAREME} du malus (CO₂ et poids, plafond ${euro(PLAFOND_MALUS)}) et une TVA de 20 % sur le prix d’achat hors taxes. Le montage effectif dépend de votre situation ; il est structuré avec nos avocats partenaires.</p>
      <p style="margin:18px 0 0;font-size:14px"><a href="${SITE.phoneTel}" style="color:#0045ff;text-decoration:none;font-weight:600">${SITE.phone}</a> · <a href="${SITE.whatsapp}" style="color:#0045ff;text-decoration:none;font-weight:600">WhatsApp</a></p>`

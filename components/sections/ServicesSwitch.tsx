@@ -12,14 +12,14 @@ const S = [
   {
     id: 'immat', n: '01', title: 'Immatriculation en société européenne', short: 'Zéro malus, zéro TVA',
     text: `Une structure européenne encadrée par nos avocats partenaires : ni malus, ni TVA à supporter, ni prix français. Plus de ${STATS.voitures} voitures déjà immatriculées ainsi. Vous roulez partout en Europe.`,
-    img: '/media/photos/taycan-3-4-avant.jpg', pos: 'center 55%',
+    img: '/media/photos/m3c-3-4.jpg', pos: 'center 55%',
     items: ['Structure européenne mise en place avec nos avocats partenaires', 'Déplacement organisé, hôtel 5 étoiles inclus', 'Immatriculation européenne, récupération de TVA', 'Malus français non supporté (jusqu’à 80 000 €)', 'Assurance simplifiée et allégée'],
     delai: 'environ 5 semaines', gain: 'Écart + TVA + malus non supportés', href: '/immatriculation',
   },
   {
     id: 'import', n: '02', title: 'Import depuis l’Allemagne, immatriculée en France', short: 'Import clé en main',
     text: 'On déniche la pépite chez nos concessions partenaires, on négocie le deal, vous choisissez vos options. Inspection, transport fermé, carte grise française : tout est géré jusqu’aux plaques.',
-    img: '/media/photos/m3c-3-4.jpg', pos: 'center 50%',
+    img: '/media/photos/taycan-3-4-avant.jpg', pos: 'center 55%',
     items: ['On déniche la pépite chez nos concessions partenaires', 'Configuration et options au choix, deal négocié', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Immatriculation en France : carte grise et formalités gérées'],
     delai: '3 à 4 semaines', gain: 'L’écart de prix allemand, remise comprise', href: '/import',
   },

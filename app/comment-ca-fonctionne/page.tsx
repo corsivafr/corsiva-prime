@@ -72,7 +72,7 @@ export default function Page() {
             </div>
             <div className="lg:col-span-6">
               <Title a="Le déplacement," b="organisé de bout en bout." />
-              <Lead className="mt-6">La création de la société demande votre présence quelques jours. On s’occupe de tout : vous n’avez qu’à signer.</Lead>
+              <Lead className="mt-6">La structuration européenne demande votre présence quelques jours. On s’occupe de tout : vous n’avez qu’à signer.</Lead>
               <ul className="mt-8 flex flex-col gap-3.5 list-none">
                 {SEJOUR.map((s, i) => (
                   <li key={s} className="rise flex items-start gap-3 text-[15.5px] leading-snug" style={d(0.1 + i * 0.06)}><Check blue /><span>{s}</span></li>

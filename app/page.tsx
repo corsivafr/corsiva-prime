@@ -10,6 +10,7 @@ import SimulateurSection from '@/components/sections/SimulateurSection'
 import Reassurance from '@/components/sections/Reassurance'
 import FAQ from '@/components/sections/FAQ'
 import SeoTexte from '@/components/sections/SeoTexte'
+import ArticlesSection from '@/components/sections/ArticlesSection'
 import CTA from '@/components/sections/CTA'
 import { SITE, FAQ as FAQ_ITEMS } from '@/lib/site'
 
@@ -59,6 +60,7 @@ export default function Home() {
       <Process compact />
       <SimulateurSection />
       <Reassurance />
+      <ArticlesSection />
       <SeoTexte />
       <FAQ />
       <CTA />

@@ -21,7 +21,7 @@ export const HERO_IMAGES = {
   home: { d: '/media/hero/home.jpg', m: '/media/hero/home-m.jpg' },
   import: { d: '/media/hero/import.jpg', m: '/media/hero/import-m.jpg' },
   malus: { d: '/media/hero/malus.jpg', m: '/media/hero/malus-m.jpg' },
-  catalogue: { d: '/media/hero/catalogue.jpg', m: '/media/hero/catalogue-m.jpg' },
+  articles: { d: '/media/hero/articles.jpg', m: '/media/hero/articles-m.jpg' },
   process: { d: '/media/hero/process.jpg', m: '/media/hero/process-m.jpg' },
   tarifs: { d: '/media/hero/tarifs.jpg', m: '/media/hero/tarifs-m.jpg' },
   simulateur: { d: '/media/hero/simulateur.jpg', m: '/media/hero/simulateur-m.jpg' },
@@ -41,6 +41,7 @@ export const NAV = [
   { label: 'Import', href: '/import' },
   { label: 'Comment ça fonctionne', href: '/comment-ca-fonctionne' },
   { label: 'Tarifs', href: '/tarifs' },
+  { label: 'Articles', href: '/articles' },
   { label: 'Contact', href: '/contact' },
 ]
 

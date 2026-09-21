@@ -494,3 +494,29 @@ html:not(.js) .sl-veil { display: none; }
   .hero-pad .lead { -webkit-line-clamp: unset; display: block; }
   section .grid { row-gap: 14px; }
 }
+
+/* Articles : cartes (grille 4 → 2 → 1) et corps de lecture */
+.artgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.artgrid-3 { grid-template-columns: repeat(3, 1fr); max-width: 1080px; margin: 0 auto; }
+@media (max-width: 1023px) { .artgrid, .artgrid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px) { .artgrid { grid-template-columns: 1fr; } }
+.artcard { display: flex; flex-direction: column; min-width: 0; background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 20px; overflow: hidden; color: #fff; text-decoration: none; }
+.artcard-media { position: relative; aspect-ratio: 16 / 10; background: #111; }
+.artcard-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+.artcard-meta { font-size: 12px; color: var(--ink-3); }
+.artcard h3 { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; font-size: 20px; letter-spacing: -0.035em; line-height: 1.15; margin: 10px 0 8px; color: #fff; }
+.artcard p { color: var(--ink-2); font-size: 14px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.artcard-more { margin-top: auto; padding-top: 16px; color: var(--blue); font-size: 13.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
+@media (hover: hover) { .artcard:hover { border-color: rgba(0, 153, 255, 0.45); } }
+.artcover { position: relative; overflow: hidden; border-radius: 30px; aspect-ratio: 21 / 9; border: 1px solid var(--hairline); }
+@media (max-width: 639px) { .artcover { aspect-ratio: 4 / 3; border-radius: 20px; } }
+.art { max-width: 720px; margin: 0 auto; }
+.art .intro { font-size: clamp(18px, 2.2vw, 21px); line-height: 1.55; color: #fff; margin-bottom: 8px; }
+.art h2 { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.04em; line-height: 1.08; margin: 44px 0 14px; color: #fff; overflow-wrap: anywhere; }
+.art p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin: 0 0 16px; }
+.art ul { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.art li { display: flex; gap: 12px; font-size: 16.5px; line-height: 1.6; color: var(--ink-2); }
+.art .note { border-radius: 16px; padding: 18px 20px; background: rgba(0, 153, 255, 0.08); border: 1px solid rgba(0, 153, 255, 0.3); font-size: 15px; line-height: 1.6; color: #fff; margin: 8px 0 16px; }
+.art .note p { color: #fff; font-size: 15px; margin: 0; }
+.art .legal { font-size: 13px; line-height: 1.6; color: var(--ink-3); margin: 36px 0 0; }
+@media (max-width: 639px) { .art p { font-size: 16px; } .art li { font-size: 15.5px; } .art h2 { margin-top: 34px; } }

@@ -40,7 +40,7 @@ export default function Header() {
 
         <div className="links hidden lg:flex">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className={`${pathname === n.href ? 'on' : ''} ${n.href === '/comment-ca-fonctionne' ? 'hidden xl:inline-flex' : ''}`}>{n.label}</Link>
+            <Link key={n.href} href={n.href} className={`${pathname === n.href ? 'on' : ''} ${n.href === '/comment-ca-fonctionne' || n.href === '/articles' ? 'hidden xl:inline-flex' : ''}`}>{n.label}</Link>
           ))}
         </div>
 

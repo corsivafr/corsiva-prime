@@ -481,3 +481,16 @@ html:not(.js) .sl-veil { display: none; }
 /* Hero : respiration verticale, plus courte sur mobile */
 .hero-pad { padding: 140px 0 90px; }
 @media (max-width: 639px) { .hero-pad { padding: 112px 0 64px; } }
+
+/* ══ Mobile : moins de texte à l'écran, plus d'air ═══════════════════════════ */
+@media (max-width: 639px) {
+  .py-20 { padding-top: 64px !important; padding-bottom: 64px !important; }
+  .sechead { margin-bottom: 28px; }
+  .sechead .lead, .fvcard p, .fvspot p, .card-dense p, .plan > p, #process .card p, .faq details p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .faq details[open] p { display: block; -webkit-line-clamp: unset; }
+  .herotrust .ht:nth-child(2), .herotrust .ht:nth-child(3) { display: none; }
+  .fvgrid3, .fvgrid { gap: 12px; }
+  .fvmeta { display: none; }
+  .hero-pad .lead { -webkit-line-clamp: unset; display: block; }
+  section .grid { row-gap: 14px; }
+}

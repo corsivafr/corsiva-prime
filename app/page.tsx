@@ -5,7 +5,6 @@ import Arguments from '@/components/sections/Arguments'
 import Chiffres from '@/components/sections/Chiffres'
 import Reel from '@/components/sections/Reel'
 import Services from '@/components/sections/Services'
-import Exemples from '@/components/sections/Exemples'
 import Process from '@/components/sections/Process'
 import SimulateurSection from '@/components/sections/SimulateurSection'
 import Reassurance from '@/components/sections/Reassurance'
@@ -56,7 +55,6 @@ export default function Home() {
       <Arguments lead="Le même modèle, la même finition, une fiscalité qui n’a rien à voir. Nous prenons tout en charge, de la concession partenaire à la remise des clés." />
       <Chiffres />
       <Services />
-      <Exemples />
       <Reel />
       <Process compact />
       <SimulateurSection />

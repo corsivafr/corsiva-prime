@@ -18,7 +18,8 @@ export default function PepitesPopup() {
   const [site, setSite] = useState('')
   const [etat, setEtat] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const shown = useRef(false)
-  const legal = pathname === '/mentions-legales' || pathname === '/confidentialite'
+  // Les pépites sont le service Import : le pop-up ne vit que sur cette page.
+  const legal = pathname !== '/import'
 
   const remember = (v: string) => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })) } catch {} }
   const close = () => { setOpen(false); remember('dismissed') }

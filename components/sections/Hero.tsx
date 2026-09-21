@@ -32,7 +32,7 @@ export default function Hero() {
         </p>
 
         <div className="hin flex flex-wrap justify-center gap-3" style={{ ['--d' as string]: '0.36s' }}>
-          <Link href="/catalogue" className="btn-cta">Voir les pépites du mois <Arrow /></Link>
+          <Link href="/simulateur" className="btn-cta">Simuler mon gain <Arrow /></Link>
           <a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="btn-w">Prendre un appel <Arrow /></a>
         </div>
 

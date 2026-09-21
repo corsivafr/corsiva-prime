@@ -4,12 +4,14 @@ import PageHero from '@/components/PageHero'
 import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Arguments from '@/components/sections/Arguments'
-import Exemples from '@/components/sections/Exemples'
+import Catalogue from '@/components/Catalogue'
+import PepitesOuvrir from '@/components/PepitesOuvrir'
+import { VEHICULES, prixImport } from '@/lib/catalogue'
 import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import BrandMarquee from '@/components/sections/BrandMarquee'
-import { Section, Wrap, Title, Lead, Check, d } from '@/components/ui'
+import { Section, Wrap, SecHead, Title, Lead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -27,16 +29,37 @@ const INCLUS = [
   { t: 'On immatricule en France', s: 'Quitus fiscal, certificat de conformité, carte grise : les formalités françaises sont gérées jusqu’aux plaques.' },
 ]
 
-export default function Page() {
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Les pépites du mois — import depuis l’Allemagne',
+  itemListElement: VEHICULES.filter((v) => v.chiffres).map((v, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Product',
+      name: `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}`,
+      brand: { '@type': 'Brand', name: v.marque },
+      image: v.cover ? `${SITE.url}${v.cover}` : undefined,
+      description: v.detail,
+      itemCondition: v.etat === 'neuf' ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition',
+      url: `${SITE.url}/import?v=${v.id}`,
+      offers: { '@type': 'Offer', priceCurrency: 'EUR', price: prixImport(v.chiffres!), availability: 'https://schema.org/InStock', url: `${SITE.url}/import?v=${v.id}`, seller: { '@type': 'Organization', name: SITE.name } },
+    },
+  })),
+}
+
+export default function Page({ searchParams }: { searchParams?: { v?: string } }) {
   return (
     <>
       <Breadcrumb items={[{ name: 'Import', href: '/import' }]} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
       <PageHero
         a="Import d’Allemagne,"
         b="immatriculée en France."
         lead="On déniche la pépite chez nos concessions partenaires, on négocie le deal, vous choisissez vos options. Tout est géré, jusqu’aux plaques françaises."
         hero="import"
-        primary={{ href: '/catalogue', label: 'Voir les pépites du mois' }}
+        primary={{ href: '#pepites', label: 'Voir les pépites du mois' }}
         secondary={{ href: '/contact', label: 'Parlons de votre projet' }}
       />
       <BrandMarquee title={false} />
@@ -69,7 +92,16 @@ export default function Page() {
       </Section>
 
       <Process compact />
-      <Exemples />
+      <Section tone="light" id="pepites">
+        <Wrap>
+          <SecHead a="Nos pépites" b="du mois.">Chaque mois, cinq véhicules dénichés et négociés chez nos concessions partenaires en Allemagne. Vous choisissez vos options, Corsiva gère l’import et l’immatriculation en France.</SecHead>
+          <Catalogue openId={searchParams?.v} />
+          <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <p className="text-[12.5px] max-w-2xl" style={{ color: 'var(--ink-3)' }}>Prix négociés chez la concession partenaire, transport fermé et formalités d’immatriculation inclus, hors TVA française et malus. Prix France = prix constructeur TTC. Chaque projet fait l’objet d’une proposition personnalisée.</p>
+            <PepitesOuvrir className="btn-cta flex-shrink-0">Recevoir les pépites chaque mois</PepitesOuvrir>
+          </div>
+        </Wrap>
+      </Section>
       <Arguments title={['Pourquoi passer', 'par Corsiva Prime.']} />
       <FAQ tone="dark" />
       <CTA />

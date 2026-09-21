@@ -4,7 +4,6 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Packages from '@/components/sections/Packages'
 import Configurateur from '@/components/Configurateur'
-import Exemples from '@/components/sections/Exemples'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
@@ -37,7 +36,7 @@ export default function Page() {
       <Packages />
       <Section tone="light-3" id="configurateur">
         <Wrap>
-          <SecHead a="Composez" b="votre package.">Choisissez le service, cochez les options, sélectionnez un véhicule du catalogue si vous le souhaitez : le récapitulatif se met à jour et part avec votre demande.</SecHead>
+          <SecHead a="Composez" b="votre package.">Choisissez le service, cochez les options, sélectionnez une pépite du mois si vous le souhaitez : le récapitulatif se met à jour et part avec votre demande.</SecHead>
           <Reveal className="rise"><Configurateur allowVehicule /></Reveal>
         </Wrap>
       </Section>
@@ -55,7 +54,6 @@ export default function Page() {
           </Reveal>
         </Wrap>
       </Section>
-      <Exemples />
       <FAQ tone="dark" />
       <CTA title={['Recevez votre proposition', 'rapidement.']} text="Décrivez-nous la voiture visée : un conseiller vous rappelle et vous adresse un chiffrage complet, poste par poste." />
     </>

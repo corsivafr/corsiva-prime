@@ -25,7 +25,7 @@ export default function SeoTexte() {
           </div>
           <div>
             <h3 className="text-[20px] text-white mb-2">Combien ça coûte, et en combien de temps ?</h3>
-            <p>Chaque pépite de notre <Link href="/catalogue" className="underline underline-offset-4 decoration-1 hover:text-white">catalogue</Link> affiche un tarif final client tout compris — véhicule négocié, structure, déplacement, transport et immatriculation — face au coût en France malus inclus. Comptez environ cinq semaines de l’accord à la livraison, <Link href="/comment-ca-fonctionne" className="underline underline-offset-4 decoration-1 hover:text-white">en cinq phases</Link>. Nos conseillers vous reçoivent à Paris et se déplacent à Lyon, Chambéry, Annecy et partout en France.</p>
+            <p>Sur la page <Link href="/import#pepites" className="underline underline-offset-4 decoration-1 hover:text-white">Import</Link>, chaque pépite du mois affiche son prix négocié, transport et formalités inclus, face au prix constructeur en France ; avec l’immatriculation européenne, le malus et la TVA ne sont pas supportés. Comptez environ cinq semaines de l’accord à la livraison, <Link href="/comment-ca-fonctionne" className="underline underline-offset-4 decoration-1 hover:text-white">en cinq phases</Link>. Nos conseillers vous reçoivent à Paris et se déplacent à Lyon, Chambéry, Annecy et partout en France.</p>
           </div>
         </Reveal>
       </Wrap>

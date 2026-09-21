@@ -90,7 +90,7 @@ export default function ServicesSwitch() {
           </div>
           <div className="pop flex flex-col sm:flex-row gap-3 mt-6" style={{ ['--d' as string]: '0.5s' }}>
             <Link href={s.href} className="btn-w flex-1">Découvrir <Arrow /></Link>
-            <Link href="/catalogue" className="btn-dark flex-1">Voir les pépites</Link>
+            <Link href="/import#pepites" className="btn-dark flex-1">Voir les pépites</Link>
           </div>
         </div>
       </div>

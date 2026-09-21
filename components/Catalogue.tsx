@@ -5,15 +5,14 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { Arrow, Check } from '@/components/ui'
 import Link from 'next/link'
-import { VEHICULES, MARQUES, CATEGORIES, ETATS, PACKAGES, OPTIONS, prixFinal, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
+import { VEHICULES, MARQUES, CATEGORIES, ETATS, PACKAGES, OPTIONS, prixImport, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
 import { SITE } from '@/lib/site'
-import { simuler, euro } from '@/lib/malus'
+import { euro } from '@/lib/malus'
 
 const nom = (v: Vehicule) => `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}`
 
 /* ── Carte véhicule ── */
 function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number }) {
-  const r = v.chiffres ? simuler(v.chiffres) : null
   return (
     <li className="pop" style={{ ['--d' as string]: `${0.05 * i}s` }}>
       <div className="h-full rounded-[24px]">
@@ -38,17 +37,17 @@ function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number })
             </div>
           </div>
           <div className="p-5 flex-1 flex flex-col">
-            <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>Tarif final client, tout compris</p>
-            <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(30px, 2.6vw, 36px)', color: 'var(--blue-deep)' }}>{r && v.chiffres ? euro(prixFinal(v.chiffres)) : 'Sur demande'}</p>
-            {r && v.chiffres && (
+            <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>Prix négocié, transport et formalités inclus</p>
+            <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(30px, 2.6vw, 36px)', color: 'var(--blue-deep)' }}>{v.chiffres ? euro(prixImport(v.chiffres)) : 'Sur demande'}<span className="text-[14px] font-medium" style={{ color: 'var(--ink-3)' }}> HT</span></p>
+            {v.chiffres && (
               <div className="grid grid-cols-2 gap-2 mt-4">
                 <div className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--surface-1)' }}>
-                  <p className="text-[12px] leading-tight" style={{ color: 'var(--ink-3)' }}>vs en France, malus inclus</p>
-                  <p className="tabular text-[15px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(v.chiffres.prixFranceTTC + r.malusTotal)}</p>
+                  <p className="text-[12px] leading-tight" style={{ color: 'var(--ink-3)' }}>vs prix constructeur France</p>
+                  <p className="tabular text-[15px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(v.chiffres.prixFranceTTC)}</p>
                 </div>
                 <div className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--blue-tint)' }}>
-                  <p className="text-[12px] leading-tight" style={{ color: 'var(--blue-ink)' }}>Votre économie</p>
-                  <p className="tabular text-[15px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixFranceTTC + r.malusTotal - prixFinal(v.chiffres))}</p>
+                  <p className="text-[12px] leading-tight" style={{ color: 'var(--blue-ink)' }}>Écart de prix négocié</p>
+                  <p className="tabular text-[15px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixFranceTTC - v.chiffres.prixAllemagneHT)}</p>
                 </div>
               </div>
             )}
@@ -68,15 +67,12 @@ function Volet({ v, onClose }: { v: Vehicule; onClose: () => void }) {
   const [idx, setIdx] = useState(0)
   const [opts, setOpts] = useState<string[]>([])
   const [souhaits, setSouhaits] = useState('')
-  const r = v.chiffres ? simuler(v.chiffres) : null
-  const final = v.chiffres ? prixFinal(v.chiffres) : null
-  const coutFrance = v.chiffres && r ? v.chiffres.prixFranceTTC + r.malusTotal : null
   const nomV = nom(v)
-  const qs = new URLSearchParams({ vehicule: nomV, package: 'import-immat' })
+  const qs = new URLSearchParams({ vehicule: nomV, package: 'import' })
   if (opts.length) qs.set('options', opts.join(','))
   if (souhaits.trim()) qs.set('souhaits', souhaits.trim().slice(0, 600))
   const contactHref = `/contact?${qs.toString()}`
-  const P = PACKAGES.find((p) => p.id === 'import-immat')!
+  const P = PACKAGES.find((p) => p.id === 'import')!
   const closeRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     const prev = document.body.style.overflow
@@ -135,31 +131,31 @@ function Volet({ v, onClose }: { v: Vehicule; onClose: () => void }) {
             </ul>
           </div>
 
-          {/* Tarif final tout compris, face au coût en France */}
-          {v.chiffres && r && final !== null && coutFrance !== null && (
-            <div className="card p-5 sm:p-6 mt-6 bars-on">
-              <p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Tarif final client, tout compris</p>
-              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(final)}</p>
-              <p className="text-[13px] mt-2" style={{ color: 'var(--ink-2)' }}>Véhicule au prix négocié chez la concession partenaire, structure européenne, déplacement, transport fermé et immatriculation inclus. Sans malus ni TVA à supporter.</p>
+          {/* Prix négocié, face au prix constructeur en France */}
+          {v.chiffres && (
+            <div className="card p-5 sm:p-6 mt-6">
+              <p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Prix négocié, transport et formalités inclus</p>
+              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(prixImport(v.chiffres))}<span className="text-[16px] font-medium" style={{ color: 'var(--ink-3)' }}> HT</span></p>
+              <p className="text-[13px] mt-2" style={{ color: 'var(--ink-2)' }}>Véhicule négocié chez la concession partenaire, transport fermé privé et formalités d’immatriculation en France inclus. La TVA française et le malus s’appliquent comme pour tout véhicule immatriculé en France.</p>
               <div className="grid grid-cols-2 gap-3 mt-5">
                 <div className="rounded-[14px] px-4 py-3.5" style={{ background: 'var(--surface-1)' }}>
-                  <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>vs en France, malus inclus</p>
-                  <p className="tabular text-[20px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(coutFrance)}</p>
-                  <p className="text-[12px] mt-0.5 tabular" style={{ color: 'var(--ink-3)' }}>{euro(v.chiffres.prixFranceTTC)} TTC + {euro(r.malusTotal)} de malus 2026{r.decote ? ` (décoté ${Math.round(r.decote * 100)} %, ancienneté retenue ${v.chiffres.occasionMois} mois)` : ''}</p>
+                  <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>vs prix constructeur France</p>
+                  <p className="tabular text-[20px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(v.chiffres.prixFranceTTC)}</p>
+                  <p className="text-[12px] mt-0.5" style={{ color: 'var(--ink-3)' }}>TTC, hors malus</p>
                 </div>
                 <div className="rounded-[14px] px-4 py-3.5" style={{ background: 'var(--blue-tint)' }}>
-                  <p className="text-[12px]" style={{ color: 'var(--blue-ink)' }}>Votre économie</p>
-                  <p className="tabular text-[20px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(coutFrance - final)}</p>
-                  <p className="text-[12px] mt-0.5" style={{ color: 'var(--blue-ink)' }}>par rapport à l’achat en France</p>
+                  <p className="text-[12px]" style={{ color: 'var(--blue-ink)' }}>Écart de prix négocié</p>
+                  <p className="tabular text-[20px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixFranceTTC - v.chiffres.prixAllemagneHT)}</p>
+                  <p className="text-[12px] mt-0.5" style={{ color: 'var(--blue-ink)' }}>prix France TTC − prix Allemagne HT</p>
                 </div>
               </div>
-              <p className="text-[12px] mt-3" style={{ color: 'var(--ink-3)' }}>CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg (données constructeur indicatives). Tarif final indicatif, proposition personnalisée avant tout engagement.</p>
+              <p className="text-[12px] mt-3" style={{ color: 'var(--ink-3)' }}>CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg (données constructeur indicatives). Prix indicatif, proposition personnalisée avant tout engagement. Envie d’éviter aussi le malus et la TVA ? Voir <Link href="/immatriculation" className="underline">l’immatriculation européenne</Link>.</p>
             </div>
           )}
 
           {/* Ce qui est inclus */}
           <div className="mt-6">
-            <h3 className="text-[20px]">Tout est accompagné par Corsiva</h3>
+            <h3 className="text-[20px]">Import et immatriculation en France, tout est géré</h3>
             <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 list-none">
               {P.items.map((it) => <li key={it} className="flex items-start gap-2.5 text-[14px] leading-snug"><Check blue /><span>{it}</span></li>)}
             </ul>
@@ -209,7 +205,7 @@ export default function Catalogue({ openId: initialOpen }: { openId?: string }) 
   const [cat, setCat] = useState<'toutes' | Categorie>('toutes')
 
   const list = useMemo(() => VEHICULES.filter((v) => (marque === 'Toutes' || v.marque === marque) && (etat === 'tous' || v.etat === etat) && (cat === 'toutes' || v.categorie === cat)), [marque, etat, cat])
-  const setOpen = (id: string | null) => { setOpenIdState(id); router.replace(id ? `${pathname}?v=${id}` : pathname, { scroll: false }) }
+  const setOpen = (id: string | null) => { setOpenIdState(id); router.replace(id ? `${pathname}?v=${id}#pepites` : `${pathname}#pepites`, { scroll: false }) }
   const cats = Array.from(new Set(VEHICULES.map((v) => v.categorie)))
 
   const Chip = ({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) => (

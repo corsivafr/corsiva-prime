@@ -7,6 +7,9 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 2592000,
   },
+  async redirects() {
+    return [{ source: '/catalogue', destination: '/import', permanent: true }]
+  },
   async headers() {
     return [
       {

@@ -90,6 +90,11 @@ export const VEHICULES: Vehicule[] = [
 /* Tarif final client, tout compris : le véhicule au prix allemand HT (sans TVA ni malus) + le package. */
 export const prixFinal = (c: Chiffres) => c.prixAllemagneHT + FRAIS_TOUT_COMPRIS
 
+/* Pépites = service Import seul : véhicule négocié + transport (1 500 €) + frais annexes (4 500 €), tarifs internes du brief.
+   Prix hors TVA française et hors malus, qui s'appliquent comme pour tout véhicule immatriculé en France. */
+export const FRAIS_IMPORT = 6_000
+export const prixImport = (c: Chiffres) => c.prixAllemagneHT + FRAIS_IMPORT
+
 export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche'] as const
 
 export type PackageId = 'import' | 'import-immat'

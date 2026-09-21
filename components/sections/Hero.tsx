@@ -27,8 +27,8 @@ export default function Hero() {
           <span className="grad-blue">votre voiture d’Allemagne.</span>
         </h1>
 
-        <p className="hin lead mx-auto" style={{ ['--d' as string]: '0.24s', margin: '22px auto 30px', maxWidth: '60ch', lineHeight: 1.6 }}>
-          <span className="sub-b">Immatriculation européenne et import clé en main.</span> Une structure européenne encadrée par nos avocats partenaires vous évite le malus (jusqu’à 80 000 €) et la TVA (20 %).<span className="hidden sm:inline"> Nos concessions partenaires en Allemagne nous confient leurs pépites : on négocie le deal, vous choisissez vos options.</span>
+        <p className="hin lead mx-auto" style={{ ['--d' as string]: '0.24s', margin: '22px auto 30px', maxWidth: '52ch', lineHeight: 1.55 }}>
+          <span className="sub-b">Import de voitures de luxe depuis l’Allemagne, clé en main.</span> Jusqu’à 80 000 € de malus et 20 % de TVA évités grâce à l’immatriculation européenne, encadrée par nos avocats partenaires.
         </p>
 
         <div className="hin flex flex-wrap justify-center gap-3" style={{ ['--d' as string]: '0.36s' }}>

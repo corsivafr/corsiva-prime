@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Arguments from '@/components/sections/Arguments'
 import Exemples from '@/components/sections/Exemples'
@@ -12,8 +13,8 @@ import { Section, Wrap, Title, Lead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Import depuis l’Allemagne, immatriculation en France : tout est géré',
-  description: 'On déniche la pépite chez nos concessions partenaires allemandes, on négocie le deal, vous choisissez vos options. Inspection, transport fermé privé, carte grise française : Corsiva Prime gère tout jusqu’aux plaques.',
+  title: 'Import voiture de luxe Allemagne, clé en main',
+  description: 'Pépites dénichées chez nos concessions partenaires en Allemagne, deal négocié, options au choix, transport fermé et carte grise française : tout est géré.',
   alternates: { canonical: `${SITE.url}/import` },
 }
 
@@ -29,6 +30,7 @@ const INCLUS = [
 export default function Page() {
   return (
     <>
+      <Breadcrumb items={[{ name: 'Import', href: '/import' }]} />
       <PageHero
         a="Import d’Allemagne,"
         b="immatriculée en France."

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import SimulateurSection from '@/components/sections/SimulateurSection'
 import CTA from '@/components/sections/CTA'
@@ -8,8 +9,8 @@ import { SITE } from '@/lib/site'
 import { euro, malusCO2, malusMasse, decoteOccasion, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE, TVA } from '@/lib/malus'
 
 export const metadata: Metadata = {
-  title: 'Simulateur de gain : malus 2026, TVA et écart de prix',
-  description: 'Calculez ce que vous économisez en achetant votre voiture en Allemagne avec une immatriculation européenne : écart de prix, TVA de 20 % et malus 2026 (CO₂ et poids, plafond 80 000 €). Règle de calcul complète et sources officielles.',
+  title: 'Simulateur malus 2026 : votre économie',
+  description: 'Calculez votre économie en important d’Allemagne : écart de prix, TVA de 20 % et malus 2026 (plafond 80 000 €). Règle de calcul et sources officielles.',
   alternates: { canonical: `${SITE.url}/simulateur` },
 }
 
@@ -33,6 +34,7 @@ function Tab({ head, rows }: { head: [string, string]; rows: [string, string][] 
 export default function Page() {
   return (
     <>
+      <Breadcrumb items={[{ name: 'Simulateur', href: '/simulateur' }]} />
       <PageHero
         a="Simulez"
         b="votre gain."

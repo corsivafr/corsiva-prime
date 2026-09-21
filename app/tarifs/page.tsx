@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Packages from '@/components/sections/Packages'
 import Configurateur from '@/components/Configurateur'
@@ -10,8 +11,8 @@ import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Tarifs : une proposition personnalisée, indexée sur la valeur créée',
-  description: 'Import, import + immatriculation européenne, options : trois packages Corsiva Prime, sur devis. Notre rémunération est indexée sur la valeur réellement créée pour vous.',
+  title: 'Tarifs import Allemagne : packages sur devis',
+  description: 'Import, import + immatriculation européenne, options : trois packages sur devis, rémunération indexée sur la valeur réellement créée pour vous.',
   alternates: { canonical: `${SITE.url}/tarifs` },
 }
 
@@ -24,6 +25,7 @@ const PRINCIPES = [
 export default function Page() {
   return (
     <>
+      <Breadcrumb items={[{ name: 'Tarifs', href: '/tarifs' }]} />
       <PageHero
         a="Des packages clairs,"
         b="une proposition sur mesure."

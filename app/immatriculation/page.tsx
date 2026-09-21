@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Reassurance from '@/components/sections/Reassurance'
 import Chiffres from '@/components/sections/Chiffres'
@@ -12,8 +13,8 @@ import { SITE } from '@/lib/site'
 import { euro, PLAFOND_MALUS, ANNEE_BAREME } from '@/lib/malus'
 
 export const metadata: Metadata = {
-  title: 'Zéro malus, zéro TVA : l’immatriculation en société européenne',
-  description: 'Une structure européenne encadrée par nos avocats partenaires : malus écologique et TVA non supportés, prix allemand, véhicule circulant dans toute l’Union européenne. Une optimisation fiscale légale, encadrée, en toute conformité. Les détails vous sont présentés lors d’un appel.',
+  title: 'Éviter le malus : immatriculation européenne',
+  description: 'Structure européenne encadrée par nos avocats partenaires : malus écologique 2026 (jusqu’à 80 000 €) et TVA évités, véhicule libre dans toute l’UE.',
   alternates: { canonical: `${SITE.url}/immatriculation` },
 }
 
@@ -27,6 +28,7 @@ const BLOCS = [
 export default function Page() {
   return (
     <>
+      <Breadcrumb items={[{ name: 'Zéro malus', href: '/immatriculation' }]} />
       <PageHero
         a="Zéro malus, zéro TVA :"
         b="l’immatriculation européenne."

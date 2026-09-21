@@ -1,21 +1,45 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Catalogue from '@/components/Catalogue'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import CTA from '@/components/sections/CTA'
 import { SecHead, Section, Wrap } from '@/components/ui'
 import { SITE } from '@/lib/site'
+import { VEHICULES, prixFinal } from '@/lib/catalogue'
+
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Les pépites du mois — Corsiva Prime',
+  itemListElement: VEHICULES.filter((v) => v.chiffres).map((v, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Product',
+      name: `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}`,
+      brand: { '@type': 'Brand', name: v.marque },
+      image: v.cover ? `${SITE.url}${v.cover}` : undefined,
+      description: v.detail,
+      itemCondition: v.etat === 'neuf' ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition',
+      url: `${SITE.url}/catalogue?v=${v.id}`,
+      offers: { '@type': 'Offer', priceCurrency: 'EUR', price: prixFinal(v.chiffres!), availability: 'https://schema.org/InStock', url: `${SITE.url}/catalogue?v=${v.id}`, seller: { '@type': 'Organization', name: SITE.name } },
+    },
+  })),
+}
 
 export const metadata: Metadata = {
-  title: 'Les pépites du mois : véhicules négociés, tarif final tout compris',
-  description: 'Chaque mois, cinq pépites dénichées et négociées chez nos concessions partenaires en Allemagne : tarif final client tout compris, face au coût en France malus inclus. Configurées et optionnées à votre goût, accompagnées de A à Z.',
+  title: 'Pépites du mois : voitures de luxe d’Allemagne',
+  description: 'Cinq pépites par mois, négociées chez nos concessions partenaires en Allemagne : tarif final tout compris face au coût en France malus inclus, options au choix.',
   alternates: { canonical: `${SITE.url}/catalogue` },
 }
 
 export default function Page({ searchParams }: { searchParams?: { v?: string } }) {
   return (
     <>
+      <Breadcrumb items={[{ name: 'Pépites du mois', href: '/catalogue' }]} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
       <PageHero
         a="Les pépites"
         b="du mois."

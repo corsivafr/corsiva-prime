@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Process from '@/components/sections/Process'
 import Packages from '@/components/sections/Packages'
@@ -10,8 +11,8 @@ import { Section, Wrap, Title, Lead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Comment ça fonctionne : 5 phases, environ 5 semaines',
-  description: 'Validation, sourcing en Allemagne, structuration européenne, acquisition et immatriculation, livraison en France : le déroulé complet d’un projet Corsiva Prime, phase par phase.',
+  title: 'Importer sans malus : 5 phases, 5 semaines',
+  description: 'Validation, sourcing en Allemagne, structuration européenne, acquisition, immatriculation, livraison en France : le déroulé d’un import Corsiva Prime.',
   alternates: { canonical: `${SITE.url}/comment-ca-fonctionne` },
 }
 
@@ -33,6 +34,7 @@ const SEJOUR = [
 export default function Page() {
   return (
     <>
+      <Breadcrumb items={[{ name: 'Comment ça fonctionne', href: '/comment-ca-fonctionne' }]} />
       <PageHero
         a="Cinq phases,"
         b="environ cinq semaines."

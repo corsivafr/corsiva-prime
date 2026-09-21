@@ -30,7 +30,11 @@ export default function PepitesPopup() {
       const raw = localStorage.getItem(KEY)
       if (raw) { const j = JSON.parse(raw); if (j.v === 'done' || Date.now() - j.t < 30 * 864e5) blocked = true }
     } catch {}
-    const show = () => { if (shown.current || blocked) return; shown.current = true; setOpen(true) }
+    const show = () => {
+      if (shown.current || blocked) return
+      if (document.querySelector('.drawer') || document.body.style.overflow === 'hidden') { window.setTimeout(show, 6000); return } // une fiche ou le menu est ouvert : plus tard
+      shown.current = true; setOpen(true)
+    }
     const onScroll = () => { const h = document.documentElement.scrollHeight - innerHeight; if (h > 0 && scrollY / h > 0.45) show() }
     const t = window.setTimeout(show, 9000)
     const onOpen = () => { shown.current = true; setOpen(true) }

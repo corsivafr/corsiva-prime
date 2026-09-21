@@ -1,45 +1,34 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Arrow, Check } from '@/components/ui'
 import { STATS } from '@/lib/site'
 
 /* Les deux services en onglets : le visuel change en fondu, la liste se redéploie à chaque bascule.
-   Défilement automatique toutes les 7 s jusqu'au premier clic. */
+   L'onglet « Zéro malus » reste affiché tant que l'on ne clique pas sur « Import clé en main ». */
 const S = [
   {
     id: 'immat', n: '01', title: 'Immatriculation en société européenne', short: 'Zéro malus, zéro TVA',
     text: `Une structure européenne encadrée par nos avocats partenaires : ni malus, ni TVA à supporter, ni prix français. Plus de ${STATS.voitures} voitures déjà immatriculées ainsi. Vous roulez partout en Europe.`,
-    img: '/media/photos/m3c-3-4.jpg', pos: 'center 55%',
+    img: '/media/photos/taycan-3-4-avant.jpg', pos: 'center 55%',
     items: ['Structure européenne mise en place avec nos avocats partenaires', 'Déplacement organisé, hôtel 5 étoiles inclus', 'Immatriculation européenne, récupération de TVA', 'Malus français non supporté (jusqu’à 80 000 €)', 'Assurance simplifiée et allégée'],
     delai: 'environ 5 semaines', gain: 'Écart + TVA + malus non supportés', href: '/immatriculation',
   },
   {
     id: 'import', n: '02', title: 'Import depuis l’Allemagne, immatriculée en France', short: 'Import clé en main',
     text: 'On déniche la pépite chez nos concessions partenaires, on négocie le deal, vous choisissez vos options. Inspection, transport fermé, carte grise française : tout est géré jusqu’aux plaques.',
-    img: '/media/photos/rsq8-arriere.jpg', pos: 'center 50%',
+    img: '/media/photos/m3c-3-4.jpg', pos: 'center 50%',
     items: ['On déniche la pépite chez nos concessions partenaires', 'Configuration et options au choix, deal négocié', 'Inspection, historique, contrôle documentaire', 'Transport fermé privé jusqu’à chez vous', 'Immatriculation en France : carte grise et formalités gérées'],
     delai: '3 à 4 semaines', gain: 'L’écart de prix allemand, remise comprise', href: '/import',
   },
 ]
-const DUR = 7000
 
 export default function ServicesSwitch() {
   const [i, setI] = useState(0)
-  const [auto, setAuto] = useState(true)
-  const [tick, setTick] = useState(0)
-  const timer = useRef<number>()
-
-  useEffect(() => {
-    if (!auto) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setAuto(false); return }
-    timer.current = window.setTimeout(() => { setI((x) => (x + 1) % S.length); setTick((t) => t + 1) }, DUR)
-    return () => window.clearTimeout(timer.current)
-  }, [i, auto, tick])
-
-  const pick = (k: number) => { setAuto(false); setI(k); setTick((t) => t + 1) }
+  // Onglet 1 (zéro malus) affiché en fixe : on ne bascule vers l'import qu'au clic.
+  const pick = (k: number) => setI(k)
   const s = S[i]
 
   return (
@@ -76,7 +65,6 @@ export default function ServicesSwitch() {
               style={{ borderColor: k === i ? 'rgba(0,153,255,0.6)' : undefined, background: k === i ? 'rgba(0,153,255,0.08)' : undefined }}>
               <span className="display tabular text-[22px] leading-none" style={{ color: k === i ? 'var(--blue)' : 'var(--ink-3)' }}>{x.n}</span>
               <span className="text-[15px] font-semibold mt-3 leading-snug">{x.short}</span>
-              {k === i && auto && <span key={tick} className="tab-progress run" style={{ ['--dur' as string]: `${DUR}ms` }} aria-hidden="true" />}
             </button>
           ))}
         </div>

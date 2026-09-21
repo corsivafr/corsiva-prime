@@ -61,8 +61,8 @@ export default function Footer() {
         <div className="max-w-wrap mx-auto px-5 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[12.5px]" style={{ color: 'var(--ink-3)' }}>
           <p>© 2026 {SITE.legalEntity} · {SITE.legalCountry} · Groupe Corsiva · Simulations indicatives, non contractuelles (barème 2026)</p>
           <div className="flex gap-5">
-            <Link href="/mentions-legales" className="hover:text-white min-h-[32px] inline-flex items-center">Mentions légales</Link>
-            <Link href="/confidentialite" className="hover:text-white min-h-[32px] inline-flex items-center">Confidentialité</Link>
+            <Link href="/mentions-legales" className="hover:text-white min-h-[40px] inline-flex items-center">Mentions légales</Link>
+            <Link href="/confidentialite" className="hover:text-white min-h-[40px] inline-flex items-center">Confidentialité</Link>
           </div>
         </div>
       </div>

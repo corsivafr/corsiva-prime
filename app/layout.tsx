@@ -19,18 +19,28 @@ const inter = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: { default: 'Corsiva Prime — Votre voiture d’Allemagne, clé en main', template: '%s | Corsiva Prime' },
+  title: { default: 'Import voiture de luxe sans malus | Corsiva Prime', template: '%s | Corsiva Prime' },
   description:
-    'Sourcing, import et immatriculation européenne. Corsiva Prime vous fait profiter du vrai prix allemand, gère tout de A à Z et structure votre projet avec ses avocats partenaires. Devis rapide.',
+    'Import de voitures de luxe d’Allemagne : immatriculation européenne sans malus ni TVA, pépites négociées chez nos concessions partenaires, livraison partout en France.',
+  keywords: ['import voiture de luxe', 'import voiture Allemagne', 'éviter le malus écologique', 'malus 2026', 'immatriculation à l’étranger', 'immatriculation européenne', 'société européenne voiture', 'voiture sans malus', 'import BMW M3', 'import Mercedes Classe G', 'import Porsche 911', 'mandataire auto Allemagne'],
+  applicationName: 'Corsiva Prime',
+  authors: [{ name: 'Corsiva Prime', url: SITE.url }],
+  creator: 'Corsiva Prime',
+  publisher: 'Corsiva Good',
+  category: 'automotive',
+  formatDetection: { telephone: true, email: true, address: false },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
+    url: SITE.url,
     siteName: 'Corsiva Prime',
-    title: 'Corsiva Prime — Votre voiture d’Allemagne, clé en main',
-    description: 'Sourcing, import, immatriculation. Votre voiture de rêve livrée sans une seule contrainte.',
-    images: [{ url: '/media/photos/m3-3-4-avant.jpg', width: 2000, height: 1125, alt: 'BMW M3 Competition — Corsiva Prime' }],
+    title: 'Import voiture de luxe sans malus | Corsiva Prime',
+    description: 'Immatriculation européenne, pépites négociées chez nos concessions partenaires, livraison partout en France. Jusqu’à 80 000 € de malus et 20 % de TVA évités.',
+    images: [{ url: '/media/hero/home.jpg', width: 1920, height: 1279, alt: 'BMW M3 Competition importée d’Allemagne par Corsiva Prime' }],
   },
-  robots: { index: true, follow: true },
+  twitter: { card: 'summary_large_image', title: 'Import voiture de luxe sans malus | Corsiva Prime', description: 'Immatriculation européenne, pépites négociées, livraison partout en France.', images: ['/media/hero/home.jpg'] },
+  alternates: { canonical: SITE.url, languages: { 'fr-FR': SITE.url } },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
 }
 
 export const viewport: Viewport = {

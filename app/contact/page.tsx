@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Image from 'next/image'
 import PageHero from '@/components/PageHero'
+import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import ContactForm from '@/components/ContactForm'
 import FAQ from '@/components/sections/FAQ'
@@ -9,8 +10,8 @@ import { Section, Wrap, Title, Lead, Arrow, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Contact : parlons de votre projet',
-  description: 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime vous répond 7j/7 de 9h à 18h, vous reçoit à Paris et se déplace partout en France : Paris, Lyon, Chambéry, Annecy.',
+  title: 'Contact : import et immatriculation européenne',
+  description: 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime répond 7j/7 de 9h à 18h, vous reçoit à Paris et se déplace partout en France.',
   alternates: { canonical: `${SITE.url}/contact` },
 }
 
@@ -23,6 +24,7 @@ export default function Page() {
   ]
   return (
     <>
+      <Breadcrumb items={[{ name: 'Contact', href: '/contact' }]} />
       <PageHero
         a="Votre prochaine voiture"
         b="vous attend en Allemagne."

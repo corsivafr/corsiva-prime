@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: { default: 'Import voiture de luxe sans malus | Corsiva Prime', template: '%s | Corsiva Prime' },
   description:
     'Import de voitures de luxe d’Allemagne : immatriculation européenne sans malus ni TVA, pépites négociées chez nos concessions partenaires, livraison partout en France.',
-  keywords: ['import voiture de luxe', 'import voiture Allemagne', 'éviter le malus écologique', 'malus 2026', 'immatriculation à l’étranger', 'immatriculation européenne', 'société européenne voiture', 'voiture sans malus', 'import BMW M3', 'import Mercedes Classe G', 'import Porsche 911', 'mandataire auto Allemagne'],
+  keywords: ['import voiture de luxe', 'achat Lamborghini Urus', 'import voiture de luxe Lyon', 'import voiture de luxe Paris', 'import voiture de luxe Annecy', 'mandataire automobile Allemagne', 'malus Urus', 'import voiture Allemagne', 'éviter le malus écologique', 'malus 2026', 'immatriculation à l’étranger', 'immatriculation européenne', 'société européenne voiture', 'voiture sans malus', 'import BMW M3', 'import Mercedes Classe G', 'import Porsche 911', 'mandataire auto Allemagne'],
   applicationName: 'Corsiva Prime',
   authors: [{ name: 'Corsiva Prime', url: SITE.url }],
   creator: 'Corsiva Prime',

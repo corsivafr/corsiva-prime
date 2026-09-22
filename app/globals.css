@@ -519,6 +519,13 @@ html:not(.js) .sl-veil { display: none; }
 .art .note { border-radius: 16px; padding: 18px 20px; background: rgba(0, 153, 255, 0.08); border: 1px solid rgba(0, 153, 255, 0.3); font-size: 15px; line-height: 1.6; color: #fff; margin: 8px 0 16px; }
 .art .note p { color: #fff; font-size: 15px; margin: 0; }
 .art .legal { font-size: 13px; line-height: 1.6; color: var(--ink-3); margin: 36px 0 0; }
+.art .voir-aussi { margin-top: 28px; padding: 18px 20px; border-radius: 16px; background: var(--surface-1); border: 1px solid var(--hairline); }
+.art .voir-aussi p { margin: 0 0 8px; font-size: 12.5px; color: var(--ink-3); }
+.art .voir-aussi ul { margin: 0; gap: 4px; }
+.art .voir-aussi li { display: block; font-size: 15px; }
+.art .voir-aussi li a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--blue); }
+.art .voir-aussi li a .arrow { transition: transform 0.25s var(--ease); }
+@media (hover: hover) { .art .voir-aussi li a:hover .arrow { transform: translateX(3px); } }
 @media (max-width: 639px) { .art p { font-size: 16px; } .art li { font-size: 15.5px; } .art h2 { margin-top: 34px; } }
 
 

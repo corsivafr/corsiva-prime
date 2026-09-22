@@ -3,6 +3,12 @@ import Image from 'next/image'
 import { NAV, SITE, STATS } from '@/lib/site'
 
 /* Pied de page façon Corsiva OS : marque et conformité, services, nous joindre, groupe ; barre légale. */
+const VILLES_GUIDES = [
+  { label: 'Paris', href: '/articles/import-voiture-luxe-paris' },
+  { label: 'Lyon', href: '/articles/import-voiture-luxe-lyon' },
+  { label: 'Chambéry', href: '/articles/import-voiture-luxe-annecy-chambery' },
+  { label: 'Annecy', href: '/articles/import-voiture-luxe-annecy-chambery' },
+]
 export default function Footer() {
   return (
     <footer className="relative border-t" style={{ background: 'linear-gradient(180deg, transparent, rgba(0,153,255,0.035))', borderColor: 'var(--hairline-soft)' }}>
@@ -40,7 +46,7 @@ export default function Footer() {
             <li><a href={`mailto:${SITE.email}`} className="inline-flex items-center min-h-[40px] hover:text-white">{SITE.email}</a></li>
             <li>Nos conseillers se déplacent partout en France</li>
             <li className="flex flex-wrap gap-2 pt-1">
-              {SITE.villes.map((v) => <span key={v} className="text-[12.5px] px-2.5 py-1 rounded-full" style={{ background: 'var(--surface-1)', border: '1px solid var(--hairline)', color: 'var(--ink)' }}>{v}</span>)}
+              {VILLES_GUIDES.map((v) => <Link key={v.label} href={v.href} className="text-[12.5px] px-2.5 py-1 rounded-full transition-colors hover:border-white/40" style={{ background: 'var(--surface-1)', border: '1px solid var(--hairline)', color: 'var(--ink)' }}>{v.label}</Link>)}
             </li>
           </ul>
         </div>

@@ -10,7 +10,7 @@ import { Section, Wrap, Title, Lead, Arrow, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Contact : import et immatriculation européenne',
+  title: 'Contact : import et immatriculation',
   description: 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime répond 7j/7 de 9h à 18h, vous reçoit à Paris et se déplace partout en France.',
   alternates: { canonical: `${SITE.url}/contact` },
 }

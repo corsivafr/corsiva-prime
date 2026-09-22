@@ -23,11 +23,14 @@ export function ArticleCard({ a, i = 0, priority = false }: { a: Article; i?: nu
   )
 }
 
-/* Section « guides » : sur la home (quatre articles + lien vers la rubrique) et en bas de chaque article
-   (les trois autres). Le référencement passe par ces pages : elles répondent aux recherches sur le malus,
+/* Section « guides » : sur la home (les quatre plus récents + lien vers la rubrique) et en bas de chaque article
+   (trois guides liés, sinon les trois plus récents). Le référencement passe par ces pages : elles répondent aux recherches sur le malus,
    l'import d'Allemagne et l'immatriculation européenne. */
-export default function ArticlesSection({ exclude, a = 'Comprendre le malus,', b = 'avant d’acheter.', lead = 'Quatre guides pour lire le barème 2026, comprendre l’import allemand et choisir où immatriculer votre voiture.', more = true }: { exclude?: string; a?: string; b?: string; lead?: string; more?: boolean }) {
-  const list = ARTICLES.filter((x) => x.slug !== exclude)
+export default function ArticlesSection({ exclude, related, a = 'Comprendre le malus,', b = 'avant d’acheter.', lead = 'Nos guides pour lire le barème 2026, comprendre l’import allemand, choisir où immatriculer et acheter au juste prix, à Paris, Lyon ou Annecy.', more = true }: { exclude?: string; related?: string[]; a?: string; b?: string; lead?: string; more?: boolean }) {
+  const autres = ARTICLES.filter((x) => x.slug !== exclude)
+  const recents = [...autres].sort((p, q) => q.updated.localeCompare(p.updated))
+  const lies = (related ?? []).map((slug) => autres.find((x) => x.slug === slug)).filter((x): x is Article => Boolean(x))
+  const list = exclude ? (lies.length >= 3 ? lies.slice(0, 3) : [...lies, ...recents.filter((x) => !lies.includes(x))].slice(0, 3)) : recents.slice(0, 4)
   return (
     <Section id="articles" grad>
       <Wrap>
@@ -37,7 +40,7 @@ export default function ArticlesSection({ exclude, a = 'Comprendre le malus,', b
         </Reveal>
         {more && (
           <Reveal className="rise flex justify-center mt-8">
-            <Link href="/articles" className="btn-w">Tous les articles <Arrow /></Link>
+            <Link href="/articles" className="btn-w">Tous les articles ({ARTICLES.length}) <Arrow /></Link>
           </Reveal>
         )}
       </Wrap>

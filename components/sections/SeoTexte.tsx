@@ -27,6 +27,14 @@ export default function SeoTexte() {
             <h3 className="text-[20px] text-white mb-2">Combien ça coûte, et en combien de temps ?</h3>
             <p>Sur la page <Link href="/import#pepites" className="underline underline-offset-4 decoration-1 hover:text-white">Import</Link>, chaque pépite du mois affiche son prix négocié, transport et formalités inclus, face au prix constructeur en France ; avec l’immatriculation européenne, le malus et la TVA ne sont pas supportés. Comptez environ cinq semaines de l’accord à la livraison, <Link href="/comment-ca-fonctionne" className="underline underline-offset-4 decoration-1 hover:text-white">en cinq phases</Link>. Nos conseillers vous reçoivent à Paris et se déplacent à Lyon, Chambéry, Annecy et partout en France.</p>
           </div>
+          <div>
+            <h3 className="text-[20px] text-white mb-2">Paris, Lyon, Annecy : où intervient Corsiva Prime ?</h3>
+            <p>Partout en France. Nos conseillers vous reçoivent à Paris et se déplacent à Lyon, Chambéry et Annecy, là où le groupe Corsiva est né ; la voiture est livrée à votre adresse en transport fermé privé. Nos guides par ville : <Link href="/articles/import-voiture-luxe-paris" className="underline underline-offset-4 decoration-1 hover:text-white">Paris</Link>, <Link href="/articles/import-voiture-luxe-lyon" className="underline underline-offset-4 decoration-1 hover:text-white">Lyon</Link>, <Link href="/articles/import-voiture-luxe-annecy-chambery" className="underline underline-offset-4 decoration-1 hover:text-white">Annecy et Chambéry</Link>.</p>
+          </div>
+          <div>
+            <h3 className="text-[20px] text-white mb-2">Urus, Classe G 63, 911, RS Q8 : quelles voitures ?</h3>
+            <p>Toutes les voitures au plafond du malus : <Link href="/articles/acheter-lamborghini-urus-import-malus" className="underline underline-offset-4 decoration-1 hover:text-white">Lamborghini Urus</Link>, Mercedes Classe G 63 AMG, Porsche 911 GTS et Turbo S, Audi RS Q8, Bentley Bentayga, Range Rover Sport SV, Aston Martin DBX… Le <Link href="/articles/voitures-malus-maximal-2026-classement" className="underline underline-offset-4 decoration-1 hover:text-white">classement des voitures au malus maximal</Link> détaille leur vrai coût en France, et le <Link href="/immatriculation#catalogue" className="underline underline-offset-4 decoration-1 hover:text-white">catalogue Zéro malus</Link> chiffre chaque modèle.</p>
+          </div>
         </Reveal>
       </Wrap>
     </Section>

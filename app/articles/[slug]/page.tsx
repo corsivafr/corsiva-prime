@@ -104,6 +104,16 @@ export default function Page({ params }: { params: { slug: string } }) {
               <a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="btn-w">Prendre un appel <Arrow /></a>
               <Link href="/immatriculation" className="btn-dark">Le service Zéro malus</Link>
             </Reveal>
+            {a.liens && a.liens.length > 0 && (
+              <Reveal className="voir-aussi rise">
+                <p>À lire aussi</p>
+                <ul>
+                  {a.liens.map((l) => (
+                    <li key={l.href}><Link href={l.href}>{l.label} <Arrow className="w-3.5 h-3.5" /></Link></li>
+                  ))}
+                </ul>
+              </Reveal>
+            )}
             <p className="legal">
               Barème 2026 : loi de finances n° 2025-127 du 14 février 2025 et fiche service-public.gouv.fr F35947. Prix relevés sur des offres réelles ; CO₂ et masse constructeur indicatifs. Simulation indicative et non contractuelle. La structure européenne vous est présentée lors d’un appel avec un conseiller.
             </p>
@@ -125,7 +135,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         </Wrap>
       </Section>
 
-      <ArticlesSection exclude={a.slug} a="Poursuivre" b="la lecture." lead="Les trois autres guides, pour avoir toutes les cartes en main avant d’acheter." />
+      <ArticlesSection exclude={a.slug} related={a.related} a="Poursuivre" b="la lecture." lead="Trois autres guides, pour avoir toutes les cartes en main avant d’acheter." />
       <CTA appel title={['Votre voiture, sans malus ni TVA :', 'parlons-en.']} text="Un conseiller chiffre votre projet et vous présente la structure européenne, sans engagement." />
     </>
   )

@@ -16,7 +16,7 @@ import { Section, Wrap, SecHead, Title, Lead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Import voiture de luxe Allemagne, clé en main',
+  title: 'Import voiture de luxe Allemagne, tout géré',
   description: 'Pépites dénichées chez nos concessions partenaires en Allemagne, deal négocié, options au choix, transport fermé et carte grise française : tout est géré.',
   alternates: { canonical: `${SITE.url}/import` },
 }

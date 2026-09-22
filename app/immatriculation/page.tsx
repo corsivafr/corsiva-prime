@@ -9,6 +9,7 @@ import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import MalusCatalogue from '@/components/MalusCatalogue'
+import BrandMarquee from '@/components/sections/BrandMarquee'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 import { euro, PLAFOND_MALUS, ANNEE_BAREME } from '@/lib/malus'
@@ -38,6 +39,7 @@ export default function Page() {
         primary={{ href: '/simulateur', label: 'Simuler mon gain' }}
         secondary={{ href: SITE.calendly, label: 'Prendre un appel', external: true }}
       />
+      <BrandMarquee />
 
       <Section glow>
         <Wrap>
@@ -56,7 +58,7 @@ export default function Page() {
 
       <Section tone="light" id="catalogue">
         <Wrap>
-          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Trente modèles à fort malus : le coût réel en France, malus inclus, face au prix allemand. Choisissez le package pour voir ce que vous économisez, puis le détail poste par poste.</SecHead>
+          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Six voitures à fort malus : le coût réel en France, malus inclus, face au prix allemand. Choisissez le package pour voir ce que vous économisez, puis ouvrez le détail poste par poste.</SecHead>
           <Reveal className="rise"><MalusCatalogue /></Reveal>
         </Wrap>
       </Section>

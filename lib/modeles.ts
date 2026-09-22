@@ -23,14 +23,18 @@ export type Modele = {
   energie: Energie
   occasionMois: number
   source: 'brief' | 'indicatif'
+  /** Les six modèles du catalogue Zéro malus (photo obligatoire) ; les autres n'alimentent que le simulateur. */
+  catalogue?: boolean
+  photo?: string
+  photoPos?: string
 }
 
 export const CATS: Record<Cat, string> = { sport: 'Sportive', suv: 'SUV', berline: 'Berline', gt: 'GT' }
 
 export const MODELES: Modele[] = [
-  { id: 'bmw-m3-competition', marque: 'BMW', modele: 'M3 Competition', cat: 'sport', prixFranceTTC: 133000, prixAllemagneHT: 107600, co2: 230, masse: 1780, energie: 'thermique', occasionMois: 0, source: 'brief' },
-  { id: 'mercedes-benz-classe-g-63-amg', marque: 'Mercedes-Benz', modele: 'Classe G 63 AMG', cat: 'suv', prixFranceTTC: 209000, prixAllemagneHT: 193000, co2: 285, masse: 2545, energie: 'thermique', occasionMois: 0, source: 'brief' },
-  { id: 'porsche-911-992-gts-occasion-12-mois', marque: 'Porsche', modele: '911 (992) GTS · occasion 12 mois', cat: 'sport', prixFranceTTC: 200000, prixAllemagneHT: 190000, co2: 255, masse: 1595, energie: 'thermique', occasionMois: 12, source: 'brief' },
+  { id: 'bmw-m3-competition', marque: 'BMW', modele: 'M3 Competition', cat: 'sport', prixFranceTTC: 133000, prixAllemagneHT: 107600, co2: 230, masse: 1780, energie: 'thermique', occasionMois: 0, source: 'brief', catalogue: true, photo: '/media/photos/m3c-face.jpg', photoPos: 'center 55%' },
+  { id: 'mercedes-benz-classe-g-63-amg', marque: 'Mercedes-Benz', modele: 'Classe G 63 AMG', cat: 'suv', prixFranceTTC: 209000, prixAllemagneHT: 193000, co2: 285, masse: 2545, energie: 'thermique', occasionMois: 0, source: 'brief', catalogue: true, photo: '/media/photos/g-gris-face.jpg', photoPos: 'center 55%' },
+  { id: 'porsche-911-992-gts-occasion-12-mois', marque: 'Porsche', modele: '911 (992) GTS · occasion 12 mois', cat: 'sport', prixFranceTTC: 200000, prixAllemagneHT: 190000, co2: 255, masse: 1595, energie: 'thermique', occasionMois: 12, source: 'brief', catalogue: true, photo: '/media/photos/911-avant.jpg', photoPos: 'center 45%' },
   { id: 'bmw-m4-competition', marque: 'BMW', modele: 'M4 Competition', cat: 'sport', prixFranceTTC: 130000, prixAllemagneHT: 102000, co2: 232, masse: 1750, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
   { id: 'bmw-m5-g90', marque: 'BMW', modele: 'M5 (G90)', cat: 'berline', prixFranceTTC: 158000, prixAllemagneHT: 124000, co2: 39, masse: 2435, energie: 'hybride-rechargeable', occasionMois: 0, source: 'indicatif' },
   { id: 'bmw-x5-m-competition', marque: 'BMW', modele: 'X5 M Competition', cat: 'suv', prixFranceTTC: 170000, prixAllemagneHT: 133000, co2: 290, masse: 2385, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
@@ -42,12 +46,12 @@ export const MODELES: Modele[] = [
   { id: 'mercedes-maybach-gls-600', marque: 'Mercedes-Maybach', modele: 'GLS 600', cat: 'suv', prixFranceTTC: 220000, prixAllemagneHT: 172500, co2: 285, masse: 2785, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
   { id: 'porsche-cayenne-s', marque: 'Porsche', modele: 'Cayenne S', cat: 'suv', prixFranceTTC: 130000, prixAllemagneHT: 102000, co2: 260, masse: 2110, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
   { id: 'porsche-cayenne-turbo-e-hybrid', marque: 'Porsche', modele: 'Cayenne Turbo E-Hybrid', cat: 'suv', prixFranceTTC: 190000, prixAllemagneHT: 149000, co2: 30, masse: 2595, energie: 'hybride-rechargeable', occasionMois: 0, source: 'indicatif' },
-  { id: 'porsche-911-turbo-s', marque: 'Porsche', modele: '911 Turbo S', cat: 'sport', prixFranceTTC: 260000, prixAllemagneHT: 203500, co2: 265, masse: 1640, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
+  { id: 'porsche-911-turbo-s', marque: 'Porsche', modele: '911 Turbo S', cat: 'sport', prixFranceTTC: 260000, prixAllemagneHT: 203500, co2: 265, masse: 1640, energie: 'thermique', occasionMois: 0, source: 'indicatif', catalogue: true, photo: '/media/photos/911-arriere.jpg', photoPos: 'center 50%' },
   { id: 'porsche-panamera-turbo-s-e-hybrid', marque: 'Porsche', modele: 'Panamera Turbo S E-Hybrid', cat: 'berline', prixFranceTTC: 230000, prixAllemagneHT: 180000, co2: 28, masse: 2470, energie: 'hybride-rechargeable', occasionMois: 0, source: 'indicatif' },
   { id: 'audi-rs-6-avant', marque: 'Audi', modele: 'RS 6 Avant', cat: 'berline', prixFranceTTC: 145000, prixAllemagneHT: 113500, co2: 265, masse: 2090, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
-  { id: 'audi-rs-q8', marque: 'Audi', modele: 'RS Q8', cat: 'suv', prixFranceTTC: 160000, prixAllemagneHT: 125500, co2: 280, masse: 2350, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
+  { id: 'audi-rs-q8', marque: 'Audi', modele: 'RS Q8', cat: 'suv', prixFranceTTC: 160000, prixAllemagneHT: 125500, co2: 280, masse: 2350, energie: 'thermique', occasionMois: 0, source: 'indicatif', catalogue: true, photo: '/media/photos/rsq8-arriere.jpg', photoPos: 'center 55%' },
   { id: 'audi-sq8', marque: 'Audi', modele: 'SQ8', cat: 'suv', prixFranceTTC: 115000, prixAllemagneHT: 90000, co2: 245, masse: 2300, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
-  { id: 'lamborghini-urus-s', marque: 'Lamborghini', modele: 'Urus S', cat: 'suv', prixFranceTTC: 270000, prixAllemagneHT: 211500, co2: 320, masse: 2200, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
+  { id: 'lamborghini-urus-s', marque: 'Lamborghini', modele: 'Urus S', cat: 'suv', prixFranceTTC: 270000, prixAllemagneHT: 211500, co2: 320, masse: 2200, energie: 'thermique', occasionMois: 0, source: 'indicatif', catalogue: true, photo: '/media/photos/urus-avant.jpg', photoPos: 'center 55%' },
   { id: 'lamborghini-hurac-n-tecnica', marque: 'Lamborghini', modele: 'Huracán Tecnica', cat: 'sport', prixFranceTTC: 260000, prixAllemagneHT: 203500, co2: 300, masse: 1379, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
   { id: 'ferrari-purosangue', marque: 'Ferrari', modele: 'Purosangue', cat: 'suv', prixFranceTTC: 420000, prixAllemagneHT: 329000, co2: 393, masse: 2033, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
   { id: 'ferrari-roma', marque: 'Ferrari', modele: 'Roma', cat: 'gt', prixFranceTTC: 250000, prixAllemagneHT: 196000, co2: 255, masse: 1472, energie: 'thermique', occasionMois: 0, source: 'indicatif' },
@@ -65,3 +69,4 @@ export const nomModele = (m: Modele) => `${m.marque} ${m.modele}`
 export const calculer = (m: Modele): Resultat => simuler({ prixFranceTTC: m.prixFranceTTC, prixAllemagneHT: m.prixAllemagneHT, co2: m.co2, masse: m.masse, energie: m.energie, occasionMois: m.occasionMois })
 export const MARQUES_MODELES = ['Toutes', ...Array.from(new Set(MODELES.map((m) => m.marque)))]
 export const modeleParId = (id: string) => MODELES.find((m) => m.id === id)
+export const CATALOGUE = MODELES.filter((m) => m.catalogue)

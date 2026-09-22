@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { Fragment, type CSSProperties, type ReactNode } from 'react'
 import Reveal from '@/components/Reveal'
 
 export const d = (s: number): CSSProperties => ({ ['--d' as string]: `${s}s` }) as CSSProperties
@@ -23,14 +23,24 @@ export function Check({ blue = false }: { blue?: boolean }) {
 export function Title({ a, b, center = false, className = '' }: { a: string; b?: string; center?: boolean; className?: string }) {
   return (
     <h2 className={`rise h-sec ${center ? 'text-center' : ''} ${className}`}>
-      {a}
-      {b && (
-        <>
-          <br />
-          <span className="grad-blue">{b}</span>
-        </>
-      )}
+      <span className="lns"><span>{a}</span></span>
+      {b && <span className="lns"><span className="grad-blue" style={{ ['--dl' as string]: '0.14s' } as CSSProperties}>{b}</span></span>}
     </h2>
+  )
+}
+
+/* Texte qui apparaît mot à mot (leads des heros) : chaque mot monte avec un léger décalage. */
+export function Words({ text, from = 0, step = 0.02, className = '' }: { text: string; from?: number; step?: number; className?: string }) {
+  const parts = text.split(' ')
+  return (
+    <span className={className}>
+      {parts.map((w, i) => (
+        <Fragment key={i}>
+          <span className="wd" style={{ ['--d' as string]: `${(from + i * step).toFixed(3)}s` } as CSSProperties}>{w}</span>
+          {i < parts.length - 1 ? ' ' : null}
+        </Fragment>
+      ))}
+    </span>
   )
 }
 

@@ -7,7 +7,7 @@ import Arguments from '@/components/sections/Arguments'
 import Catalogue from '@/components/Catalogue'
 import PepitesOuvrir from '@/components/PepitesOuvrir'
 import PepitesInline from '@/components/PepitesInline'
-import { VEHICULES, prixImport } from '@/lib/catalogue'
+import { VEHICULES, prixImportTTC } from '@/lib/catalogue'
 import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
@@ -45,7 +45,7 @@ const itemList = {
       description: v.detail,
       itemCondition: v.etat === 'neuf' ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition',
       url: `${SITE.url}/import?v=${v.id}`,
-      offers: { '@type': 'Offer', priceCurrency: 'EUR', price: prixImport(v.chiffres!), availability: 'https://schema.org/InStock', url: `${SITE.url}/import?v=${v.id}`, seller: { '@type': 'Organization', name: SITE.name } },
+      offers: { '@type': 'Offer', priceCurrency: 'EUR', price: prixImportTTC(v.chiffres!), priceSpecification: { '@type': 'PriceSpecification', price: prixImportTTC(v.chiffres!), priceCurrency: 'EUR', valueAddedTaxIncluded: true }, availability: 'https://schema.org/InStock', url: `${SITE.url}/import?v=${v.id}`, seller: { '@type': 'Organization', name: SITE.name } },
     },
   })),
 }
@@ -95,13 +95,13 @@ export default function Page({ searchParams }: { searchParams?: { v?: string } }
       <Process compact />
       <Section tone="light" id="pepites">
         <Wrap>
-          <SecHead a="Nos pépites" b="du mois.">Chaque mois, cinq véhicules dénichés et négociés chez nos concessions partenaires en Allemagne. Vous choisissez vos options, Corsiva gère l’import et l’immatriculation en France.</SecHead>
+          <SecHead a="Nos pépites" b="du mois.">Chaque mois, cinq véhicules dénichés et négociés chez nos concessions partenaires en Allemagne. Prix affichés TTC, transport et formalités inclus. Vous choisissez vos options, Corsiva gère l’import jusqu’aux plaques françaises.</SecHead>
           <Catalogue openId={searchParams?.v} />
           <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <p className="text-[12.5px] max-w-2xl" style={{ color: 'var(--ink-3)' }}>Prix négociés chez la concession partenaire, transport fermé et formalités d’immatriculation inclus, hors TVA française et malus. Prix France = prix constructeur TTC. Chaque projet fait l’objet d’une proposition personnalisée.</p>
+            <p className="text-[12.5px] leading-relaxed max-w-2xl" style={{ color: 'var(--ink-3)' }}>Prix TTC indicatifs : prix négocié chez la concession partenaire, transport fermé, formalités d’immatriculation en France et TVA française de 20 % inclus. Hors malus écologique, dû lors de l’immatriculation en France et propre à chaque modèle. Proposition personnalisée après un premier appel.</p>
             <PepitesOuvrir className="btn-cta flex-shrink-0">Recevoir les pépites chaque mois</PepitesOuvrir>
           </div>
-                  <Reveal className="mt-10"><PepitesInline /></Reveal>
+          <Reveal className="mt-10"><PepitesInline /></Reveal>
         </Wrap>
       </Section>
       <Arguments title={['Pourquoi passer', 'par Corsiva Prime.']} />

@@ -44,17 +44,22 @@ export default function MalusCatalogue({ compact = false }: { compact?: boolean 
 
   return (
     <div>
-      <div className="mtools">
-        <div className="seg" role="radiogroup" aria-label="Package">
-          <button type="button" aria-pressed={pkg === 'import-immat'} onClick={() => setPkg('import-immat')}>Import + immatriculation européenne</button>
-          <button type="button" aria-pressed={pkg === 'import'} onClick={() => setPkg('import')}>Import seul</button>
+      <div className={compact ? 'flex justify-center mb-6' : 'ctools'}>
+        <div className="grp">
+          <div className="seg" role="radiogroup" aria-label="Package">
+            <button type="button" aria-pressed={pkg === 'import-immat'} onClick={() => setPkg('import-immat')}>Import + immatriculation européenne</button>
+            <button type="button" aria-pressed={pkg === 'import'} onClick={() => setPkg('import')}>Import seul</button>
+          </div>
         </div>
         {!compact && (
-          <select className="field" style={{ width: 'auto' }} value={tri} onChange={(e) => setTri(e.target.value as typeof tri)} aria-label="Trier">
-            <option value="economie">Trier par économie</option>
-            <option value="malus">Trier par malus</option>
-            <option value="prix">Trier par prix</option>
-          </select>
+          <div className="grp">
+            <span className="ccount">{rows.length} modèles à fort malus</span>
+            <select className="field" style={{ width: 'auto' }} value={tri} onChange={(e) => setTri(e.target.value as typeof tri)} aria-label="Trier">
+              <option value="economie">Trier par économie</option>
+              <option value="malus">Trier par malus</option>
+              <option value="prix">Trier par prix</option>
+            </select>
+          </div>
         )}
       </div>
 
@@ -89,9 +94,9 @@ export default function MalusCatalogue({ compact = false }: { compact?: boolean 
                   <b className="num">{euro(economie)}</b>
                 </div>
                 {compact ? (
-                  <Link href={`/immatriculation?modele=${m.id}#catalogue`} className="text-[13px] font-medium inline-flex items-center gap-1.5" style={{ color: 'var(--blue-deep)' }}>Voir le détail <Arrow className="w-3.5 h-3.5" /></Link>
+                  <Link href={`/immatriculation?modele=${m.id}#catalogue`} className="lk">Voir le détail <Arrow className="w-3.5 h-3.5" /></Link>
                 ) : (
-                  <button type="button" className="text-[13px] font-medium text-left inline-flex items-center gap-1.5" style={{ color: 'var(--blue-deep)' }} aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : m.id)}>
+                  <button type="button" className="lk" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : m.id)}>
                     {isOpen ? 'Masquer le détail' : 'Voir le détail'} <Arrow className="w-3.5 h-3.5" />
                   </button>
                 )}

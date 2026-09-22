@@ -5,59 +5,57 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { Arrow, Check } from '@/components/ui'
 import Link from 'next/link'
-import { VEHICULES, MARQUES, CATEGORIES, ETATS, PACKAGES, OPTIONS, prixImport, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
+import { VEHICULES, CATEGORIES, ETATS, PACKAGES, OPTIONS, FRAIS_IMPORT, prixImportTTC, tvaImport, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
 import { SITE } from '@/lib/site'
 import { euro } from '@/lib/malus'
 
 const nom = (v: Vehicule) => `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}`
+const etatLabel = (v: Vehicule) => (v.etat === 'occasion' ? 'Occasion · moins de 5 000 km' : ETATS[v.etat])
+/* Marques dérivées des pépites du mois, pour la barre de filtres (les logos vivent dans le défilé du hero). */
+const MARQUES = ['Toutes', ...Array.from(new Set(VEHICULES.map((v) => v.marque)))]
 
-/* ── Carte véhicule ── */
+/* ── Carte pépite : même squelette que les cartes Zéro malus (photo, légende, badges), mais ses propres
+   informations : prix TTC et sa composition, état, accès à la fiche. Aucun calcul de malus ici. ── */
 function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number }) {
+  const c = v.chiffres
   return (
-    <li className="pop" style={{ ['--d' as string]: `${0.05 * i}s` }}>
-      <div className="h-full rounded-[24px]">
-        <button type="button" onClick={onOpen} className="card lift group text-left w-full h-full overflow-hidden rounded-[24px] flex flex-col">
-          <div className="relative" style={{ aspectRatio: '4 / 3', background: '#0a0a0a' }}>
-            {v.cover ? (
-              <Image src={v.cover} alt={nom(v)} fill quality={82} sizes="(max-width: 640px) 100vw, (max-width: 1023px) 50vw, 33vw" className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]" style={{ objectPosition: v.coverPosition, transitionTimingFunction: 'var(--ease)' }} />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'radial-gradient(120% 120% at 20% 0%, #1c1c1c, #070707)' }}>
-                <Image src={v.logo} alt={v.marque} width={200} height={40} unoptimized style={{ width: 150, height: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
-              </div>
-            )}
-            <div className="absolute inset-0 photo-veil" />
-            <div className="absolute top-4 left-4 flex gap-2">
-              <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: '#0099ff', color: '#fff' }}>Pépite</span>
-              <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.92)', color: '#0a0a0a' }}>{v.etat === 'occasion' ? 'Occasion · moins de 5 000 km' : ETATS[v.etat]}</span>
-              <span className="text-[12px] font-medium px-2.5 py-1 rounded-full" style={{ background: 'rgba(20,20,20,0.75)', color: '#fff', border: '1px solid rgba(255,255,255,0.18)' }}>{CATEGORIES[v.categorie]}</span>
+    <li className="pop" style={{ ['--d' as string]: `${Math.min(i, 8) * 0.04}s` }}>
+      <article className="mcard pcard" onClick={onOpen}>
+        <div className="mcard-media">
+          {v.cover ? (
+            <Image src={v.cover} alt={nom(v)} fill quality={80} sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="object-cover" style={{ objectPosition: v.coverPosition || 'center' }} />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'radial-gradient(120% 120% at 20% 0%, #1c1c1c, #070707)' }}>
+              <Image src={v.logo} alt={v.marque} width={200} height={40} unoptimized style={{ width: 150, height: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
             </div>
-            <div className="absolute left-5 right-5 bottom-4">
-              <p className="text-[12.5px]" style={{ color: 'rgba(255,255,255,0.7)' }}>{v.marque}</p>
-              <h3 className="display text-[26px] leading-none text-white" style={{ letterSpacing: '-0.03em' }}>{v.modele}{v.version ? ` ${v.version}` : ''}</h3>
-            </div>
+          )}
+          <div className="mcard-veil" />
+          <div className="mcard-cap">
+            <small>{v.marque} · {CATEGORIES[v.categorie]}</small>
+            <h3>{v.modele}{v.version ? ` ${v.version}` : ''}</h3>
           </div>
-          <div className="p-5 flex-1 flex flex-col">
-            <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>Prix négocié, transport et formalités inclus</p>
-            <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(30px, 2.6vw, 36px)', color: 'var(--blue-deep)' }}>{v.chiffres ? euro(prixImport(v.chiffres)) : 'Sur demande'}<span className="text-[14px] font-medium" style={{ color: 'var(--ink-3)' }}> HT</span></p>
-            {v.chiffres && (
-              <div className="grid grid-cols-2 gap-2 mt-4">
-                <div className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--surface-1)' }}>
-                  <p className="text-[12px] leading-tight" style={{ color: 'var(--ink-3)' }}>vs prix constructeur France</p>
-                  <p className="tabular text-[15px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(v.chiffres.prixFranceTTC)}</p>
-                </div>
-                <div className="rounded-[12px] px-3 py-2.5" style={{ background: 'var(--blue-tint)' }}>
-                  <p className="text-[12px] leading-tight" style={{ color: 'var(--blue-ink)' }}>Écart de prix négocié</p>
-                  <p className="tabular text-[15px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixFranceTTC - v.chiffres.prixAllemagneHT)}</p>
-                </div>
-              </div>
-            )}
-            <div className="flex items-end justify-between gap-3 mt-auto pt-5">
-              <p className="text-[13px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>{v.detail}</p>
-              <span className="btn-w btn-sm flex-shrink-0">Fiche <Arrow /></span>
-            </div>
+          <span className="mtag pep">Pépite du mois</span>
+          <span className="mtag etat">{etatLabel(v)}</span>
+        </div>
+        <div className="pprice">
+          <span>{c ? 'Prix TTC, transport et formalités inclus' : 'Prix'}</span>
+          <b className="num">{c ? euro(prixImportTTC(c)) : 'Sur demande'}{c && <em>TTC</em>}</b>
+          <small>{c ? 'TVA française 20 % incluse · hors malus' : 'Négociation en cours chez la concession partenaire'}</small>
+        </div>
+        {c ? (
+          <div className="mrows">
+            <div><span>Négocié en Allemagne, hors taxes</span><b>{euro(c.prixAllemagneHT)}</b></div>
+            <div><span>Transport fermé et formalités</span><b>{euro(FRAIS_IMPORT)}</b></div>
+            <div><span>TVA française 20 %</span><b>{euro(tvaImport(c))}</b></div>
           </div>
-        </button>
-      </div>
+        ) : (
+          <p className="pnote">{v.detail}</p>
+        )}
+        <div className="pfoot">
+          <span>{v.etat === 'occasion' ? 'Inspection avant achat' : 'Options et covering au choix'}</span>
+          <button type="button" className="lk" onClick={(e) => { e.stopPropagation(); onOpen() }} aria-label={`Voir la fiche ${nom(v)}`}>Voir la fiche <Arrow className="w-3.5 h-3.5" /></button>
+        </div>
+      </article>
     </li>
   )
 }
@@ -131,25 +129,19 @@ function Volet({ v, onClose }: { v: Vehicule; onClose: () => void }) {
             </ul>
           </div>
 
-          {/* Prix négocié, face au prix constructeur en France */}
+          {/* Prix TTC et sa composition. La comparaison avec le prix France et le malus vivent dans le catalogue Zéro malus. */}
           {v.chiffres && (
             <div className="card p-5 sm:p-6 mt-6">
-              <p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Prix négocié, transport et formalités inclus</p>
-              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(prixImport(v.chiffres))}<span className="text-[16px] font-medium" style={{ color: 'var(--ink-3)' }}> HT</span></p>
-              <p className="text-[13px] mt-2" style={{ color: 'var(--ink-2)' }}>Véhicule négocié chez la concession partenaire, transport fermé privé et formalités d’immatriculation en France inclus. La TVA française et le malus s’appliquent comme pour tout véhicule immatriculé en France.</p>
-              <div className="grid grid-cols-2 gap-3 mt-5">
-                <div className="rounded-[14px] px-4 py-3.5" style={{ background: 'var(--surface-1)' }}>
-                  <p className="text-[12px]" style={{ color: 'var(--ink-3)' }}>vs prix constructeur France</p>
-                  <p className="tabular text-[20px] font-semibold mt-1 line-through" style={{ textDecorationColor: 'rgba(10,10,10,0.35)' }}>{euro(v.chiffres.prixFranceTTC)}</p>
-                  <p className="text-[12px] mt-0.5" style={{ color: 'var(--ink-3)' }}>TTC, hors malus</p>
-                </div>
-                <div className="rounded-[14px] px-4 py-3.5" style={{ background: 'var(--blue-tint)' }}>
-                  <p className="text-[12px]" style={{ color: 'var(--blue-ink)' }}>Écart de prix négocié</p>
-                  <p className="tabular text-[20px] font-semibold mt-1" style={{ color: 'var(--blue-deep)' }}>{euro(v.chiffres.prixFranceTTC - v.chiffres.prixAllemagneHT)}</p>
-                  <p className="text-[12px] mt-0.5" style={{ color: 'var(--blue-ink)' }}>prix France TTC − prix Allemagne HT</p>
-                </div>
+              <p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Prix TTC, transport et formalités inclus</p>
+              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(prixImportTTC(v.chiffres))}<span className="text-[16px] font-medium" style={{ color: 'var(--ink-3)', letterSpacing: 0, marginLeft: 8 }}>TTC</span></p>
+              <p className="text-[13px] mt-2" style={{ color: 'var(--ink-2)' }}>Véhicule négocié chez la concession partenaire, transport fermé privé, formalités d’immatriculation en France et TVA française incluses. Prix indicatif : la proposition personnalisée vous est adressée après un premier appel.</p>
+              <div className="mrows mt-4">
+                <div><span>Prix négocié en Allemagne, hors taxes</span><b>{euro(v.chiffres.prixAllemagneHT)}</b></div>
+                <div><span>Transport fermé et formalités d’immatriculation</span><b>{euro(FRAIS_IMPORT)}</b></div>
+                <div><span>TVA française 20 %</span><b>{euro(tvaImport(v.chiffres))}</b></div>
+                <div className="tot"><span>Prix TTC</span><b>{euro(prixImportTTC(v.chiffres))}</b></div>
               </div>
-              <p className="text-[12px] mt-3" style={{ color: 'var(--ink-3)' }}>CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg (données constructeur indicatives). Prix indicatif, proposition personnalisée avant tout engagement. Envie d’éviter aussi le malus et la TVA ? Voir <Link href="/immatriculation" className="underline">l’immatriculation européenne</Link>.</p>
+              <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>Hors malus écologique, dû lors de l’immatriculation en France et propre à chaque modèle : <Link href="/simulateur#simulateur" className="underline underline-offset-2" style={{ color: 'var(--blue-deep)' }}>estimez-le dans le simulateur</Link>. CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg, données constructeur indicatives.</p>
             </div>
           )}
 
@@ -208,34 +200,33 @@ export default function Catalogue({ openId: initialOpen }: { openId?: string }) 
   const setOpen = (id: string | null) => { setOpenIdState(id); router.replace(id ? `${pathname}?v=${id}#pepites` : `${pathname}#pepites`, { scroll: false }) }
   const cats = Array.from(new Set(VEHICULES.map((v) => v.categorie)))
 
-  const Chip = ({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) => (
-    <button type="button" onClick={onClick} aria-pressed={on} className="btn min-h-[40px] px-4 text-[13px]" style={on ? { background: 'var(--ink)', color: 'var(--canvas)' } : { background: 'var(--surface-1)', color: 'var(--ink)', border: '1px solid var(--hairline)' }}>{children}</button>
-  )
-
   return (
     <div>
-      <div className="flex flex-col gap-3 mb-8">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[12.5px] w-16" style={{ color: 'var(--ink-3)' }}>Marque</span>
-          {MARQUES.map((m) => <Chip key={m} on={marque === m} onClick={() => setMarque(m)}>{m}</Chip>)}
+      <div className="ctools">
+        <div className="grp brands" role="group" aria-label="Marque">
+          {MARQUES.map((m) => (
+            <button key={m} type="button" className="fchip" aria-pressed={marque === m} onClick={() => setMarque(m)}>
+              {m === 'Toutes' ? 'Toutes les marques' : m}
+            </button>
+          ))}
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[12.5px] w-16" style={{ color: 'var(--ink-3)' }}>État</span>
-          <Chip on={etat === 'tous'} onClick={() => setEtat('tous')}>Tous</Chip>
-          <Chip on={etat === 'neuf'} onClick={() => setEtat('neuf')}>Neuf</Chip>
-          <Chip on={etat === 'occasion'} onClick={() => setEtat('occasion')}>Occasion</Chip>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[12.5px] w-16" style={{ color: 'var(--ink-3)' }}>Type</span>
-          <Chip on={cat === 'toutes'} onClick={() => setCat('toutes')}>Tous</Chip>
-          {cats.map((c) => <Chip key={c} on={cat === c} onClick={() => setCat(c)}>{CATEGORIES[c]}</Chip>)}
+        <div className="grp">
+          <div className="seg" role="radiogroup" aria-label="État">
+            <button type="button" aria-pressed={etat === 'tous'} onClick={() => setEtat('tous')}>Tous</button>
+            <button type="button" aria-pressed={etat === 'neuf'} onClick={() => setEtat('neuf')}>Neuf</button>
+            <button type="button" aria-pressed={etat === 'occasion'} onClick={() => setEtat('occasion')}>Occasion</button>
+          </div>
+          <select className="field" style={{ width: 'auto' }} value={cat} onChange={(e) => setCat(e.target.value as typeof cat)} aria-label="Type de véhicule">
+            <option value="toutes">Tous les types</option>
+            {cats.map((c) => <option key={c} value={c}>{CATEGORIES[c]}</option>)}
+          </select>
         </div>
       </div>
 
       {list.length === 0 ? (
         <p className="card p-8 text-center text-[15px]" style={{ color: 'var(--ink-2)' }}>Aucun modèle avec ces filtres. Décrivez-nous la voiture visée : on la trouve.</p>
       ) : (
-        <ul key={`${marque}-${etat}-${cat}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 list-none">
+        <ul key={`${marque}-${etat}-${cat}`} className="mcat list-none">
           {list.map((v, i) => <Carte key={v.id} v={v} i={i} onOpen={() => setOpen(v.id)} />)}
         </ul>
       )}

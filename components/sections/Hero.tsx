@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import HeroPicture from '@/components/HeroPicture'
-import { Arrow } from '@/components/ui'
+import { Arrow, Words } from '@/components/ui'
 import { SITE, STATS } from '@/lib/site'
 
 /* Hero façon Corsiva OS, priorité au service malus : badge pill logo, titre en deux lignes (la seconde
@@ -21,14 +21,13 @@ export default function Hero() {
           <Image src="/media/logos/logo-prime-blanc.png" alt="Corsiva Prime" width={1588} height={224} style={{ width: 'auto', height: 14 }} />
         </div>
 
-        <h1 className="h-hero hin mx-auto mt-7" style={{ ['--d' as string]: '0.12s', maxWidth: 1080 }}>
-          Votre prochaine voiture,
-          <br />
-          <span className="grad-blue">sans malus ni TVA.</span>
+        <h1 className="h-hero mx-auto mt-7" style={{ maxWidth: 1080 }}>
+          <span className="ln"><span style={{ ['--d' as string]: '0.08s' }}>Votre prochaine voiture,</span></span>
+          <span className="ln"><span className="grad-blue" style={{ ['--d' as string]: '0.2s' }}>sans malus ni TVA.</span></span>
         </h1>
 
-        <p className="hin lead mx-auto" style={{ ['--d' as string]: '0.24s', margin: '22px auto 30px', maxWidth: '52ch', lineHeight: 1.55 }}>
-          <span className="sub-b">Import de voitures de luxe depuis l’Allemagne, clé en main.</span> Jusqu’à 80 000 € de malus et 20 % de TVA évités grâce à l’immatriculation européenne, encadrée par nos avocats partenaires.
+        <p className="lead mx-auto" style={{ margin: '22px auto 30px', maxWidth: '52ch', lineHeight: 1.55 }}>
+          <Words className="sub-b" text="Import de voitures de luxe depuis l’Allemagne, clé en main." from={0.34} step={0.022} /> <Words text="Jusqu’à 80 000 € de malus et 20 % de TVA évités grâce à l’immatriculation européenne, encadrée par nos avocats partenaires." from={0.56} step={0.022} />
         </p>
 
         <div className="hin flex flex-wrap justify-center gap-3" style={{ ['--d' as string]: '0.36s' }}>

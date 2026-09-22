@@ -82,7 +82,7 @@ export default function PepitesPopup() {
         ) : (
           <>
             <h2 id="pepites-titre" className="h-sec !text-[30px] mt-5">Recevez les <span className="grad-blue">pépites allemandes.</span></h2>
-            <p className="text-[15px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>Chaque mois, cinq véhicules dénichés et négociés chez nos concessions partenaires, avec le tarif final tout compris. Avant tout le monde.</p>
+            <p className="text-[15px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>Chaque mois, cinq véhicules dénichés et négociés chez nos concessions partenaires, avec leur prix TTC, transport et formalités inclus. Avant tout le monde.</p>
             <form onSubmit={submit} className="mt-5 flex flex-col gap-3" noValidate>
               <input type="email" inputMode="email" autoComplete="email" className="field" placeholder="votre@email.fr" value={email} onChange={(e) => setEmail(e.target.value)} required aria-label="E-mail" />
               <input type="tel" inputMode="tel" autoComplete="tel" className="field" placeholder="Téléphone (facultatif)" value={tel} onChange={(e) => setTel(e.target.value)} aria-label="Téléphone (facultatif)" />

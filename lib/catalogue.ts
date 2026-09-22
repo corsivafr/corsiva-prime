@@ -120,6 +120,11 @@ export const prixFinal = (c: Chiffres) => c.prixAllemagneHT + FRAIS_TOUT_COMPRIS
    Prix hors TVA française et hors malus, qui s'appliquent comme pour tout véhicule immatriculé en France. */
 export const FRAIS_IMPORT = 6_000
 export const prixImport = (c: Chiffres) => c.prixAllemagneHT + FRAIS_IMPORT
+/* Prix TTC affiché sur les pépites : véhicule négocié HT + transport et formalités, TVA française de 20 %
+   incluse (due à l'immatriculation en France). Hors malus écologique, propre à chaque modèle. */
+export const TVA_FR = 0.2
+export const prixImportTTC = (c: Chiffres) => Math.round(prixImport(c) * (1 + TVA_FR))
+export const tvaImport = (c: Chiffres) => prixImportTTC(c) - prixImport(c)
 
 export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche', 'Lamborghini'] as const
 

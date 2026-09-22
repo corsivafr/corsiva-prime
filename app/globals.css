@@ -528,6 +528,18 @@ html:not(.js) .sl-veil { display: none; }
 @keyframes lnup { to { transform: none; } }
 html.js .ln > span { will-change: transform; }
 @media (prefers-reduced-motion: reduce) { .ln > span { animation: none; transform: none; } }
+/* Titres de section : les deux lignes montent à l'entrée dans l'écran (.in posé par Reveal sur le .rise) */
+.lns { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.lns > span { display: inline-block; }
+html.js .rise .lns > span { transform: translateY(110%); transition: transform 0.9s var(--ease); transition-delay: var(--dl, 0s); }
+html.js .rise.in .lns > span { transform: none; }
+/* Leads des heros : mot à mot */
+.wd { display: inline-block; opacity: 0; transform: translateY(0.35em); animation: wdin 0.7s var(--ease) forwards; animation-delay: var(--d, 0s); }
+@keyframes wdin { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  html.js .rise .lns > span { transform: none; transition: none; }
+  .wd { animation: none; opacity: 1; transform: none; }
+}
 .display.tabular, .num { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
 
 /* ============ Hero vidéo (Comment ça fonctionne) ============ */
@@ -535,7 +547,6 @@ html.js .ln > span { will-change: transform; }
 @media (prefers-reduced-motion: reduce) { .vhero-video { display: none; } }
 
 /* ============ Catalogue Zéro malus ============ */
-.mtools { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: center; margin-bottom: 26px; }
 .mcat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 @media (max-width: 1023px) { .mcat { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 639px) { .mcat { grid-template-columns: 1fr; } }
@@ -572,12 +583,50 @@ html.js .ln > span { will-change: transform; }
 .mrows div b { color: var(--ink); font-weight: 600; }
 .mrows div.off { opacity: 0.45; text-decoration: line-through; }
 .mcta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.msum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 26px; }
-@media (max-width: 639px) { .msum { grid-template-columns: 1fr; } }
-.msum div { background: #fff; border: 1px solid rgba(10, 10, 10, 0.08); border-radius: 18px; padding: 16px 18px; }
+.msum { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 22px; background: #fff; border: 1px solid rgba(10, 10, 10, 0.08); border-radius: 22px; overflow: hidden; }
+.msum div { padding: 18px 22px; border-left: 1px solid rgba(10, 10, 10, 0.08); }
+.msum div:first-child { border-left: 0; }
 .msum b { display: block; font-size: clamp(26px, 2.6vw, 34px); color: var(--blue-deep); line-height: 1; }
 .msum span { font-size: 13px; color: var(--ink-2); display: block; margin-top: 6px; }
+@media (max-width: 639px) { .msum { grid-template-columns: 1fr; } .msum div { border-left: 0; border-top: 1px solid rgba(10, 10, 10, 0.08); } .msum div:first-child { border-top: 0; } }
 .light select.field, .light input.field { min-height: 44px; }
+
+/* ============ Barre d'outils commune (pépites + Zéro malus) ============ */
+.ctools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 8px; border-radius: 30px; background: #fff; border: 1px solid rgba(10, 10, 10, 0.08); margin-bottom: 22px; }
+.ctools.center { justify-content: center; }
+.ctools .grp { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.ctools .seg { background: var(--surface-1); }
+.ctools .field { min-height: 44px; border-radius: 100px; padding: 0 38px 0 16px; font-size: 13.5px; }
+.fchip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 100px; font-size: 13.5px; font-weight: 500; color: var(--ink-2); background: transparent; transition: background-color 0.25s var(--ease), color 0.25s var(--ease); }
+@media (hover: hover) { .fchip:hover { background: var(--surface-1); color: var(--ink); } }
+.fchip[aria-pressed='true'] { background: #0a0a0a; color: #fff; }
+.ccount { font-size: 12.5px; color: var(--ink-3); padding: 0 10px; white-space: nowrap; }
+.mcard .lk { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--blue-deep); text-align: left; white-space: nowrap; }
+.mcard .lk .arrow { transition: transform 0.25s var(--ease); }
+@media (hover: hover) { .mcard .lk:hover .arrow { transform: translateX(3px); } }
+@media (max-width: 767px) {
+  .ctools { border-radius: 24px; }
+  .ctools .grp { gap: 2px; }
+  .ctools .grp.brands { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .ctools .grp.brands::-webkit-scrollbar { display: none; }
+  .ctools .grp.brands .fchip { flex-shrink: 0; }
+  .fchip { min-height: 40px; padding: 0 12px; font-size: 13px; }
+  .ccount { display: none; }
+}
+
+/* ============ Cartes pépites (Import) : squelette .mcard, informations propres ============ */
+.pcard { height: 100%; cursor: pointer; }
+.pcard .mtag.pep { background: #0099ff; color: #fff; }
+.pcard .mtag.etat { left: auto; right: 12px; background: rgba(255, 255, 255, 0.92); color: #0a0a0a; }
+.pprice span { display: block; font-size: 12.5px; color: var(--ink-2); }
+.pprice b { display: block; font-size: clamp(28px, 2.4vw, 34px); color: var(--blue-deep); line-height: 1; margin-top: 5px; }
+.pprice b em { font-style: normal; font-family: var(--font-inter), system-ui, sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0; color: var(--ink-3); margin-left: 7px; vertical-align: 0.2em; }
+.pprice small { display: block; font-size: 12px; color: var(--ink-3); margin-top: 6px; }
+.pcard .mrows, .pcard .pnote { flex: 1; }
+.pnote { font-size: 13px; line-height: 1.5; color: var(--ink-2); padding-top: 10px; border-top: 1px dashed rgba(10, 10, 10, 0.12); }
+.pfoot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px solid rgba(10, 10, 10, 0.08); font-size: 12.5px; color: var(--ink-2); }
+.mrows div.tot { border-top: 1px solid rgba(10, 10, 10, 0.12); padding-top: 8px; margin-top: 2px; }
+.mrows div.tot b { color: var(--blue-deep); font-size: 14px; }
 
 /* ============ Comparatif des packages ============ */
 .cmp { width: 100%; border-collapse: separate; border-spacing: 0; }

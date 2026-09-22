@@ -310,7 +310,7 @@ h1, h2, .display { letter-spacing: -0.045em; }
 /* Pills : CTA bleu lumineux (Geist 600), pill blanche, pill charbon — en couche components pour que
    les utilitaires (hidden, sm:inline-flex…) gardent la main. */
 @layer components {
-.btn-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: #fff; background: #0099ff; border-radius: 100px; padding: 13px 24px; min-height: 48px; position: relative; box-shadow: 0 16px 38px rgba(0, 153, 255, 0.42); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); white-space: nowrap; }
+.btn-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: #fff; background: #007acc; border-radius: 100px; padding: 13px 24px; min-height: 48px; position: relative; box-shadow: 0 16px 38px rgba(0, 153, 255, 0.42); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); white-space: nowrap; }
 .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 22px 52px rgba(0, 153, 255, 0.55); }
 .btn-cta .arrow { transition: transform 0.25s var(--ease); }
 .btn-cta:hover .arrow { transform: translateX(4px); }
@@ -541,7 +541,7 @@ html.js .ln > span { will-change: transform; }
 html.js .rise .lns > span { transform: translateY(110%); transition: transform 0.9s var(--ease); transition-delay: var(--dl, 0s); }
 html.js .rise.in .lns > span { transform: none; }
 /* Leads des heros : mot à mot */
-.wd { display: inline-block; opacity: 0; transform: translateY(0.35em); animation: wdin 0.7s var(--ease) forwards; animation-delay: var(--d, 0s); }
+.wd { display: inline-block; opacity: 0; transform: translateY(0.35em); animation: wdin 0.5s var(--ease) forwards; animation-delay: var(--d, 0s); }
 @keyframes wdin { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   html.js .rise .lns > span { transform: none; transition: none; }
@@ -623,7 +623,7 @@ html.js .rise.in .lns > span { transform: none; }
 
 /* ============ Cartes pépites (Import) : squelette .mcard, informations propres ============ */
 .pcard { height: 100%; cursor: pointer; }
-.pcard .mtag.pep { background: #0099ff; color: #fff; }
+.pcard .mtag.pep { background: #007acc; color: #fff; }
 .pcard .mtag.etat { left: auto; right: 12px; background: rgba(255, 255, 255, 0.92); color: #0a0a0a; }
 .pprice span { display: block; font-size: 12.5px; color: var(--ink-2); }
 .pprice b { display: block; font-size: clamp(28px, 2.4vw, 34px); color: var(--blue-deep); line-height: 1; margin-top: 5px; }
@@ -634,6 +634,13 @@ html.js .rise.in .lns > span { transform: none; }
 .pfoot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px solid rgba(10, 10, 10, 0.08); font-size: 12.5px; color: var(--ink-2); }
 .mrows div.tot { border-top: 1px solid rgba(10, 10, 10, 0.12); padding-top: 8px; margin-top: 2px; }
 .mrows div.tot b { color: var(--blue-deep); font-size: 14px; }
+
+/* ============ Fiches d'acquisition (volet) ============ */
+.fiche-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 18px; }
+.fiche-grid div { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--hairline); font-size: 14px; color: var(--ink-2); }
+.fiche-grid div b { color: var(--ink); font-weight: 600; text-align: right; }
+@media (max-width: 639px) { .fiche-grid { grid-template-columns: 1fr; } }
+.mcat.compact .pcard .mrows { display: none; }
 
 /* ============ Comparatif des packages ============ */
 .cmp { width: 100%; border-collapse: separate; border-spacing: 0; }

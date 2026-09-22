@@ -10,14 +10,14 @@ import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Tarifs import Allemagne : packages sur devis',
-  description: 'Import, import + immatriculation européenne, options : trois packages sur devis, rémunération indexée sur la valeur réellement créée pour vous.',
+  title: 'Tarifs : forfait Corsiva Prime 21 000 €',
+  description: 'Import + immatriculation européenne : forfait global de 21 000 € connu à l’avance, hors prix du véhicule. Import seul sur proposition, covering en option.',
   alternates: { canonical: `${SITE.url}/tarifs` },
 }
 
 const PRINCIPES = [
   { t: 'Un chiffrage avant tout engagement', s: 'Vous recevez une proposition écrite, poste par poste, avant la phase de sourcing. Rien n’est engagé sans votre accord.' },
-  { t: 'Indexé sur la valeur créée', s: 'Notre rémunération est proportionnée à l’avantage réel : écart de prix, malus et TVA non supportés. Plus le projet est ambitieux, plus la valeur est nette.' },
+  { t: 'Un forfait connu à l’avance', s: 'Import avec immatriculation européenne : 21 000 € tout compris, hors prix du véhicule, arrêté à la signature. Aucun frais additionnel n’est facturé en cours de dossier. Covering intégral en option : 3 000 €.' },
   { t: 'Tout est inclus', s: 'Déplacement, hôtel, avocat, transport fermé, formalités : le package couvre l’ensemble. Pas de frais découverts en cours de route.' },
 ]
 
@@ -27,8 +27,8 @@ export default function Page() {
       <Breadcrumb items={[{ name: 'Tarifs', href: '/tarifs' }]} />
       <PageHero
         a="Deux services,"
-        b="un chiffrage sur mesure."
-        lead="Import seul, ou import avec immatriculation européenne : comparez ce qui est compris, composez votre package, recevez une proposition écrite."
+        b="un forfait connu à l’avance."
+        lead="Import avec immatriculation européenne : un forfait global de 21 000 €, hors prix du véhicule, arrêté à la signature. Import seul : proposition personnalisée. Comparez, composez, recevez votre proposition écrite."
         hero="tarifs"
         primary={{ href: '#packages', label: 'Comparer les packages' }}
         secondary={{ href: '/contact', label: 'Demander une proposition' }}
@@ -48,7 +48,7 @@ export default function Page() {
       </Section>
       <Section glow>
         <Wrap>
-          <SecHead a="Pourquoi" b="pas de prix affiché.">Parce qu’une citadine premium et une supercar ne demandent ni le même travail, ni la même structuration. Trois principes, en revanche, ne changent jamais.</SecHead>
+          <SecHead a="Un forfait," b="trois principes.">Le forfait couvre l’exécution complète de l’opération : sourcing, structuration, acquisition, livraison. Hors forfait : le prix du véhicule, réglé au vendeur sur facture hors taxes, la gestion de la structure (60 € par mois) et l’assurance, chiffrée selon profil.</SecHead>
           <Reveal as="ul" className="grid grid-cols-1 md:grid-cols-3 gap-5 list-none">
             {PRINCIPES.map((p, i) => (
               <li key={p.t} className="rise rise-scale card lift p-7" style={d(0.08 * (i + 1))}>

@@ -1,6 +1,6 @@
 import { SITE, FAQ, PHASES, STATS } from '@/lib/site'
 import { ARTICLES } from '@/lib/articles'
-import { CATALOGUE, calculer, nomModele } from '@/lib/modeles'
+import { FICHES, nomFiche, FORFAIT_PRIME, OPTION_COVERING, GESTION_STRUCTURE_MOIS } from '@/lib/acquisitions'
 import { VEHICULES, prixImportTTC } from '@/lib/catalogue'
 import { euro, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
 
@@ -21,7 +21,7 @@ export function GET() {
   l.push(`- Entité : ${SITE.legalEntity} (${SITE.legalCountry}), groupe Corsiva (Chambéry, France). Plus de ${STATS.voitures} voitures déjà immatriculées avec Corsiva Prime. Note Google du groupe : ${STATS.noteGoogle} (${STATS.avisGoogle} avis).`)
   l.push(`- Villes : ${SITE.villes.join(', ')} et toute la France.`)
   l.push('- Deux services indépendants et cumulables : Import (véhicule négocié chez une concession partenaire allemande, transport fermé, formalités françaises) et Immatriculation européenne (« Zéro malus »).')
-  l.push('- Tarifs des packages : sur devis, rémunération indexée sur la valeur créée. Aucun prix de package publié.')
+  l.push(`- Tarifs : import + immatriculation européenne = forfait global ${euro(FORFAIT_PRIME)} hors prix du véhicule (structuration, exécution, livraison), covering intégral ${euro(OPTION_COVERING)} en option, gestion de la structure ${GESTION_STRUCTURE_MOIS} €/mois hors forfait ; import seul sur proposition personnalisée.`)
   l.push('- Les pépites du mois (page Import) affichent un prix TTC indicatif : prix négocié hors taxes + transport et formalités, TVA française 20 % incluse, hors malus.')
   l.push('')
   l.push(`## Règle du malus ${ANNEE_BAREME} (source : loi de finances n° 2025-127, fiche service-public F35947)`)
@@ -31,10 +31,9 @@ export function GET() {
   l.push('- Électriques exonérées ; hybrides rechargeables (> 50 km d’autonomie) : abattement de 200 kg.')
   l.push('- Économie Corsiva Prime = écart de prix (France TTC − Allemagne HT) + TVA 20 % non supportée + malus non dû, avec l’immatriculation européenne ; écart de prix seul avec l’import seul.')
   l.push('')
-  l.push('## Catalogue Zéro malus (chiffres indicatifs, non contractuels)')
-  for (const m of CATALOGUE) {
-    const r = calculer(m)
-    l.push(`- ${nomModele(m)} : prix France ${euro(m.prixFranceTTC)}, malus ${euro(r.malusTotal)}, coût France malus inclus ${euro(m.prixFranceTTC + r.malusTotal)} ; prix Allemagne HT ${euro(m.prixAllemagneHT)} ; économie avec immatriculation européenne jusqu’à ${euro(r.avantageTotal)}.`)
+  l.push('## Fiches d’acquisition (propositions du 21 septembre 2026, indicatives et non contractuelles)')
+  for (const f of FICHES) {
+    l.push(`- ${nomFiche(f)} ${f.annee} (${f.fiche.km.toLocaleString('fr-FR')} km, ${f.fiche.circulation}, ${f.fiche.etat.toLowerCase()}) : prix Allemagne hors taxes ≈ ${euro(f.prixAllemagneHT)} (${f.prixAllemagneNote.toLowerCase()}), prix France équivalent malus compris ${euro(f.prixFranceTTC)}, écart ≈ ${euro(f.ecart)} (${f.part} % du prix français), forfait Corsiva Prime ${euro(FORFAIT_PRIME)} — ${SITE.url}/immatriculation?fiche=${f.id}`)
   }
   l.push('')
   l.push('## Pépites du mois (page Import, prix TTC indicatifs hors malus)')

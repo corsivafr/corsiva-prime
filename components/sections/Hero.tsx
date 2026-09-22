@@ -27,7 +27,7 @@ export default function Hero() {
         </h1>
 
         <p className="lead mx-auto" style={{ margin: '22px auto 30px', maxWidth: '52ch', lineHeight: 1.55 }}>
-          <Words className="sub-b" text="Import de voitures de luxe depuis l’Allemagne, clé en main." from={0.34} step={0.022} /> <Words text="Jusqu’à 80 000 € de malus et 20 % de TVA évités grâce à l’immatriculation européenne, encadrée par nos avocats partenaires." from={0.56} step={0.022} />
+          <Words className="sub-b" text="Import de voitures de luxe depuis l’Allemagne, clé en main." from={0.2} step={0.012} /> <Words text="Jusqu’à 80 000 € de malus et 20 % de TVA évités grâce à l’immatriculation européenne, encadrée par nos avocats partenaires." from={0.32} step={0.012} />
         </p>
 
         <div className="hin flex flex-wrap justify-center gap-3" style={{ ['--d' as string]: '0.36s' }}>

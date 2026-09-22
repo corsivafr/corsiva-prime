@@ -29,7 +29,7 @@ export default function PageHero({
           <span className="ln"><span style={{ ['--d' as string]: '0.05s' }}>{a}</span></span>
           <span className="ln"><span className="grad-blue" style={{ ['--d' as string]: '0.18s' }}>{b}</span></span>
         </h1>
-        <p className="lead mx-auto" style={{ margin: '22px auto 0', maxWidth: '56ch', lineHeight: 1.6 }}><Words text={lead} from={0.34} step={0.018} /></p>
+        <p className="lead mx-auto" style={{ margin: '22px auto 0', maxWidth: '56ch', lineHeight: 1.6 }}><Words text={lead} from={0.2} step={0.01} /></p>
         {(primary || secondary) && (
           <div className="hin flex flex-wrap justify-center gap-3 mt-8" style={{ ['--d' as string]: '0.46s' }}>
             {primary && <Btn b={primary} cls="btn-cta" />}

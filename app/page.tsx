@@ -4,7 +4,7 @@ import BrandMarquee from '@/components/sections/BrandMarquee'
 import Arguments from '@/components/sections/Arguments'
 import Chiffres from '@/components/sections/Chiffres'
 import Reel from '@/components/sections/Reel'
-import MalusCatalogue from '@/components/MalusCatalogue'
+import AcquisitionsCatalogue from '@/components/AcquisitionsCatalogue'
 import Reveal from '@/components/Reveal'
 import { Section, Wrap, SecHead } from '@/components/ui'
 import Services from '@/components/sections/Services'
@@ -61,8 +61,8 @@ export default function Home() {
       <Services />
       <Section tone="light" id="catalogue">
         <Wrap>
-          <SecHead a="Le vrai prix," b="modèle par modèle.">Six voitures à fort malus, le coût en France malus inclus face au prix avec Corsiva Prime. Le catalogue complet détaille chaque poste.</SecHead>
-          <Reveal className="rise"><MalusCatalogue compact /></Reveal>
+          <SecHead a="Le vrai prix," b="modèle par modèle.">Neuf fiches d’acquisition : le prix France équivalent, malus compris, face au prix allemand hors taxes. Ouvrez une fiche pour le détail, poste par poste.</SecHead>
+          <Reveal className="rise"><AcquisitionsCatalogue compact /></Reveal>
         </Wrap>
       </Section>
       <Reel />

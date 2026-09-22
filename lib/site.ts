@@ -106,7 +106,7 @@ export const FAQ = [
   { q: 'Où puis-je rouler avec le véhicule ?', a: 'Partout dans l’Union européenne.' },
   { q: 'Et l’assurance ?', a: 'Une couverture adaptée, souvent plus simple et plus avantageuse.' },
   { q: 'Puis-je faire seulement l’import, sans l’immatriculation européenne ?', a: 'Oui, tout à fait : les deux services sont indépendants.' },
-  { q: 'Comment êtes-vous rémunérés ?', a: 'Une proposition personnalisée, indexée sur la valeur réellement créée.' },
+  { q: 'Comment êtes-vous rémunérés ?', a: 'Par un forfait global de 21 000 € pour l’import avec immatriculation européenne, hors prix du véhicule : structuration, exécution et livraison incluses, arrêté à la signature, sans frais additionnel en cours de dossier. L’import seul fait l’objet d’une proposition personnalisée.' },
   { q: 'Comment éviter le malus écologique sur une voiture de luxe importée d’Allemagne ?', a: 'En l’immatriculant dans une structure européenne encadrée par nos avocats partenaires : le malus français à l’immatriculation (jusqu’à 80 000 € en 2026) et la TVA de 20 % ne sont pas supportés. Le véhicule circule librement dans toute l’Union européenne.' },
   { q: 'Quelles voitures importez-vous d’Allemagne ?', a: 'Toutes les marques premium disponibles chez nos concessions partenaires : BMW M, Mercedes-AMG et Classe G, Porsche, Audi RS, Lamborghini, Bentley… Chaque mois, cinq pépites négociées sont publiées sur la page Import, avec leur tarif tout compris.' },
   { q: 'Où intervenez-vous ?', a: 'Partout en France. Nos conseillers vous reçoivent à Paris et se déplacent à Lyon, Chambéry, Annecy et dans toute la France ; la voiture est livrée chez vous en transport fermé privé.' },

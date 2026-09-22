@@ -1,6 +1,7 @@
 import { euro, malusCO2, malusMasse, decoteOccasion, simuler, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
 import { VEHICULES } from '@/lib/catalogue'
 import { MODELES, CATS, calculer, modeleParId, nomModele } from '@/lib/modeles'
+import { ficheParId, FORFAIT_PRIME, budgetPrime, economieNette } from '@/lib/acquisitions'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Articles de référencement. Chaque chiffre légal vient de lib/malus.ts (loi de finances n° 2025-127,
@@ -189,6 +190,7 @@ const BASE: Article[] = [
 
 /* ── Données calculées pour les nouveaux guides (rien en dur) ── */
 const urus = modeleParId('lamborghini-urus-s')!
+const fU = ficheParId('lamborghini-urus-s')!
 const rUrus = calculer(urus)
 const rUrus12 = simuler({ prixFranceTTC: urus.prixFranceTTC, prixAllemagneHT: urus.prixAllemagneHT, co2: urus.co2, masse: urus.masse, energie: urus.energie, occasionMois: 12 })
 const CLASSEMENT = MODELES.map((m) => ({ m, r: calculer(m) })).sort((a, b) => b.r.avantageTotal - a.r.avantageTotal)
@@ -294,7 +296,7 @@ const TETE: Article[] = [
     faq: [
       { q: 'Une occasion récente est-elle moins taxée ?', a: 'Le malus CO₂ est décoté selon l’ancienneté (12 % à un an, 20 % à deux ans), mais le malus au poids reste entier et le cumul est plafonné : sur un gros SUV, une occasion d’un an reste au plafond.' },
       { q: 'Le malus dépend-il de ma ville ?', a: 'Non, c’est une taxe nationale, identique partout en France. Corsiva Prime accompagne ses clients à Paris, Lyon, Annecy, Chambéry et dans toute la France.' },
-      { q: 'Quels modèles importez-vous le plus ?', a: 'Les six voitures en photo du catalogue Zéro malus (M3, Classe G 63, 911 GTS, 911 Turbo S, Urus S, RS Q8), et toute marque premium disponible chez nos concessions partenaires.' },
+      { q: 'Quels modèles importez-vous le plus ?', a: 'Les voitures dneuf fiches d’acquisition du catalogue Zéro malus (911 Carrera S, G 63, RS Q8 performance, M4 Competition, R8 V10 performance, Urus S, CLE 53 Coupé, RS6 Avant performance, M3 Competition), et toute marque premium disponible chez nos concessions partenaires.' },
     ],
     liens: LIENS_SERVICES,
     related: ['bareme-malus-2026-complet', 'acheter-lamborghini-urus-import-malus', 'prix-france-allemagne-m3-classe-g-911'],
@@ -304,7 +306,7 @@ const TETE: Article[] = [
     metaTitle: 'Acheter une Lamborghini Urus : prix et malus',
     title: `Acheter une Lamborghini Urus en ${ANNEE_BAREME} : prix, malus, import d’Allemagne et immatriculation`,
     h1: ['Acheter une Lamborghini Urus :', 'prix, malus et import.'],
-    description: `Prix France et Allemagne d’un Urus S, malus ${ANNEE_BAREME} au plafond, TVA, import clé en main et immatriculation européenne : à savoir avant d’acheter un Urus.`,
+    description: `Prix France malus compris et prix Allemagne hors taxes d’un Urus S, malus ${ANNEE_BAREME} au plafond, forfait Corsiva Prime : à savoir avant d’acheter un Urus.`,
     date: '2026-09-22',
     updated: '2026-09-22',
     cover: '/media/photos/urus-avant.jpg',
@@ -317,10 +319,10 @@ const TETE: Article[] = [
         `Avec ${urus.co2} g/km, le malus CO₂ de l’Urus S atteint le plafond de ${euro(PLAFOND_MALUS)} dès le premier gramme au-dessus de 191. Sa masse de ${urus.masse.toLocaleString('fr-FR')} kg ajoute ${euro(malusMasse(urus.masse, 'thermique'))} de malus au poids. Le cumul étant plafonné, le malus dû à l’immatriculation en France est de ${euro(rUrus.malusTotal)}.`,
       ] },
       { h2: 'Ce que coûte un Urus S en France', paras: [
-        `Prix constructeur indicatif d’une configuration courante : ${euro(urus.prixFranceTTC)}. Malus inclus, le budget réel passe à ${euro(urus.prixFranceTTC + rUrus.malusTotal)}, avant les options, la carte grise et l’assurance.`,
+        `L’Urus S le moins cher en vente en France, malus déjà payé, s’affichait ${euro(fU.prixFranceTTC)} TTC en septembre 2026 (relevé de notre fiche d’acquisition). Neuf, il faut ajouter au prix catalogue le malus de ${euro(rUrus.malusTotal)}, avant les options, la carte grise et l’assurance.`,
       ] },
       { h2: 'Ce que coûte le même Urus en Allemagne', paras: [
-        `Chez nos concessions partenaires, le même véhicule se négocie autour de ${euro(urus.prixAllemagneHT)} hors taxes, soit ${euro(rUrus.ecartAchat)} de moins que le prix France TTC. En import classique, il faut y ajouter la TVA française de 20 % (${euro(rUrus.tvaEvitee)}) et le malus à l’immatriculation en France.`,
+        `En Allemagne, la médiane des sept Urus S éligibles (TVA récupérable) est de ${euro(fU.prixAllemagneTTC)} TTC, soit ≈ ${euro(fU.prixAllemagneHT)} hors taxes : ${euro(fU.ecart)} de moins que le prix France malus compris, ${fU.part} % du prix français. En import classique, il faut y ajouter la TVA française de 20 % et le malus à l’immatriculation en France.`,
       ] },
       { h2: 'Neuf ou occasion récente ?', paras: [
         `Une occasion d’un an bénéficie d’une décote de ${pct(decoteOccasion(12))} sur le malus CO₂. Mais le malus au poids reste entier et le cumul est plafonné : un Urus d’un an paie encore ${euro(rUrus12.malusTotal)} de malus. Sur ce modèle, l’occasion ne règle donc pas la question du malus ; elle joue seulement sur le prix d’achat.`,
@@ -331,14 +333,14 @@ const TETE: Article[] = [
         'Transport fermé privé jusqu’à votre adresse, quitus fiscal, certificat de conformité et carte grise française.',
         'Covering en option, posé avant la livraison.',
       ], note: 'L’Urus fait partie des pépites en cours de négociation chez nos concessions partenaires : son prix est communiqué sur demande.' },
-      { h2: `L’immatriculation européenne : jusqu’à ${euro(rUrus.avantageTotal)} d’économie`, paras: [
-        `Porté par une structure européenne encadrée par nos avocats partenaires et immatriculé dans un autre État membre, l’Urus ne supporte ni le malus français ni la TVA de 20 %. Écart de prix compris, l’économie indicative atteint ${euro(rUrus.avantageTotal)} par rapport à un achat en France.`,
+      { h2: `L’immatriculation européenne : ${euro(fU.ecart)} d’écart, forfait connu à l’avance`, paras: [
+        `Porté par une structure européenne encadrée par nos avocats partenaires et immatriculé dans un autre État membre, l’Urus ne supporte ni le malus français ni la TVA de 20 %. Le forfait Corsiva Prime de ${euro(FORFAIT_PRIME)} compris, le budget s’établit à ≈ ${euro(budgetPrime(fU))}, soit ≈ ${euro(economieNette(fU))} de moins que le prix France malus compris.`,
         'Le véhicule circule librement dans toute l’Union européenne. Les modalités de la structure vous sont présentées lors d’un appel, avec nos avocats partenaires si besoin.',
       ] },
       { h2: 'Le vrai budget, en résumé', list: [
-        `Achat en France : ${euro(urus.prixFranceTTC + rUrus.malusTotal)} malus inclus.`,
-        `Import seul : ${euro(urus.prixAllemagneHT)} HT + TVA 20 % + malus ${euro(rUrus.malusTotal)} + transport et formalités.`,
-        `Import + immatriculation européenne : ${euro(urus.prixAllemagneHT)} HT, sans TVA ni malus, + le package sur devis.`,
+        `Achat en France : ${euro(fU.prixFranceTTC)}, malus compris (Urus S le moins cher relevé).`,
+        `Import seul : ≈ ${euro(fU.prixAllemagneHT)} hors taxes + TVA 20 % + malus ${euro(rUrus.malusTotal)} + transport et formalités.`,
+        `Import + immatriculation européenne : ≈ ${euro(fU.prixAllemagneHT)} hors taxes + forfait ${euro(FORFAIT_PRIME)} = ≈ ${euro(budgetPrime(fU))}, sans TVA ni malus.`,
       ] },
     ],
     faq: [
@@ -347,7 +349,7 @@ const TETE: Article[] = [
       { q: 'Faites-vous aussi le Huracán ou le Revuelto ?', a: 'Nous importons toute la gamme disponible chez nos concessions partenaires. Le Huracán Tecnica figure dans notre simulateur ; pour un autre modèle, décrivez-nous la voiture visée.' },
     ],
     liens: [
-      { label: 'Le catalogue Zéro malus : Urus S, Classe G 63, 911, RS Q8', href: '/immatriculation#catalogue' },
+      { label: 'La fiche d’acquisition de l’Urus S', href: '/immatriculation?fiche=lamborghini-urus-s#catalogue' },
       { label: 'Simuler l’économie sur un Urus', href: '/simulateur?modele=lamborghini-urus-s#simulateur' },
       { label: 'Les pépites du mois', href: '/import#pepites' },
     ],
@@ -427,7 +429,7 @@ const QUEUE: Article[] = [
         'La voiture est acheminée en camion fermé privé jusqu’à votre domicile, votre bureau ou votre parking, à Paris comme dans toute l’Île-de-France. Aucun kilomètre inutile, aucune exposition. Elle arrive telle qu’elle a quitté la concession, avec ses plaques.',
       ] },
       { h2: 'Quelles voitures ?', paras: [
-        `Les modèles au plafond du malus de notre catalogue Zéro malus : BMW M3 Competition, Mercedes Classe G 63 AMG, Porsche 911 GTS et Turbo S, Lamborghini Urus S, Audi RS Q8. Et toute marque premium disponible chez nos concessions partenaires : Bentley, Range Rover, Aston Martin, Maserati… Sur la page Import, cinq pépites négociées sont proposées chaque mois.`,
+        `Les neuf fiches d’acquisition de notre catalogue Zéro malus : Porsche 911 Carrera S, Mercedes-AMG G 63 et CLE 53, Audi RS Q8, RS6 Avant et R8 V10 performance, BMW M4 et M3 Competition, Lamborghini Urus S. Et toute marque premium disponible chez nos concessions partenaires : Bentley, Range Rover, Aston Martin, Maserati… Sur la page Import, cinq pépites négociées sont proposées chaque mois.`,
       ] },
       { h2: 'Import seul ou immatriculation européenne ?', paras: [
         `Import seul : vous gagnez l’écart de prix négocié, mais la TVA de 20 % et le malus (jusqu’à ${euro(PLAFOND_MALUS)}) restent dus à l’immatriculation en France. Import avec immatriculation européenne : le véhicule est porté par une structure européenne encadrée par nos avocats partenaires, ni le malus ni la TVA ne sont supportés, et la voiture circule dans toute l’Union. Les détails vous sont présentés de vive voix.`,
@@ -467,7 +469,7 @@ const QUEUE: Article[] = [
         'La voiture arrive en camion fermé privé à l’adresse de votre choix : Lyon, Villeurbanne, l’Ouest lyonnais, le Beaujolais, l’Ain ou l’Isère. Aucun kilomètre inutile, plaques posées, dossier complet remis à la livraison.',
       ] },
       { h2: 'Les voitures que nous chiffrons pour Lyon', paras: [
-        'Les six modèles en photo de notre catalogue Zéro malus (BMW M3 Competition, Mercedes Classe G 63 AMG, Porsche 911 GTS et Turbo S, Lamborghini Urus S, Audi RS Q8) et toute marque premium disponible chez nos concessions partenaires en Allemagne. Le simulateur compare trente et un modèles à fort malus.',
+        'Les voitures dneuf fiches d’acquisition du catalogue Zéro malus (911 Carrera S, G 63, RS Q8 performance, M4 Competition, R8 V10 performance, Urus S, CLE 53 Coupé, RS6 Avant performance, M3 Competition), et toute marque premium disponible chez nos concessions partenaires en Allemagne. Le simulateur compare trente et un modèles à fort malus.',
       ] },
       { h2: 'Deux façons d’acheter', paras: [
         `L’import seul fait gagner l’écart de prix négocié ; la TVA de 20 % et le malus, jusqu’à ${euro(PLAFOND_MALUS)}, restent dus à l’immatriculation en France. L’import avec immatriculation européenne évite les deux : le véhicule est porté par une structure européenne encadrée par nos avocats partenaires et circule dans toute l’Union. Un conseiller vous présente le fonctionnement de vive voix.`,
@@ -507,7 +509,7 @@ const QUEUE: Article[] = [
         'Transport fermé privé jusqu’à votre adresse : Annecy, Chambéry, Aix-les-Bains, Annemasse, Courchevel ou Megève. Aucun kilomètre inutile ; la voiture arrive avec ses plaques et son dossier complet.',
       ] },
       { h2: 'Les voitures que nous importons', paras: [
-        'Les six modèles en photo du catalogue Zéro malus (M3 Competition, Classe G 63 AMG, 911 GTS et Turbo S, Urus S, RS Q8), les pépites du mois négociées chez nos concessions partenaires, et toute marque premium sur demande.',
+        'Les voitures dneuf fiches d’acquisition du catalogue Zéro malus (911 Carrera S, G 63, RS Q8 performance, M4 Competition, R8 V10 performance, Urus S, CLE 53 Coupé, RS6 Avant performance, M3 Competition), les pépites du mois négociées chez nos concessions partenaires, et toute marque premium sur demande.',
       ] },
       { h2: 'Import seul ou immatriculation européenne ?', paras: [
         `Import seul : écart de prix négocié, mais TVA de 20 % et malus (jusqu’à ${euro(PLAFOND_MALUS)}) dus à l’immatriculation en France. Import avec immatriculation européenne : véhicule porté par une structure européenne encadrée par nos avocats partenaires, ni malus ni TVA supportés, circulation dans toute l’Union. Le fonctionnement vous est présenté lors d’un appel.`,

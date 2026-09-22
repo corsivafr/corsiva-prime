@@ -22,9 +22,9 @@ export default function Hero() {
         </div>
 
         <h1 className="h-hero hin mx-auto mt-7" style={{ ['--d' as string]: '0.12s', maxWidth: 1080 }}>
-          Sans malus ni TVA,
+          Votre prochaine voiture,
           <br />
-          <span className="grad-blue">votre voiture d’Allemagne.</span>
+          <span className="grad-blue">sans malus ni TVA.</span>
         </h1>
 
         <p className="hin lead mx-auto" style={{ ['--d' as string]: '0.24s', margin: '22px auto 30px', maxWidth: '52ch', lineHeight: 1.55 }}>

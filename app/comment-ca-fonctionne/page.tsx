@@ -4,10 +4,11 @@ import PageHero from '@/components/PageHero'
 import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import Process from '@/components/sections/Process'
-import Packages from '@/components/sections/Packages'
+import PackagesCompare from '@/components/sections/PackagesCompare'
+import Calendrier from '@/components/Calendrier'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
-import { Section, Wrap, Title, Lead, Check, d } from '@/components/ui'
+import { Section, Wrap, SecHead, Title, Lead, Check, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -15,14 +16,6 @@ export const metadata: Metadata = {
   description: 'Validation, sourcing en Allemagne, structuration européenne, acquisition, immatriculation, livraison en France : le déroulé d’un import Corsiva Prime.',
   alternates: { canonical: `${SITE.url}/comment-ca-fonctionne` },
 }
-
-const SEMAINES = [
-  { s: 'S1', t: 'Validation', c: 'var(--blue)' },
-  { s: 'S1–S2', t: 'Sourcing Allemagne', c: 'var(--blue)' },
-  { s: 'S1–S3', t: 'Structuration européenne', c: 'var(--blue-deep)' },
-  { s: 'S4', t: 'Acquisition et immatriculation', c: 'var(--blue-deep)' },
-  { s: 'S5', t: 'Livraison France', c: '#fff' },
-]
 
 const SEJOUR = [
   'Déplacement organisé de 3 à 4 jours, en parallèle du sourcing',
@@ -40,25 +33,16 @@ export default function Page() {
         b="environ cinq semaines."
         lead="De l’accord à la remise des clés, vous savez à chaque instant où en est votre voiture. Voici le déroulé, sans zone d’ombre."
         hero="process"
+        video={{ src: '/media/video/reel-m3-garage-480.mp4', poster: '/media/video/reel-m3-garage-poster.jpg' }}
         primary={{ href: '/contact', label: 'Parlons de votre projet' }}
         secondary={{ href: '/tarifs', label: 'Voir les packages' }}
       />
 
       <Section tone="light">
         <Wrap>
-          <Reveal>
-            <Title a="Le calendrier" b="en un coup d’œil." />
-            <ol className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-5 gap-3 list-none">
-              {SEMAINES.map((w, i) => (
-                <li key={w.t} className="rise card p-5 flex md:flex-col items-center md:items-start gap-4 md:gap-3" style={d(0.07 * i)}>
-                  <span className="display tabular text-[26px] leading-none flex-shrink-0" style={{ color: 'var(--blue-deep)' }}>{w.s}</span>
-                  <div className="h-px md:h-1 w-6 md:w-full rounded-full" style={{ background: i === 4 ? '#0a0a0a' : 'var(--blue-deep)', opacity: 0.25 + i * 0.18 }} aria-hidden="true" />
-                  <p className="text-[14.5px] font-medium leading-snug">{w.t}</p>
-                </li>
-              ))}
-            </ol>
-            <p className="rise text-[13px] mt-5" style={{ ...d(0.4), color: 'var(--ink-3)' }}>Durées indicatives, données par phase ci-dessous. La structuration européenne se déroule en parallèle du sourcing.</p>
-          </Reveal>
+          <SecHead a="Le calendrier" b="en un coup d’œil.">Cinq phases, environ cinq semaines. Touchez une étape, ou laissez la frise avancer.</SecHead>
+          <Reveal className="rise rise-scale"><Calendrier /></Reveal>
+          <p className="rise text-[13px] mt-5 text-center" style={{ ...d(0.3), color: 'var(--ink-3)' }}>Durées indicatives. La structuration européenne se déroule en parallèle du sourcing.</p>
         </Wrap>
       </Section>
 
@@ -83,7 +67,7 @@ export default function Page() {
         </Wrap>
       </Section>
 
-      <Packages lead={false} />
+      <PackagesCompare lead={false} />
       <FAQ />
       <CTA />
     </>

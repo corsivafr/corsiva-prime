@@ -6,6 +6,7 @@ import Reveal from '@/components/Reveal'
 import Arguments from '@/components/sections/Arguments'
 import Catalogue from '@/components/Catalogue'
 import PepitesOuvrir from '@/components/PepitesOuvrir'
+import PepitesInline from '@/components/PepitesInline'
 import { VEHICULES, prixImport } from '@/lib/catalogue'
 import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
@@ -100,6 +101,7 @@ export default function Page({ searchParams }: { searchParams?: { v?: string } }
             <p className="text-[12.5px] max-w-2xl" style={{ color: 'var(--ink-3)' }}>Prix négociés chez la concession partenaire, transport fermé et formalités d’immatriculation inclus, hors TVA française et malus. Prix France = prix constructeur TTC. Chaque projet fait l’objet d’une proposition personnalisée.</p>
             <PepitesOuvrir className="btn-cta flex-shrink-0">Recevoir les pépites chaque mois</PepitesOuvrir>
           </div>
+                  <Reveal className="mt-10"><PepitesInline /></Reveal>
         </Wrap>
       </Section>
       <Arguments title={['Pourquoi passer', 'par Corsiva Prime.']} />

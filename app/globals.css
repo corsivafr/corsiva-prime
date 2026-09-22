@@ -520,3 +520,115 @@ html:not(.js) .sl-veil { display: none; }
 .art .note p { color: #fff; font-size: 15px; margin: 0; }
 .art .legal { font-size: 13px; line-height: 1.6; color: var(--ink-3); margin: 36px 0 0; }
 @media (max-width: 639px) { .art p { font-size: 16px; } .art li { font-size: 15.5px; } .art h2 { margin-top: 34px; } }
+
+
+/* ============ Motion des titres (lignes qui montent) + chiffres ============ */
+.ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.ln > span { display: block; transform: translateY(112%); animation: lnup 1s var(--ease) forwards; animation-delay: var(--d, 0s); }
+@keyframes lnup { to { transform: none; } }
+html.js .ln > span { will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .ln > span { animation: none; transform: none; } }
+.display.tabular, .num { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
+
+/* ============ Hero vidéo (Comment ça fonctionne) ============ */
+.vhero-video { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); object-fit: cover; object-position: center 40%; opacity: 0.5; }
+@media (prefers-reduced-motion: reduce) { .vhero-video { display: none; } }
+
+/* ============ Catalogue Zéro malus ============ */
+.mtools { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: center; margin-bottom: 26px; }
+.mcat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 1023px) { .mcat { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px) { .mcat { grid-template-columns: 1fr; } }
+.mcard { background: #fff; border: 1px solid rgba(10, 10, 10, 0.08); border-radius: 22px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px; text-align: left; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+@media (hover: hover) { .mcard:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(6, 42, 107, 0.1); border-color: rgba(0, 69, 255, 0.25); } }
+.mcard.open { border-color: rgba(0, 69, 255, 0.45); box-shadow: 0 24px 60px rgba(6, 42, 107, 0.12); }
+.mcard-h { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.mcard-h small { display: block; font-size: 12.5px; color: var(--ink-3); }
+.mcard-h h3 { font-size: 19px; letter-spacing: -0.03em; line-height: 1.15; margin-top: 2px; }
+.mtag { display: inline-flex; align-items: center; white-space: nowrap; font-size: 11.5px; font-weight: 600; padding: 5px 9px; border-radius: 100px; background: rgba(0, 69, 255, 0.08); color: var(--blue-deep); }
+.mtag.cap { background: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+.mbars { display: flex; flex-direction: column; gap: 8px; }
+.mbar { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; font-size: 12.5px; color: var(--ink-2); }
+.mbar > span:first-child { display: flex; flex-direction: column; gap: 5px; }
+.mbar i { display: block; height: 8px; border-radius: 100px; background: rgba(10, 10, 10, 0.12); position: relative; overflow: hidden; }
+.mbar i::after { content: ''; position: absolute; inset: 0; width: var(--w, 0%); border-radius: 100px; background: #0a0a0a; transition: width 1s var(--ease); }
+.mbar.prime i::after { background: linear-gradient(90deg, #0045ff, #0099ff); }
+.mbar b { font-size: 14px; color: var(--ink); white-space: nowrap; }
+.mecon { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px solid rgba(10, 10, 10, 0.08); }
+.mecon span { font-size: 13px; color: var(--ink-2); }
+.mecon b { font-size: clamp(24px, 2vw, 28px); color: var(--blue-deep); line-height: 1; }
+.mrows { display: flex; flex-direction: column; gap: 7px; padding-top: 10px; border-top: 1px dashed rgba(10, 10, 10, 0.12); font-size: 13px; color: var(--ink-2); }
+.mrows div { display: flex; justify-content: space-between; gap: 10px; }
+.mrows div b { color: var(--ink); font-weight: 600; }
+.mrows div.off { opacity: 0.45; text-decoration: line-through; }
+.mcta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.msum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 26px; }
+@media (max-width: 639px) { .msum { grid-template-columns: 1fr; } }
+.msum div { background: #fff; border: 1px solid rgba(10, 10, 10, 0.08); border-radius: 18px; padding: 16px 18px; }
+.msum b { display: block; font-size: clamp(26px, 2.6vw, 34px); color: var(--blue-deep); line-height: 1; }
+.msum span { font-size: 13px; color: var(--ink-2); display: block; margin-top: 6px; }
+.light select.field, .light input.field { min-height: 44px; }
+
+/* ============ Comparatif des packages ============ */
+.cmp { width: 100%; border-collapse: separate; border-spacing: 0; }
+.cmp th, .cmp td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--hairline); font-size: 14.5px; vertical-align: top; }
+.cmp th { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 500; font-size: 16px; letter-spacing: -0.02em; }
+.cmp th.col, .cmp td.col { text-align: center; width: 24%; }
+.cmp td.col svg { display: inline-block; vertical-align: middle; }
+.cmp .on { background: rgba(0, 153, 255, 0.07); }
+.cmp thead .on { border-radius: 16px 16px 0 0; }
+.cmp .dash { color: var(--ink-3); }
+.cmp .opt { font-size: 12.5px; color: var(--blue); font-weight: 600; }
+.cmp-wrap { border: 1px solid var(--hairline); border-radius: 24px; overflow: hidden; background: var(--surface-1); }
+.cmp-foot { display: grid; grid-template-columns: 1fr 24% 24%; }
+.cmp-foot > div { padding: 18px 16px; text-align: center; }
+.cmp-foot .lbl { text-align: left; font-size: 13px; color: var(--ink-3); }
+@media (max-width: 767px) {
+  .cmp th.col, .cmp td.col { width: 38%; }
+  .cmp th.col.hide, .cmp td.col.hide { display: none; }
+  .cmp th.col, .cmp td.col { width: 40%; }
+  .cmp-foot { grid-template-columns: 1fr; }
+  .cmp-foot .lbl { display: none; }
+}
+
+/* ============ Calendrier interactif ============ */
+.cal { border: 1px solid rgba(10, 10, 10, 0.08); border-radius: 26px; background: #fff; padding: 26px; overflow: hidden; }
+.cal-track { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.cal-track::before { content: ''; position: absolute; left: 10%; right: 10%; top: 21px; height: 2px; background: rgba(10, 10, 10, 0.1); }
+.cal-track::after { content: ''; position: absolute; left: 10%; top: 21px; height: 2px; width: calc(80% * var(--p, 0)); background: linear-gradient(90deg, #0045ff, #0099ff); transition: width 0.6s var(--ease); }
+.cal-step { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 4px 4px 0; border-radius: 14px; text-align: center; color: var(--ink-2); font-size: 13px; }
+.cal-step i { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid rgba(10, 10, 10, 0.14); font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: 14px; color: var(--ink); transition: 0.3s var(--ease); position: relative; z-index: 1; }
+.cal-step[aria-selected='true'] i { background: #0a0a0a; color: #fff; border-color: #0a0a0a; transform: scale(1.08); }
+.cal-step.done i { border-color: var(--blue-deep); color: var(--blue-deep); }
+.cal-step b { font-weight: 600; color: var(--ink); font-size: 13px; line-height: 1.25; }
+.cal-step small { font-size: 12px; color: var(--ink-3); }
+.cal-panel { margin-top: 26px; display: grid; grid-template-columns: 1fr auto; gap: 22px; align-items: start; border-top: 1px solid rgba(10, 10, 10, 0.08); padding-top: 22px; }
+.cal-panel h3 { font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.03em; line-height: 1.1; }
+.cal-panel p { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin-top: 10px; max-width: 60ch; }
+.cal-week { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: clamp(34px, 4vw, 52px); letter-spacing: -0.05em; line-height: 1; color: var(--blue-deep); white-space: nowrap; }
+.cal-week small { display: block; font-family: var(--font-inter), system-ui, sans-serif; font-weight: 500; font-size: 12.5px; letter-spacing: 0; color: var(--ink-3); margin-top: 6px; }
+.cal-nav { display: flex; gap: 8px; margin-top: 18px; }
+.cal-nav button { min-height: 40px; padding: 0 16px; border-radius: 100px; border: 1px solid rgba(10, 10, 10, 0.14); background: #fff; font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.cal-nav button:disabled { opacity: 0.4; }
+.cal-fade { animation: calfade 0.45s var(--ease); }
+@keyframes calfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 767px) {
+  .cal { padding: 18px; }
+  .cal-track { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .cal-step b, .cal-step small { display: none; }
+  .cal-step i { width: 38px; height: 38px; font-size: 13px; }
+  .cal-panel { grid-template-columns: 1fr; gap: 12px; }
+  .cal-week { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .cal-fade { animation: none; } .cal-track::after { transition: none; } }
+
+/* ============ Pépites : inscription en ligne ============ */
+.pinline { border-radius: 26px; padding: 30px; background: linear-gradient(135deg, #00284a, #0077cc 58%, #0099ff); color: #fff; display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: center; }
+.pinline h3 { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: clamp(24px, 2.6vw, 32px); letter-spacing: -0.035em; line-height: 1.05; }
+.pinline p { color: rgba(255, 255, 255, 0.82); font-size: 14.5px; margin-top: 10px; line-height: 1.55; }
+.pinline form { display: flex; flex-direction: column; gap: 10px; }
+.pinline .field { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.28); color: #fff; }
+.pinline .field::placeholder { color: rgba(255, 255, 255, 0.6); }
+.pinline .field:focus { border-color: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18); }
+.pinline small { font-size: 12px; color: rgba(255, 255, 255, 0.7); line-height: 1.5; }
+@media (max-width: 767px) { .pinline { grid-template-columns: 1fr; padding: 22px; } }

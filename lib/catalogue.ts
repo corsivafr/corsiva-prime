@@ -85,6 +85,32 @@ export const VEHICULES: Vehicule[] = [
     chiffres: { prixFranceTTC: 200_000, prixAllemagneHT: 190_000, co2: 255, masse: 1_595, energie: 'thermique', occasionMois: 12 },
     points: ['Occasion récente, moins de 5 000 km', 'Décote du malus selon l’ancienneté', 'Inspection avant achat'],
   },
+  {
+    id: 'taycan',
+    marque: 'Porsche',
+    logo: '/media/logos/porsche.svg',
+    modele: 'Taycan',
+    etat: 'neuf',
+    categorie: 'electrique',
+    detail: 'Pépite en cours de négociation chez une concession partenaire : prix communiqué sur demande.',
+    cover: '/media/photos/taycan-3-4-avant.jpg',
+    coverPosition: 'center 55%',
+    photos: ['/media/photos/taycan-3-4-avant.jpg', '/media/photos/taycan-profil.jpg', '/media/photos/taycan-3-4-arriere.jpg', '/media/photos/taycan-detail.jpg'],
+    points: ['Électrique : aucun malus, TVA à traiter à l’import', 'Configuration au choix', 'Livraison en transport fermé'],
+  },
+  {
+    id: 'urus',
+    marque: 'Lamborghini',
+    logo: '/media/logos/lamborghini.svg',
+    modele: 'Urus',
+    etat: 'neuf',
+    categorie: 'suv',
+    detail: 'Pépite en cours de négociation chez une concession partenaire : prix communiqué sur demande.',
+    cover: '/media/photos/urus-avant.jpg',
+    coverPosition: 'center 55%',
+    photos: ['/media/photos/urus-avant.jpg', '/media/photos/urus-interieur.jpg', '/media/photos/urus-interieur-2.jpg'],
+    points: ['Malus CO₂ et poids au plafond en France', 'Structure européenne recommandée', 'Covering possible avant livraison'],
+  },
 ]
 
 /* Tarif final client, tout compris : le véhicule au prix allemand HT (sans TVA ni malus) + le package. */
@@ -95,7 +121,7 @@ export const prixFinal = (c: Chiffres) => c.prixAllemagneHT + FRAIS_TOUT_COMPRIS
 export const FRAIS_IMPORT = 6_000
 export const prixImport = (c: Chiffres) => c.prixAllemagneHT + FRAIS_IMPORT
 
-export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche'] as const
+export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche', 'Lamborghini'] as const
 
 export type PackageId = 'import' | 'import-immat'
 

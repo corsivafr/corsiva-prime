@@ -8,6 +8,7 @@ import SimulateurSection from '@/components/sections/SimulateurSection'
 import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
+import MalusCatalogue from '@/components/MalusCatalogue'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
 import { euro, PLAFOND_MALUS, ANNEE_BAREME } from '@/lib/malus'
@@ -32,24 +33,31 @@ export default function Page() {
       <PageHero
         a="Zéro malus, zéro TVA :"
         b="l’immatriculation européenne."
-        lead="Grâce à une solution d’immatriculation encadrée, la fiscalité de votre véhicule est fortement réduite, en toute conformité."
+        lead="Une solution d’immatriculation encadrée par nos avocats partenaires : malus et TVA non supportés, en toute conformité."
         hero="malus"
         primary={{ href: '/simulateur', label: 'Simuler mon gain' }}
         secondary={{ href: SITE.calendly, label: 'Prendre un appel', external: true }}
       />
 
-      <Section tone="light">
+      <Section glow>
         <Wrap>
           <SecHead a="Comment" b="ça marche.">Quatre mécanismes, mis en œuvre avec nos avocats partenaires dans le cadre du droit européen. Voici exactement ce qui se passe.</SecHead>
           <Reveal as="ol" className="grid grid-cols-1 md:grid-cols-2 gap-5 list-none">
             {BLOCS.map((b, i) => (
               <li key={b.n} className="rise rise-scale card lift p-7 sm:p-8 flex flex-col" style={d(0.08 * (i + 1))}>
-                <span className="display tabular text-[44px] leading-none" style={{ color: 'var(--blue-deep)' }}>{b.n}</span>
+                <span className="display tabular text-[44px] leading-none" style={{ color: 'var(--blue)' }}>{b.n}</span>
                 <h3 className="text-[21px] leading-snug mt-5">{b.t}</h3>
                 <p className="text-[15px] leading-relaxed mt-3" style={{ color: 'var(--ink-2)' }}>{b.s}</p>
               </li>
             ))}
           </Reveal>
+        </Wrap>
+      </Section>
+
+      <Section tone="light" id="catalogue">
+        <Wrap>
+          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Trente modèles à fort malus : le coût réel en France, malus inclus, face au prix allemand. Choisissez le package pour voir ce que vous économisez, puis le détail poste par poste.</SecHead>
+          <Reveal className="rise"><MalusCatalogue /></Reveal>
         </Wrap>
       </Section>
 

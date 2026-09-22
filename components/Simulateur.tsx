@@ -3,15 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { simuler, euro, type Energie, type Resultat, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
 import { Arrow } from '@/components/ui'
-import { VEHICULES } from '@/lib/catalogue'
+import { MODELES, MARQUES_MODELES, nomModele } from '@/lib/modeles'
 import { SITE } from '@/lib/site'
 
-/* Points de départ : prix du brief ; CO₂ et masse = données constructeur indicatives (WLTP),
-   à vérifier sur le certificat de conformité du véhicule visé. */
-const PRESETS = VEHICULES.filter((v) => v.chiffres).map((v) => ({
-  id: v.id,
-  label: `${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''}${v.etat === 'occasion' ? ' · occasion' : ''}`,
-  prixFR: v.chiffres!.prixFranceTTC, prixDE: v.chiffres!.prixAllemagneHT, co2: v.chiffres!.co2, masse: v.chiffres!.masse, energie: v.chiffres!.energie, mois: v.chiffres!.occasionMois,
+/* Points de départ : les modèles à fort malus de lib/modeles.ts (prix relevés du brief ou indicatifs ;
+   CO₂ et masse = données constructeur indicatives, à vérifier sur le certificat de conformité). */
+const PRESETS = MODELES.map((m) => ({
+  id: m.id, label: nomModele(m), marque: m.marque,
+  prixFR: m.prixFranceTTC, prixDE: m.prixAllemagneHT, co2: m.co2, masse: m.masse, energie: m.energie, mois: m.occasionMois,
 }))
 
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s)
@@ -51,7 +50,8 @@ function Champ({ id, label, unit, value, onChange, min, max, step = 1, hint }: {
 }
 
 export default function Simulateur({ compact = false }: { compact?: boolean }) {
-  const [preset, setPreset] = useState('m3')
+  const [preset, setPreset] = useState(PRESETS[0].id)
+  const [marqueF, setMarqueF] = useState('Toutes')
   const [modele, setModele] = useState(PRESETS[0].label)
   const [prixFR, setPrixFR] = useState(PRESETS[0].prixFR)
   const [prixDE, setPrixDE] = useState(PRESETS[0].prixDE)
@@ -75,6 +75,16 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
     setOccasion(p.mois > 0); setMois(p.mois || 12); setEtat('idle'); setRes(null)
   }
   const edit = <T,>(setter: (v: T) => void) => (v: T) => { setter(v); setPreset(''); if (etat === 'done') { setEtat('idle'); setRes(null) } }
+
+  /* Arrivée depuis le catalogue Zéro malus : /simulateur?modele=<id> pré-remplit le véhicule. */
+  useEffect(() => {
+    try {
+      const id = new URLSearchParams(window.location.search).get('modele')
+      const p = id ? PRESETS.find((x) => x.id === id) : null
+      if (p) { setMarqueF(p.marque); applyPreset(p.id) }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const valid = [prixFR, prixDE, co2, masse].every((n) => Number.isFinite(n) && n >= 0) && prixFR > 0 && prixDE > 0
   const contactOk = isPhone(tel) && isEmail(email)
@@ -104,15 +114,21 @@ export default function Simulateur({ compact = false }: { compact?: boolean }) {
       {/* ── Paramètres ── */}
       <form onSubmit={lancer} className="lg:col-span-7 card p-5 sm:p-7 flex flex-col gap-6" noValidate>
         <div>
-          <p className="label">Partir d’un exemple</p>
-          <div className="flex flex-wrap gap-2">
-            {PRESETS.map((p) => (
-              <button key={p.id} type="button" onClick={() => applyPreset(p.id)} className="btn min-h-[40px] text-[13px] px-4"
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <p className="label mb-0">Partir d’un modèle à fort malus</p>
+            <select className="field" style={{ width: 'auto', minHeight: 38, padding: '6px 34px 6px 12px', fontSize: 13 }} value={marqueF} onChange={(e) => setMarqueF(e.target.value)} aria-label="Filtrer les modèles par marque">
+              {MARQUES_MODELES.map((m) => <option key={m} value={m}>{m === 'Toutes' ? 'Toutes les marques' : m}</option>)}
+            </select>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-3 max-h-[168px] overflow-y-auto pr-1" role="listbox" aria-label="Modèles">
+            {PRESETS.filter((p) => marqueF === 'Toutes' || p.marque === marqueF).map((p) => (
+              <button key={p.id} type="button" role="option" aria-selected={preset === p.id} onClick={() => applyPreset(p.id)} className="btn min-h-[38px] text-[13px] px-3.5"
                 style={preset === p.id ? { background: 'var(--ink)', color: 'var(--canvas)' } : { background: 'var(--surface-2)', color: 'var(--ink)', border: '1px solid var(--hairline)' }}>
                 {p.label}
               </button>
             ))}
           </div>
+          <p className="text-[12px] mt-2" style={{ color: 'var(--ink-3)' }}>{PRESETS.length} modèles, prix relevés ou indicatifs : ajustez ensuite chaque valeur à votre configuration.</p>
         </div>
 
         <div>

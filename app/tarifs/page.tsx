@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
 import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
-import Packages from '@/components/sections/Packages'
+import PackagesCompare from '@/components/sections/PackagesCompare'
 import Configurateur from '@/components/Configurateur'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
@@ -26,14 +26,20 @@ export default function Page() {
     <>
       <Breadcrumb items={[{ name: 'Tarifs', href: '/tarifs' }]} />
       <PageHero
-        a="Des packages clairs,"
-        b="une proposition sur mesure."
-        lead="Les montants ne sont pas publiés : chaque projet reçoit une proposition personnalisée, indexée sur la valeur réellement créée."
+        a="Deux services,"
+        b="un chiffrage sur mesure."
+        lead="Import seul, ou import avec immatriculation européenne : comparez ce qui est compris, composez votre package, recevez une proposition écrite."
         hero="tarifs"
-        primary={{ href: '/contact', label: 'Demander une proposition' }}
-        secondary={{ href: '/simulateur', label: 'Simuler mon gain' }}
-      />
-      <Packages />
+        primary={{ href: '#packages', label: 'Comparer les packages' }}
+        secondary={{ href: '/contact', label: 'Demander une proposition' }}
+      >
+        <div className="hin herotrust" style={{ ['--d' as string]: '0.58s' }}>
+          <span className="ht"><svg viewBox="0 0 24 24" fill="none" stroke="#0099ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 3.5h7.5L19 8v12.5H7z" /><path d="M14.5 3.5V8H19M9.8 13.6l1.9 1.9 3.5-3.8" /></svg> Chiffrage écrit avant tout engagement</span>
+          <span className="ht"><svg viewBox="0 0 24 24" fill="none" stroke="#0099ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9" /><path d="M20 12a8 8 0 1 1-4-6.9" /></svg> Tout inclus, sans frais découverts</span>
+          <span className="ht"><svg viewBox="0 0 24 24" fill="none" stroke="#0099ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" /></svg> Indexé sur la valeur créée</span>
+        </div>
+      </PageHero>
+      <PackagesCompare />
       <Section tone="light-3" id="configurateur">
         <Wrap>
           <SecHead a="Composez" b="votre package.">Choisissez le service, cochez les options, sélectionnez une pépite du mois si vous le souhaitez : le récapitulatif se met à jour et part avec votre demande.</SecHead>

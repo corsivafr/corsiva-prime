@@ -3,7 +3,7 @@
 
 export const SITE = {
   name: 'Corsiva Prime',
-  url: 'https://corsiva-prime.vercel.app',
+  url: 'https://corsiva-prime.fr',
   phone: '04 80 81 91 38',
   phoneTel: 'tel:+33480819138',
   whatsapp: 'https://wa.me/33780997692?text=' + encodeURIComponent('Bonjour, je souhaite des informations sur Corsiva Prime (import et immatriculation).'),

@@ -7,7 +7,6 @@ import Reel from '@/components/sections/Reel'
 import AcquisitionsCatalogue from '@/components/AcquisitionsCatalogue'
 import Reveal from '@/components/Reveal'
 import { Section, Wrap, SecHead } from '@/components/ui'
-import Services from '@/components/sections/Services'
 import Process from '@/components/sections/Process'
 import SimulateurSection from '@/components/sections/SimulateurSection'
 import Reassurance from '@/components/sections/Reassurance'
@@ -56,15 +55,14 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Hero />
       <BrandMarquee />
-      <Arguments lead="Le même modèle, la même finition, une fiscalité qui n’a rien à voir. Nous prenons tout en charge, de la concession partenaire à la remise des clés." />
-      <Chiffres />
-      <Services />
       <Section tone="light" id="catalogue">
         <Wrap>
-          <SecHead a="Le vrai prix," b="modèle par modèle.">Neuf fiches d’acquisition : le prix France équivalent, malus compris, face au prix allemand hors taxes. Ouvrez une fiche pour le détail, poste par poste.</SecHead>
-          <Reveal className="rise"><AcquisitionsCatalogue compact /></Reveal>
+          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Neuf fiches d’acquisition étudiées par nos conseillers : le prix France équivalent, malus compris, face au prix allemand hors taxes, et un forfait connu à l’avance. Ouvrez chaque fiche pour le détail, poste par poste.</SecHead>
+          <Reveal className="rise"><AcquisitionsCatalogue /></Reveal>
         </Wrap>
       </Section>
+      <Arguments lead="Le même modèle, la même finition, une fiscalité qui n’a rien à voir. Nous prenons tout en charge, de la concession partenaire à la remise des clés." />
+      <Chiffres />
       <Reel />
       <Process compact />
       <SimulateurSection />

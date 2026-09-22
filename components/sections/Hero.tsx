@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import HeroPicture from '@/components/HeroPicture'
 import { Arrow, Words } from '@/components/ui'
-import { SITE, STATS } from '@/lib/site'
+import { STATS } from '@/lib/site'
 
 /* Hero façon Corsiva OS, priorité au service malus : badge pill logo, titre en deux lignes (la seconde
    en dégradé bleu), sous-titre, deux pills, ligne de confiance. Fond : la M3 Competition vue d'en haut
@@ -31,8 +31,8 @@ export default function Hero() {
         </p>
 
         <div className="hin flex flex-wrap justify-center gap-3" style={{ ['--d' as string]: '0.36s' }}>
-          <Link href="/simulateur" className="btn-cta">Simuler mon gain <Arrow /></Link>
-          <a href={SITE.calendly} target="_blank" rel="noopener noreferrer" className="btn-w">Prendre un appel <Arrow /></a>
+          <a href="#catalogue" className="btn-cta">Voir les fiches d’acquisition <Arrow /></a>
+          <Link href="/simulateur" className="btn-w">Simuler mon gain <Arrow /></Link>
         </div>
 
         <div className="hin herotrust" style={{ ['--d' as string]: '0.48s' }}>

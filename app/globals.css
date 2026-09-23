@@ -388,7 +388,7 @@ h1, h2, .display { letter-spacing: -0.045em; }
 .grain::after, .gridlines { display: none; }
 
 /* ══ Écran de chargement ═══════════════════════════════════════════════════ */
-.sl-veil { position: fixed; inset: 0; z-index: 200; background: #090909; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s var(--ease), visibility 0.6s; }
+.sl-veil { position: fixed; inset: 0; z-index: 200; background: #090909; display: flex; align-items: center; justify-content: center; transition: opacity 0.45s var(--ease), visibility 0.45s; }
 .sl-leave { opacity: 0; visibility: hidden; }
 html:not(.js) .sl-veil { display: none; }
 .sl-lockup { text-align: center; animation: slin 0.9s var(--ease) both; }
@@ -474,7 +474,7 @@ html:not(.js) .sl-veil { display: none; }
 .card-dense p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
 
 /* Écran de chargement : repli CSS si l'hydratation ne vient jamais */
-.sl-veil { animation: slautohide 0.6s var(--ease) 4s forwards; }
+.sl-veil { animation: slautohide 0.45s var(--ease) 2.5s forwards; }
 @keyframes slautohide { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 @media (prefers-reduced-motion: reduce) { .sl-lockup, .sl-line span { animation: none; } .sl-veil { animation: slautohide 0.2s linear 0.3s forwards; } }
 

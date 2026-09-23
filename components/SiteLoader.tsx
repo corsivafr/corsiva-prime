@@ -5,7 +5,7 @@ import { HERO_IMAGES } from '@/lib/site'
 
 /* Écran de chargement : voile canvas avec le logo Corsiva Prime et un filet bleu qui court.
    Rendu côté serveur (donc visible dès le premier octet), retiré une fois la page chargée
-   (minimum 0,9 s pour éviter le flash, maximum 2,2 s quoi qu'il arrive), une fois par session. Sans JS : masqué. */
+   (minimum 0,7 s pour éviter le flash, maximum 1,6 s quoi qu'il arrive), une fois par session. Sans JS : masqué. */
 export default function SiteLoader() {
   const [state, setState] = useState<'shown' | 'leaving' | 'gone'>('shown')
 
@@ -17,8 +17,8 @@ export default function SiteLoader() {
     try { if (sessionStorage.getItem('sl-vu')) { setState('gone'); ready(); return } sessionStorage.setItem('sl-vu', '1') } catch {}
     const t0 = performance.now()
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const MIN = reduce ? 300 : 900
-    const MAX = 2200
+    const MIN = reduce ? 300 : 700
+    const MAX = 1600
     let done = false
     let leaveTimer = 0
     const leave = () => {
@@ -27,7 +27,7 @@ export default function SiteLoader() {
       setState('leaving')
       // Les textes du hero (lignes, mots, fondus) démarrent maintenant, sous les yeux du visiteur.
       ready()
-      leaveTimer = window.setTimeout(() => setState('gone'), 650)
+      leaveTimer = window.setTimeout(() => setState('gone'), 500)
     }
     // On n'attend que le fond du hero de cette page ; les autres fonds se préchargent après l'ouverture.
     const mobile = window.matchMedia('(max-width: 639px)').matches

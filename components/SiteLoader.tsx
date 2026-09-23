@@ -36,11 +36,10 @@ export default function SiteLoader() {
     const first = heroes.find((src) => current.endsWith(src)) || heroes[0]
     const preload = (src: string) => new Promise<void>((res) => { const im = new Image(); im.onload = () => res(); im.onerror = () => res(); im.src = src })
     const images = preload(first).then(() => { window.setTimeout(() => heroes.filter((h) => h !== first).forEach(preload), 1500) })
-    const onLoad = () => { images.then(() => window.setTimeout(leave, Math.max(0, MIN - (performance.now() - t0)))) }
-    if (document.readyState === 'complete') onLoad()
-    else window.addEventListener('load', onLoad, { once: true })
+    // Dès que le fond est là (sans attendre le reste de la page), le voile part : le hero et ses textes s'animent tôt.
+    images.then(() => window.setTimeout(leave, Math.max(0, MIN - (performance.now() - t0))))
     const safety = window.setTimeout(leave, MAX)
-    return () => { window.clearTimeout(safety); window.clearTimeout(leaveTimer); window.removeEventListener('load', onLoad) }
+    return () => { window.clearTimeout(safety); window.clearTimeout(leaveTimer) }
   }, [])
 
   if (state === 'gone') return null

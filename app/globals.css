@@ -540,6 +540,9 @@ html.js .ln > span { will-change: transform; }
 .lns > span { display: inline-block; }
 html.js .rise .lns > span { transform: translateY(110%); transition: transform 0.9s var(--ease); transition-delay: var(--dl, 0s); }
 html.js .rise.in .lns > span { transform: none; }
+/* Les animations d'entrée du hero attendent la fin de l'écran de chargement (html.ready, posé par SiteLoader) ;
+   sans JS, html.js est absent et rien n'est retenu. */
+html.js:not(.ready) .ln > span, html.js:not(.ready) .wd, html.js:not(.ready) .hin { animation-play-state: paused; }
 /* Leads des heros : mot à mot */
 .wd { display: inline-block; opacity: 0; transform: translateY(0.35em); animation: wdin 0.5s var(--ease) forwards; animation-delay: var(--d, 0s); }
 @keyframes wdin { to { opacity: 1; transform: none; } }
@@ -641,6 +644,15 @@ html.js .rise.in .lns > span { transform: none; }
 .fiche-grid div b { color: var(--ink); font-weight: 600; text-align: right; }
 @media (max-width: 639px) { .fiche-grid { grid-template-columns: 1fr; } }
 .mcat.compact .pcard .mrows { display: none; }
+
+/* ============ Bandeau cookies ============ */
+.ckb { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 55; display: flex; justify-content: flex-start; pointer-events: none; }
+.ckb-card { pointer-events: auto; max-width: 520px; width: 100%; background: rgba(20, 20, 20, 0.96); border: 1px solid var(--hairline); border-radius: 20px; padding: 18px 20px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); backdrop-filter: blur(14px); animation: popin 0.5s var(--ease) both; }
+.ckb-title { font-family: var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; font-size: 16px; letter-spacing: -0.02em; color: #fff; }
+.ckb-text { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); margin-top: 6px; }
+.ckb-text a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.ckb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+@media (max-width: 639px) { .ckb { left: 10px; right: 10px; bottom: 84px; } .ckb-card { padding: 16px; } .ckb-actions .btn-dark, .ckb-actions .btn-cta { flex: 1; } }
 
 /* ============ Comparatif des packages ============ */
 .cmp { width: 100%; border-collapse: separate; border-spacing: 0; }

@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import CountUp from '@/components/fx/CountUp'
 import { Arrow, Check } from '@/components/ui'
 import { FICHES, CATS_ACQ, MARQUES_ACQ, LOGOS_ACQ, FORFAIT_PRIME, OPTION_COVERING, GESTION_STRUCTURE_MOIS, nomFiche, budgetPrime, economieNette, type Fiche } from '@/lib/acquisitions'
 import { SITE } from '@/lib/site'
@@ -15,6 +14,7 @@ import { euro } from '@/lib/malus'
    sauf le budget « véhicule + forfait » et l'économie nette. */
 
 type Tri = 'ecart' | 'prix' | 'part'
+type Carrosserie = 'toutes' | 'suv' | 'sportive'
 const km = (n: number) => `${n.toLocaleString('fr-FR')} km`
 
 /* ── Carte ── */
@@ -219,6 +219,7 @@ function Volet({ f, onClose }: { f: Fiche; onClose: () => void }) {
 export default function AcquisitionsCatalogue({ compact = false }: { compact?: boolean }) {
   const [marque, setMarque] = useState('Toutes')
   const [tri, setTri] = useState<Tri>('ecart')
+  const [carro, setCarro] = useState<Carrosserie>('toutes')
   const [open, setOpen] = useState<Fiche | null>(null)
 
   useEffect(() => {
@@ -231,11 +232,10 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
   }
 
   const list = useMemo(() => {
-    const l = FICHES.filter((f) => marque === 'Toutes' || f.marque === marque)
+    const l = FICHES.filter((f) => (marque === 'Toutes' || f.marque === marque) && (carro === 'toutes' || (carro === 'suv' ? f.cat === 'suv' : f.cat !== 'suv')))
     l.sort(tri === 'ecart' ? (a, b) => b.ecart - a.ecart : tri === 'prix' ? (a, b) => a.prixAllemagneHT - b.prixAllemagneHT : (a, b) => b.part - a.part)
     return compact ? l.slice(0, 6) : l
-  }, [marque, tri, compact])
-  const moy = Math.round(FICHES.reduce((s, f) => s + f.ecart, 0) / FICHES.length)
+  }, [marque, tri, carro, compact])
 
   return (
     <div>
@@ -245,7 +245,11 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
             {MARQUES_ACQ.map((m) => <button key={m} type="button" className="fchip" aria-pressed={marque === m} onClick={() => setMarque(m)}>{m === 'Toutes' ? 'Toutes les marques' : m}</button>)}
           </div>
           <div className="grp">
-            <span className="ccount">{list.length} fiche{list.length > 1 ? 's' : ''}</span>
+            <div className="seg" role="radiogroup" aria-label="Carrosserie">
+              <button type="button" aria-pressed={carro === 'toutes'} onClick={() => setCarro('toutes')}>Toutes</button>
+              <button type="button" aria-pressed={carro === 'suv'} onClick={() => setCarro('suv')}>SUV</button>
+              <button type="button" aria-pressed={carro === 'sportive'} onClick={() => setCarro('sportive')}>Sportives et GT</button>
+            </div>
             <select className="field" style={{ width: 'auto' }} value={tri} onChange={(e) => setTri(e.target.value as Tri)} aria-label="Trier">
               <option value="ecart">Trier par écart de prix</option>
               <option value="prix">Trier par prix hors taxes</option>
@@ -255,18 +259,10 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
         </div>
       )}
 
-      {!compact && (
-        <div className="msum rise">
-          <div><b className="num"><CountUp value={FICHES.length} /></b><span>fiches d’acquisition étudiées par nos conseillers, septembre 2026</span></div>
-          <div><b className="num"><CountUp value={moy} format="euro" /></b><span>d’écart de prix moyen entre la France, malus compris, et l’Allemagne hors taxes</span></div>
-          <div><b className="num">{euro(FORFAIT_PRIME)}</b><span>de forfait global, connu à l’avance : structuration, exécution et livraison incluses</span></div>
-        </div>
-      )}
-
       {list.length === 0 ? (
-        <p className="card p-8 text-center text-[15px]" style={{ color: 'var(--ink-2)' }}>Aucune fiche pour cette marque. Décrivez-nous la voiture visée : nous l’étudions.</p>
+        <p className="card p-8 text-center text-[15px]" style={{ color: 'var(--ink-2)' }}>Aucune fiche avec ces filtres. Décrivez-nous la voiture visée : nous l’étudions.</p>
       ) : (
-        <ul key={`${marque}-${tri}`} className={`mcat list-none ${compact ? 'compact' : ''}`}>
+        <ul key={`${marque}-${carro}-${tri}`} className={`mcat list-none ${compact ? 'compact' : ''}`}>
           {list.map((f, i) => <Carte key={f.id} f={f} i={i} compact={compact} onOpen={() => ouvrir(f)} />)}
         </ul>
       )}

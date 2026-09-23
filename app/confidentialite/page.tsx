@@ -24,6 +24,8 @@ export default function Page() {
         <p>Les données sont transmises par e-mail à l’équipe Corsiva Prime via le prestataire Resend et ne sont jamais cédées à des tiers. Elles sont conservées le temps du traitement de votre demande puis, sans suite commerciale, au plus trois ans après le dernier contact.</p>
       </section>
       <section>
+        <h2 id="cookies">Cookies et traceurs</h2>
+        <p>Le site ne dépose aucun cookie publicitaire ni traceur tiers. La mesure d’audience repose sur Vercel Web Analytics (Vercel Inc., sous-traitant), exemptée de consentement : aucun cookie, aucun identifiant persistant, aucun suivi entre sites, données agrégées. Votre choix exprimé dans le bandeau cookies est mémorisé six mois dans le stockage local de votre navigateur (clé <code>corsiva_prime_consent</code>) ; une mémoire de session évite de réafficher l’écran d’ouverture et le pop-up des pépites. Vous pouvez modifier votre choix à tout moment via le lien « Gérer mes cookies » en pied de page.</p>
         <h2>Vos droits</h2>
         <p>Vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité. Écrivez à <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Vous pouvez également saisir l’autorité de contrôle compétente (en France, la CNIL).</p>
       </section>

@@ -7,6 +7,7 @@ import SiteLoader from '@/components/SiteLoader'
 import PepitesPopup from '@/components/PepitesPopup'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import CookieBanner from '@/components/CookieBanner'
 import { SITE } from '@/lib/site'
 import './globals.css'
 
@@ -40,6 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Import voiture de luxe sans malus | Corsiva Prime', description: 'Immatriculation européenne, pépites négociées, livraison partout en France.', images: ['/media/hero/home.jpg'] },
   alternates: { canonical: SITE.url, languages: { 'fr-FR': SITE.url } },
+  manifest: '/manifest.webmanifest',
+  icons: { icon: [{ url: '/favicon.ico', sizes: '48x48' }, { url: '/icon.png', type: 'image/png', sizes: '512x512' }], apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }], shortcut: ['/favicon.ico'] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
 }
 
@@ -63,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <WhatsAppButton />
         <PepitesPopup />
+        <CookieBanner />
         <Analytics />
       </body>
     </html>

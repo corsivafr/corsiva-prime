@@ -11,9 +11,10 @@ export default function SiteLoader() {
 
   useEffect(() => {
     // Robots, Lighthouse et navigateurs pilotés : pas d'écran d'attente.
-    if (navigator.webdriver) { setState('gone'); return }
+    const ready = () => document.documentElement.classList.add('ready')
+    if (navigator.webdriver) { setState('gone'); ready(); return }
     // Une seule fois par session : les pages suivantes s'ouvrent directement.
-    try { if (sessionStorage.getItem('sl-vu')) { setState('gone'); return } sessionStorage.setItem('sl-vu', '1') } catch {}
+    try { if (sessionStorage.getItem('sl-vu')) { setState('gone'); ready(); return } sessionStorage.setItem('sl-vu', '1') } catch {}
     const t0 = performance.now()
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const MIN = reduce ? 300 : 900
@@ -24,6 +25,8 @@ export default function SiteLoader() {
       if (done) return
       done = true
       setState('leaving')
+      // Les textes du hero (lignes, mots, fondus) démarrent maintenant, sous les yeux du visiteur.
+      ready()
       leaveTimer = window.setTimeout(() => setState('gone'), 650)
     }
     // On n'attend que le fond du hero de cette page ; les autres fonds se préchargent après l'ouverture.

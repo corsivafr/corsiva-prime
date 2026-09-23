@@ -48,7 +48,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         keywords: a.keywords.join(', '),
         articleSection: 'Malus, import et immatriculation',
         author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-        publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url, logo: { '@type': 'ImageObject', url: `${SITE.url}/media/logos/logo-prime-blanc.png` } },
+        publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url, logo: { '@type': 'ImageObject', url: `${SITE.url}/media/logos/logo-prime-512.png`, width: 512, height: 512 } },
         mainEntityOfPage: { '@type': 'WebPage', '@id': url },
       },
       ...(a.faq ? [{ '@type': 'FAQPage', mainEntity: a.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : []),

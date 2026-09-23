@@ -31,7 +31,7 @@ const jsonLd = {
       name: SITE.name,
       alternateName: 'Corsiva Prime — import de voitures de luxe',
       url: SITE.url,
-      logo: `${SITE.url}/media/logos/logo-prime-blanc.png`,
+      logo: { '@type': 'ImageObject', url: `${SITE.url}/media/logos/logo-prime-512.png`, width: 512, height: 512 },
       image: `${SITE.url}/media/hero/home.jpg`,
       telephone: '+33480819138',
       email: SITE.email,

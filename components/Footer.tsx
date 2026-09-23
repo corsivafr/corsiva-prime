@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { NAV, SITE, STATS } from '@/lib/site'
+import CookiesLink from '@/components/CookiesLink'
 
 /* Pied de page façon Corsiva OS : marque et conformité, services, nous joindre, groupe ; barre légale. */
 const VILLES_GUIDES = [
@@ -69,6 +70,7 @@ export default function Footer() {
           <div className="flex gap-5">
             <Link href="/mentions-legales" className="hover:text-white min-h-[40px] inline-flex items-center">Mentions légales</Link>
             <Link href="/confidentialite" className="hover:text-white min-h-[40px] inline-flex items-center">Confidentialité</Link>
+            <CookiesLink className="hover:text-white min-h-[40px] inline-flex items-center" />
           </div>
         </div>
       </div>

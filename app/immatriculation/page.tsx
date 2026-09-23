@@ -9,7 +9,7 @@ import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import AcquisitionsCatalogue from '@/components/AcquisitionsCatalogue'
-import { FICHES, nomFiche, FORFAIT_PRIME } from '@/lib/acquisitions'
+import { FICHES, nomFiche, FORFAIT_PRIME, budgetPrime } from '@/lib/acquisitions'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
@@ -28,7 +28,9 @@ const BLOCS = [
   { n: '04', t: 'Vous roulez partout en Europe', s: 'Le véhicule circule librement dans toute l’Union européenne, avec une assurance simplifiée et allégée.' },
 ]
 
-/* Les neuf fiches d'acquisition, en données structurées (produits sans offre : le véhicule est vendu par la concession allemande, Corsiva Prime facture son forfait). */
+/* Les neuf fiches d'acquisition, en données structurées. Chaque produit porte une offre (exigence Google pour les
+   extraits de produits, alerte Search Console du 23 sept. 2026) : le prix total affiché sur la carte, véhicule hors
+   taxes + forfait Corsiva Prime, indicatif. */
 const fichesLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -45,6 +47,16 @@ const fichesLd = {
       description: `${f.titre}. ${f.reference} Prix Allemagne hors taxes ≈ ${f.prixAllemagneHT.toLocaleString('fr-FR')} €, prix France équivalent malus compris ${f.prixFranceTTC.toLocaleString('fr-FR')} €, forfait Corsiva Prime ${FORFAIT_PRIME.toLocaleString('fr-FR')} €.`,
       brand: { '@type': 'Brand', name: f.marque },
       url: `${SITE.url}/immatriculation?fiche=${f.id}`,
+      offers: {
+        '@type': 'Offer',
+        price: budgetPrime(f),
+        priceCurrency: 'EUR',
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/UsedCondition',
+        url: `${SITE.url}/immatriculation?fiche=${f.id}`,
+        seller: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+        description: `Prix total indicatif : véhicule hors taxes ≈ ${f.prixAllemagneHT.toLocaleString('fr-FR')} € + forfait Corsiva Prime ${FORFAIT_PRIME.toLocaleString('fr-FR')} € (structuration, exécution, livraison). Hors gestion de la structure et assurance.`,
+      },
     },
   })),
 }

@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${inter.variable} ${GeistSans.variable}`} style={{ background: '#090909' }} suppressHydrationWarning>
       <body style={{ background: '#090909', margin: 0 }}>
         {/* html.js : les révélations au défilement ne masquent le contenu que si le script tourne */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: "(function(){var h=document.documentElement;h.classList.add('js');var vu=false;try{vu=!!sessionStorage.getItem('sl-vu')}catch(e){}if(vu||navigator.webdriver){h.classList.add('ready')}else{setTimeout(function(){h.classList.add('ready')},850)}})()" }} />
         <SiteLoader />
         <Header />
         {children}

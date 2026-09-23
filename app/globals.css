@@ -474,7 +474,7 @@ html:not(.js) .sl-veil { display: none; }
 .card-dense p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
 
 /* Écran de chargement : repli CSS si l'hydratation ne vient jamais */
-.sl-veil { animation: slautohide 0.45s var(--ease) 2.5s forwards; }
+.sl-veil { animation: slautohide 0.45s var(--ease) 0.75s forwards; }
 @keyframes slautohide { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 @media (prefers-reduced-motion: reduce) { .sl-lockup, .sl-line span { animation: none; } .sl-veil { animation: slautohide 0.2s linear 0.3s forwards; } }
 

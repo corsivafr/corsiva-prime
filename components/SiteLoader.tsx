@@ -18,7 +18,7 @@ export default function SiteLoader() {
     const t0 = performance.now()
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const MIN = reduce ? 300 : 700
-    const MAX = 1600
+    const MAX = 1000
     let done = false
     let leaveTimer = 0
     const leave = () => {
@@ -36,8 +36,10 @@ export default function SiteLoader() {
     const first = heroes.find((src) => current.endsWith(src)) || heroes[0]
     const preload = (src: string) => new Promise<void>((res) => { const im = new Image(); im.onload = () => res(); im.onerror = () => res(); im.src = src })
     const images = preload(first).then(() => { window.setTimeout(() => heroes.filter((h) => h !== first).forEach(preload), 1500) })
-    // Dès que le fond est là (sans attendre le reste de la page), le voile part : le hero et ses textes s'animent tôt.
-    images.then(() => window.setTimeout(leave, Math.max(0, MIN - (performance.now() - t0))))
+    // Le voile dure 0,7 s, quoi qu'il arrive (au plus 1 s) : il n'attend plus le réseau. Le fond du hero, en
+    // JPEG progressif et priorité haute, est en général déjà là ; les autres fonds se préchargent ensuite.
+    images.then(() => undefined)
+    window.setTimeout(leave, Math.max(0, MIN - (performance.now() - t0)))
     const safety = window.setTimeout(leave, MAX)
     return () => { window.clearTimeout(safety); window.clearTimeout(leaveTimer) }
   }, [])

@@ -37,10 +37,13 @@ export type Vehicule = {
   coverPosition?: string
   photos: string[]
   chiffres?: Chiffres
+  /** Prix TTC fixé par le dirigeant (transport et formalités inclus), quand il n'y a pas de détail chiffré. */
+  prixFixeTTC?: number
   points: string[]
 }
 
-export const VEHICULES: Vehicule[] = [
+/* Toutes les fiches véhicules connues : les articles y puisent leurs exemples chiffrés (M3, Classe G, 911 GTS). */
+export const REFERENCES: Vehicule[] = [
   {
     id: 'm3',
     marque: 'BMW',
@@ -92,11 +95,12 @@ export const VEHICULES: Vehicule[] = [
     modele: 'Taycan',
     etat: 'neuf',
     categorie: 'electrique',
-    detail: 'Pépite en cours de négociation chez une concession partenaire : prix communiqué sur demande.',
+    detail: 'Pépite du mois, négociée chez une concession partenaire. Prix TTC, transport fermé et formalités d’immatriculation en France inclus.',
+    prixFixeTTC: 64_000,
     cover: '/media/photos/taycan-3-4-avant.jpg',
     coverPosition: 'center 55%',
     photos: ['/media/photos/taycan-3-4-avant.jpg', '/media/photos/taycan-profil.jpg', '/media/photos/taycan-3-4-arriere.jpg', '/media/photos/taycan-detail.jpg'],
-    points: ['Électrique : aucun malus, TVA à traiter à l’import', 'Configuration au choix', 'Livraison en transport fermé'],
+    points: ['Électrique : aucun malus écologique', 'Configuration au choix', 'Livraison en transport fermé'],
   },
   {
     id: 'urus',
@@ -125,6 +129,10 @@ export const prixImport = (c: Chiffres) => c.prixAllemagneHT + FRAIS_IMPORT
 export const TVA_FR = 0.2
 export const prixImportTTC = (c: Chiffres) => Math.round(prixImport(c) * (1 + TVA_FR))
 export const tvaImport = (c: Chiffres) => prixImportTTC(c) - prixImport(c)
+/* Les pépites affichées ce mois-ci (décision du dirigeant du 23 sept. 2026 : la Taycan seule). */
+export const VEHICULES: Vehicule[] = REFERENCES.filter((v) => v.id === 'taycan')
+/* Prix TTC à afficher : prix fixé, sinon calculé depuis les chiffres. */
+export const prixAffiche = (v: Vehicule): number | undefined => v.prixFixeTTC ?? (v.chiffres ? prixImportTTC(v.chiffres) : undefined)
 
 export const MARQUES = ['Toutes', 'BMW', 'Mercedes-Benz', 'Porsche', 'Lamborghini'] as const
 

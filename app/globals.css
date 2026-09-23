@@ -645,6 +645,8 @@ html.js:not(.ready) .ln > span, html.js:not(.ready) .wd, html.js:not(.ready) .hi
 .fiche-grid div b { color: var(--ink); font-weight: 600; text-align: right; }
 @media (max-width: 639px) { .fiche-grid { grid-template-columns: 1fr; } }
 .mcat.compact .pcard .mrows { display: none; }
+.fiche-img { opacity: 0; transition: opacity 0.5s var(--ease); }
+.fiche-img.on { opacity: 1; }
 
 /* ============ Bandeau cookies ============ */
 .ckb { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 55; display: flex; justify-content: flex-start; pointer-events: none; }

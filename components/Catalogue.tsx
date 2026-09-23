@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { Arrow, Check } from '@/components/ui'
 import Link from 'next/link'
-import { VEHICULES, CATEGORIES, ETATS, PACKAGES, OPTIONS, FRAIS_IMPORT, prixImportTTC, tvaImport, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
+import { VEHICULES, CATEGORIES, ETATS, PACKAGES, OPTIONS, FRAIS_IMPORT, prixImportTTC, tvaImport, prixAffiche, type Vehicule, type Categorie, type Etat } from '@/lib/catalogue'
 import { SITE } from '@/lib/site'
 import { euro } from '@/lib/malus'
 
@@ -18,6 +18,7 @@ const MARQUES = ['Toutes', ...Array.from(new Set(VEHICULES.map((v) => v.marque))
    informations : prix TTC et sa composition, état, accès à la fiche. Aucun calcul de malus ici. ── */
 function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number }) {
   const c = v.chiffres
+  const prix = prixAffiche(v)
   return (
     <li className="pop" style={{ ['--d' as string]: `${Math.min(i, 8) * 0.04}s` }}>
       <article className="mcard pcard" onClick={onOpen}>
@@ -38,9 +39,9 @@ function Carte({ v, onOpen, i }: { v: Vehicule; onOpen: () => void; i: number })
           <span className="mtag etat">{etatLabel(v)}</span>
         </div>
         <div className="pprice">
-          <span>{c ? 'Prix TTC, transport et formalités inclus' : 'Prix'}</span>
-          <b className="num">{c ? euro(prixImportTTC(c)) : 'Sur demande'}{c && <em>TTC</em>}</b>
-          <small>{c ? 'TVA française 20 % incluse · hors malus' : 'Négociation en cours chez la concession partenaire'}</small>
+          <span>{prix ? 'Prix TTC, transport et formalités inclus' : 'Prix'}</span>
+          <b className="num">{prix ? euro(prix) : 'Sur demande'}{prix && <em>TTC</em>}</b>
+          <small>{prix ? (v.categorie === 'electrique' ? 'TVA française 20 % incluse · aucun malus' : 'TVA française 20 % incluse · hors malus') : 'Négociation en cours chez la concession partenaire'}</small>
         </div>
         {c ? (
           <div className="mrows">
@@ -130,18 +131,18 @@ function Volet({ v, onClose }: { v: Vehicule; onClose: () => void }) {
           </div>
 
           {/* Prix TTC et sa composition. La comparaison avec le prix France et le malus vivent dans le catalogue Zéro malus. */}
-          {v.chiffres && (
+          {prixAffiche(v) && (
             <div className="card p-5 sm:p-6 mt-6">
               <p className="text-[12.5px]" style={{ color: 'var(--ink-3)' }}>Prix TTC, transport et formalités inclus</p>
-              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(prixImportTTC(v.chiffres))}<span className="text-[16px] font-medium" style={{ color: 'var(--ink-3)', letterSpacing: 0, marginLeft: 8 }}>TTC</span></p>
+              <p className="display tabular leading-none mt-1" style={{ fontSize: 'clamp(36px, 4vw, 48px)', color: 'var(--blue-deep)' }}>{euro(prixAffiche(v)!)}<span className="text-[16px] font-medium" style={{ color: 'var(--ink-3)', letterSpacing: 0, marginLeft: 8 }}>TTC</span></p>
               <p className="text-[13px] mt-2" style={{ color: 'var(--ink-2)' }}>Véhicule négocié chez la concession partenaire, transport fermé privé, formalités d’immatriculation en France et TVA française incluses. Prix indicatif : la proposition personnalisée vous est adressée après un premier appel.</p>
-              <div className="mrows mt-4">
+              {v.chiffres && <div className="mrows mt-4">
                 <div><span>Prix négocié en Allemagne, hors taxes</span><b>{euro(v.chiffres.prixAllemagneHT)}</b></div>
                 <div><span>Transport fermé et formalités d’immatriculation</span><b>{euro(FRAIS_IMPORT)}</b></div>
                 <div><span>TVA française 20 %</span><b>{euro(tvaImport(v.chiffres))}</b></div>
                 <div className="tot"><span>Prix TTC</span><b>{euro(prixImportTTC(v.chiffres))}</b></div>
-              </div>
-              <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>Hors malus écologique, dû lors de l’immatriculation en France et propre à chaque modèle : <Link href="/simulateur#simulateur" className="underline underline-offset-2" style={{ color: 'var(--blue-deep)' }}>estimez-le dans le simulateur</Link>. CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg, données constructeur indicatives.</p>
+              </div>}
+              {v.chiffres ? <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>Hors malus écologique, dû lors de l’immatriculation en France et propre à chaque modèle : <Link href="/simulateur#simulateur" className="underline underline-offset-2" style={{ color: 'var(--blue-deep)' }}>estimez-le dans le simulateur</Link>. CO₂ {v.chiffres.co2} g/km · {v.chiffres.masse.toLocaleString('fr-FR')} kg, données constructeur indicatives.</p> : <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>{v.categorie === 'electrique' ? 'Véhicule électrique : aucun malus écologique à l’immatriculation en France.' : 'Hors malus écologique, dû lors de l’immatriculation en France.'}</p>}
             </div>
           )}
 

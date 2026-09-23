@@ -1,5 +1,5 @@
 import { euro, malusCO2, malusMasse, decoteOccasion, simuler, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
-import { VEHICULES } from '@/lib/catalogue'
+import { REFERENCES } from '@/lib/catalogue'
 import { MODELES, CATS, calculer, modeleParId, nomModele } from '@/lib/modeles'
 import { ficheParId, FORFAIT_PRIME, budgetPrime, economieNette } from '@/lib/acquisitions'
 
@@ -31,9 +31,9 @@ export type Article = {
   related?: string[]
 }
 
-const m3 = VEHICULES.find((v) => v.id === 'm3')!.chiffres!
-const g = VEHICULES.find((v) => v.id === 'g')!.chiffres!
-const p911 = VEHICULES.find((v) => v.id === '911-gts')!.chiffres!
+const m3 = REFERENCES.find((v) => v.id === 'm3')!.chiffres!
+const g = REFERENCES.find((v) => v.id === 'g')!.chiffres!
+const p911 = REFERENCES.find((v) => v.id === '911-gts')!.chiffres!
 const rM3 = simuler(m3), rG = simuler(g), r911 = simuler(p911)
 
 const BASE: Article[] = [

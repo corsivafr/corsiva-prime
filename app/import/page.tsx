@@ -7,7 +7,7 @@ import Arguments from '@/components/sections/Arguments'
 import Catalogue from '@/components/Catalogue'
 import PepitesOuvrir from '@/components/PepitesOuvrir'
 import PepitesInline from '@/components/PepitesInline'
-import { VEHICULES, prixImportTTC } from '@/lib/catalogue'
+import { VEHICULES, prixAffiche } from '@/lib/catalogue'
 import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
@@ -34,7 +34,7 @@ const itemList = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Les pépites du mois — import depuis l’Allemagne',
-  itemListElement: VEHICULES.filter((v) => v.chiffres).map((v, i) => ({
+  itemListElement: VEHICULES.filter((v) => prixAffiche(v)).map((v, i) => ({
     '@type': 'ListItem',
     position: i + 1,
     item: {
@@ -45,7 +45,7 @@ const itemList = {
       description: v.detail,
       itemCondition: v.etat === 'neuf' ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition',
       url: `${SITE.url}/import?v=${v.id}`,
-      offers: { '@type': 'Offer', priceCurrency: 'EUR', price: prixImportTTC(v.chiffres!), priceSpecification: { '@type': 'PriceSpecification', price: prixImportTTC(v.chiffres!), priceCurrency: 'EUR', valueAddedTaxIncluded: true }, availability: 'https://schema.org/InStock', url: `${SITE.url}/import?v=${v.id}`, seller: { '@type': 'Organization', name: SITE.name } },
+      offers: { '@type': 'Offer', priceCurrency: 'EUR', price: prixAffiche(v)!, priceSpecification: { '@type': 'PriceSpecification', price: prixAffiche(v)!, priceCurrency: 'EUR', valueAddedTaxIncluded: true }, availability: 'https://schema.org/InStock', url: `${SITE.url}/import?v=${v.id}`, seller: { '@type': 'Organization', name: SITE.name } },
     },
   })),
 }
@@ -95,7 +95,7 @@ export default function Page({ searchParams }: { searchParams?: { v?: string } }
       <Process compact />
       <Section tone="light" id="pepites">
         <Wrap>
-          <SecHead a="Nos pépites" b="du mois.">Chaque mois, cinq véhicules dénichés et négociés chez nos concessions partenaires en Allemagne. Prix affichés TTC, transport et formalités inclus. Vous choisissez vos options, Corsiva gère l’import jusqu’aux plaques françaises.</SecHead>
+          <SecHead a="Nos pépites" b="du mois.">Chaque mois, des véhicules dénichés et négociés chez nos concessions partenaires en Allemagne, au prix TTC, transport et formalités inclus. Ce mois-ci : la Porsche Taycan. Vous choisissez vos options, Corsiva gère l’import jusqu’aux plaques françaises.</SecHead>
           <Catalogue openId={searchParams?.v} />
           <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <p className="text-[12.5px] leading-relaxed max-w-2xl" style={{ color: 'var(--ink-3)' }}>Prix TTC indicatifs : prix négocié chez la concession partenaire, transport fermé, formalités d’immatriculation en France et TVA française de 20 % inclus. Hors malus écologique, dû lors de l’immatriculation en France et propre à chaque modèle. Proposition personnalisée après un premier appel.</p>

@@ -13,9 +13,14 @@ import { euro } from '@/lib/malus'
    Tous les montants viennent de lib/acquisitions.ts (les propositions d'acquisition), rien n'est recalculé
    sauf le budget « véhicule + forfait » et l'économie nette. */
 
-type Tri = 'ecart' | 'prix' | 'part'
+type Tri = 'ordre' | 'ecart' | 'prix'
 type Carrosserie = 'toutes' | 'suv' | 'sportive'
 const km = (n: number) => `${n.toLocaleString('fr-FR')} km`
+/* Image du volet : fondu à l'arrivée, sur un fond dégradé, pour une ouverture sans à-coup. */
+function ImageFondu({ src, alt, pos, sizes, priority = false }: { src: string; alt: string; pos?: string; sizes: string; priority?: boolean }) {
+  const [on, setOn] = useState(false)
+  return <Image key={src} src={src} alt={alt} fill quality={88} sizes={sizes} priority={priority} onLoad={() => setOn(true)} className={`object-cover fiche-img ${on ? 'on' : ''}`} style={{ objectPosition: pos || 'center' }} />
+}
 
 /* ── Carte ── */
 function Carte({ f, i, compact, onOpen }: { f: Fiche; i: number; compact: boolean; onOpen: () => void }) {
@@ -29,24 +34,22 @@ function Carte({ f, i, compact, onOpen }: { f: Fiche; i: number; compact: boolea
           <small>{f.marque} · {CATS_ACQ[f.cat]} · {f.annee}</small>
           <h3>{f.modele}</h3>
         </div>
-        <span className="mtag pep">Fiche d’acquisition</span>
-        <span className="mtag etat">{km(f.fiche.km)} · {f.fiche.circulation}</span>
+        <span className="mtag pep">Véhicule neuf</span>
+        <span className="mtag etat">{f.annee}</span>
       </div>
       <div className="pprice">
-        <span>Prix Allemagne, hors taxes</span>
-        <b className="num">≈ {euro(f.prixAllemagneHT)}</b>
-        <small>TVA récupérable · facturé hors taxes à la structure européenne</small>
+        <span>Prix total, frais Corsiva compris</span>
+        <b className="num">≈ {euro(budgetPrime(f))}</b>
       </div>
       <div className="mrows">
-        <div><span>Prix France équivalent, malus compris</span><b>{euro(f.prixFranceTTC)}</b></div>
-        <div><span>Forfait Corsiva Prime, tout inclus</span><b>{euro(FORFAIT_PRIME)}</b></div>
+        <div><span>Prix en France</span><b>{euro(f.prixFranceTTC)}</b></div>
       </div>
       <div className="mecon">
-        <span>Écart de prix constaté</span>
-        <b className="num">≈ {euro(f.ecart)}</b>
+        <span>Économie réalisée</span>
+        <b className="num">≈ {euro(economieNette(f))}</b>
       </div>
       <div className="pfoot">
-        <span>{f.part} % du prix français</span>
+        <span>Sans malus ni TVA</span>
         {compact ? (
           <span className="lk">Voir la fiche <Arrow className="w-3.5 h-3.5" /></span>
         ) : (
@@ -106,9 +109,9 @@ function Volet({ f, onClose }: { f: Fiche; onClose: () => void }) {
 
         <div className="px-5 sm:px-7 pb-10">
           {/* Galerie HD */}
-          <div className="relative overflow-hidden rounded-[20px] mt-5" style={{ aspectRatio: '16 / 10', background: '#0a0a0a' }}>
-            <Image key={photo.src} src={photo.src} alt={photo.alt} fill quality={88} sizes="(max-width: 1023px) 100vw, 760px" className="object-cover pop" style={{ objectPosition: photo.pos || 'center' }} priority />
-            <span className="absolute top-4 left-4 text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: '#007acc', color: '#fff' }}>Fiche d’acquisition · {f.ref}</span>
+          <div className="relative overflow-hidden rounded-[20px] mt-5" style={{ aspectRatio: '16 / 10', background: 'radial-gradient(120% 120% at 20% 0%, #1c1c1c, #070707)' }}>
+            <ImageFondu src={photo.src} alt={photo.alt} pos={photo.pos} sizes="(max-width: 1023px) 100vw, 760px" priority />
+            <span className="absolute top-4 left-4 text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: '#007acc', color: '#fff' }}>Véhicule neuf · {f.annee}</span>
             <span className="absolute top-4 right-4 text-[12px] font-semibold px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.92)', color: '#0a0a0a' }}>{f.fiche.etat}</span>
           </div>
           {f.photos.length > 1 && (
@@ -218,7 +221,7 @@ function Volet({ f, onClose }: { f: Fiche; onClose: () => void }) {
 /* ── Catalogue : barre d'outils commune, bandeau de repères, grille, volet ── */
 export default function AcquisitionsCatalogue({ compact = false }: { compact?: boolean }) {
   const [marque, setMarque] = useState('Toutes')
-  const [tri, setTri] = useState<Tri>('ecart')
+  const [tri, setTri] = useState<Tri>('ordre')
   const [carro, setCarro] = useState<Carrosserie>('toutes')
   const [open, setOpen] = useState<Fiche | null>(null)
 
@@ -233,7 +236,8 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
 
   const list = useMemo(() => {
     const l = FICHES.filter((f) => (marque === 'Toutes' || f.marque === marque) && (carro === 'toutes' || (carro === 'suv' ? f.cat === 'suv' : f.cat !== 'suv')))
-    l.sort(tri === 'ecart' ? (a, b) => b.ecart - a.ecart : tri === 'prix' ? (a, b) => a.prixAllemagneHT - b.prixAllemagneHT : (a, b) => b.part - a.part)
+    if (tri === 'ecart') l.sort((a, b) => economieNette(b) - economieNette(a))
+    else if (tri === 'prix') l.sort((a, b) => budgetPrime(a) - budgetPrime(b))
     return compact ? l.slice(0, 6) : l
   }, [marque, tri, carro, compact])
 
@@ -251,9 +255,9 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
               <button type="button" aria-pressed={carro === 'sportive'} onClick={() => setCarro('sportive')}>Sportives et GT</button>
             </div>
             <select className="field" style={{ width: 'auto' }} value={tri} onChange={(e) => setTri(e.target.value as Tri)} aria-label="Trier">
-              <option value="ecart">Trier par écart de prix</option>
-              <option value="prix">Trier par prix hors taxes</option>
-              <option value="part">Trier par part du prix français</option>
+              <option value="ordre">Notre sélection</option>
+              <option value="ecart">Trier par économie</option>
+              <option value="prix">Trier par prix total</option>
             </select>
           </div>
         </div>

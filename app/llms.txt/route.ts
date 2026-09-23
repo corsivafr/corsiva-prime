@@ -1,7 +1,7 @@
 import { SITE, FAQ, PHASES, STATS } from '@/lib/site'
 import { ARTICLES } from '@/lib/articles'
 import { FICHES, nomFiche, FORFAIT_PRIME, OPTION_COVERING, GESTION_STRUCTURE_MOIS } from '@/lib/acquisitions'
-import { VEHICULES, prixImportTTC } from '@/lib/catalogue'
+import { VEHICULES, prixAffiche } from '@/lib/catalogue'
 import { euro, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
 
 export const dynamic = 'force-static'
@@ -38,7 +38,7 @@ export function GET() {
   l.push('')
   l.push('## Pépites du mois (page Import, prix TTC indicatifs hors malus)')
   for (const v of VEHICULES) {
-    l.push(`- ${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''} (${v.etat}) : ${v.chiffres ? `${euro(prixImportTTC(v.chiffres))} TTC` : 'prix sur demande'} — ${SITE.url}/import?v=${v.id}`)
+    l.push(`- ${v.marque} ${v.modele}${v.version ? ` ${v.version}` : ''} (${v.etat}) : ${prixAffiche(v) ? `${euro(prixAffiche(v)!)} TTC` : 'prix sur demande'} — ${SITE.url}/import?v=${v.id}`)
   }
   l.push('')
   l.push('## Comment ça fonctionne (environ 5 semaines)')

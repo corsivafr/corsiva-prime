@@ -94,7 +94,7 @@ function Volet({ f, onClose }: { f: Fiche; onClose: () => void }) {
   const logo = LOGOS_ACQ[f.marque]
 
   return (
-    <div className="fixed inset-0 z-[60] overflow-hidden" role="dialog" aria-modal="true" aria-label={`Fiche d’acquisition ${nom}`}>
+    <div className="fixed inset-0 z-[120] overflow-hidden" role="dialog" aria-modal="true" aria-label={`Fiche d’acquisition ${nom}`}>
       <button type="button" className="drawer-veil absolute inset-0" style={{ background: 'rgba(5,5,5,0.7)', backdropFilter: 'blur(6px)' }} onClick={onClose} aria-label="Fermer" />
       <div className="drawer light absolute inset-x-0 bottom-0 top-3 lg:inset-y-0 lg:left-auto lg:right-0 lg:w-[min(760px,92vw)] rounded-t-[24px] lg:rounded-none lg:rounded-l-[30px] overflow-y-auto" style={{ background: 'var(--light)', color: 'var(--night)' }}>
         <div className="sticky top-0 z-10 flex items-center justify-between px-5 sm:px-7 py-3.5" style={{ background: 'rgba(255,255,255,0.86)', backdropFilter: 'blur(14px)', borderBottom: '1px solid var(--hairline)' }}>

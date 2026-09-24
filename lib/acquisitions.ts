@@ -1,6 +1,7 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    Fiches d'acquisition Corsiva Prime — source unique : les « Propositions d'acquisition » du
-   21 septembre 2026 (dossier « Fiches d'acquisition avec tarifs », neuf véhicules, photos incluses).
+   21 septembre 2026 (dossier « Fiches d'acquisition avec tarifs », neuf véhicules). Photos : véhicules plaqués
+   Corsiva (dossier « image prime », 24 septembre 2026), recadrées en 16:10 ; M3 et Classe G du groupe Corsiva.
    Chaque montant est celui de la fiche : prix Allemagne (annonce ou médiane, TTC et hors taxes),
    prix France équivalent (malus déjà compris), écart de marché, TVA allemande non facturée, écart total.
    Seuls le budget « véhicule + forfait » et l'économie nette sont additionnés ici.
@@ -64,7 +65,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 145_000, prixFranceNote: 'Prix estimé en France d’une M3 Competition récente à moins de 7 500 km, malus déjà payé : prix TTC, aucun malus à ajouter.',
     ecartMarche: 60_300, tvaAllemande: 13_500, ecart: 73_800, part: 51,
     scenario2: { label: 'Scénario prudent · médiane du marché', ht: 78_983, ecart: 66_017, part: 46 },
-    photos: [{ src: '/media/photos/m3c-face.jpg', alt: 'BMW M3 Competition du groupe Corsiva, vue de face', pos: 'center 55%' }, { src: '/media/photos/m3c-3-4.jpg', alt: 'BMW M3 Competition du groupe Corsiva, trois quarts', pos: 'center 55%' }, { src: '/media/photos/m3-interieur.jpg', alt: 'Intérieur de la BMW M3 Competition', pos: 'center' }, { src: A + 'bmw-m3-competition--3-4-avant.jpg', alt: 'BMW M3 Competition de trois quarts avant', pos: 'center 55%' }, { src: A + 'bmw-m3-competition--3-4-arriere.jpg', alt: 'BMW M3 Competition de trois quarts arrière', pos: 'center 55%' }],
+    photos: [{ src: '/media/photos/m3c-face.jpg', alt: 'BMW M3 Competition du groupe Corsiva, vue de face, plaque Corsiva', pos: 'center 55%' }, { src: '/media/photos/m3c-3-4.jpg', alt: 'BMW M3 Competition du groupe Corsiva, trois quarts', pos: 'center 55%' }, { src: '/media/photos/m3-interieur.jpg', alt: 'Intérieur de la BMW M3 Competition', pos: 'center' }],
   },
   {
     id: 'mercedes-amg-g-63', ref: 'CRS-MBG63-2026', marque: 'Mercedes-AMG', modele: 'G 63', cat: 'suv', annee: '2024',
@@ -77,7 +78,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 269_990, prixFranceNote: 'G 63 le moins cher en vente en France avec malus déjà payé : prix TTC, aucun malus à ajouter.',
     ecartMarche: 65_000, tvaAllemande: 32_700, ecart: 97_700, part: 36,
     scenario2: { label: 'Meilleur cas · annonce de référence', ht: 146_370, ecart: 123_620, part: 46 },
-    photos: [{ src: '/media/photos/g-gris-face.jpg', alt: 'Mercedes Classe G du groupe Corsiva, vue de face', pos: 'center 55%' }, { src: '/media/photos/g-gris-duo.jpg', alt: 'Mercedes Classe G du groupe Corsiva', pos: 'center 55%' }, { src: A + 'mercedes-amg-g-63--3-4-avant.jpg', alt: 'Mercedes-AMG G 63 blanc de trois quarts avant', pos: 'center 55%' }, { src: A + 'mercedes-amg-g-63--3-4-arriere.jpg', alt: 'Mercedes-AMG G 63 de trois quarts arrière', pos: 'center 55%' }],
+    photos: [{ src: A + 'mercedes-amg-g-63--corsiva-3-4-avant.jpg', alt: 'Mercedes Classe G grise du groupe Corsiva de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: '/media/photos/g-gris-duo.jpg', alt: 'Mercedes Classe G et BMW M3 du groupe Corsiva', pos: 'center 55%' }],
   },
   {
     id: 'porsche-911-carrera-s', ref: 'CRS-P911S-2026', marque: 'Porsche', modele: '911 Carrera S', cat: 'sportive', annee: '2026',
@@ -90,7 +91,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 239_700, prixFranceNote: '911 Carrera S phase 2 neuve en France, sans option : 159 700 € + 80 000 € de malus. Aucune occasion disponible.', malusFrance: 80_000,
     ecartMarche: 76_500, tvaAllemande: 26_100, ecart: 102_600, part: 43,
     scenario2: { label: 'Meilleur cas · prix plancher', ht: 131_008, ecart: 108_692, part: 45 },
-    photos: [{ src: A + 'porsche-911-carrera-s--3-4-avant.jpg', alt: 'Porsche 911 Carrera S 992.2 de trois quarts avant', pos: 'center 55%' }, { src: A + 'porsche-911-carrera-s--3-4-arriere.jpg', alt: 'Porsche 911 Carrera S 992.2 de trois quarts arrière', pos: 'center 55%' }],
+    photos: [{ src: A + 'porsche-911-carrera-s--corsiva-3-4-arriere.jpg', alt: 'Porsche 911 Carrera S grise de trois quarts arrière, plaque Corsiva', pos: 'center' }, { src: A + 'porsche-911-carrera-s--3-4-avant.jpg', alt: 'Porsche 911 Carrera S grise de trois quarts avant', pos: 'center 55%' }],
   },
   {
     id: 'bmw-m4-competition', ref: 'CRS-BM4C-2026', marque: 'BMW', modele: 'M4 Competition', cat: 'coupe', annee: '2025',
@@ -103,7 +104,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 159_890, prixFranceNote: 'M4 Competition proposée en France, 12/2025, 6 900 km : prix TTC affiché par un distributeur français, malus compris.',
     ecartMarche: 79_900, tvaAllemande: 12_800, ecart: 92_700, part: 58,
     scenario2: { label: 'Scénario prudent · médiane du marché', ht: 78_814, ecart: 81_076, part: 51 },
-    photos: [{ src: A + 'bmw-m4-competition--3-4-avant.jpg', alt: 'BMW M4 Competition de trois quarts avant', pos: 'center 55%' }, { src: A + 'bmw-m4-competition--profil.jpg', alt: 'BMW M4 Competition de profil', pos: 'center 55%' }],
+    photos: [{ src: A + 'bmw-m4-competition--corsiva-3-4-avant.jpg', alt: 'BMW M4 blanche de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: A + 'bmw-m4-competition--corsiva-3-4-arriere.jpg', alt: 'BMW M4 blanche de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
   {
     id: 'lamborghini-urus-s', ref: 'CRS-LAMURUS-2026', marque: 'Lamborghini', modele: 'Urus S', cat: 'suv', annee: '2024',
@@ -116,7 +117,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 339_900, prixFranceNote: 'Urus S le moins cher en vente en France avec malus déjà payé : prix TTC, aucun malus à ajouter.',
     ecartMarche: 34_900, tvaAllemande: 48_700, ecart: 83_600, part: 25,
     scenario2: { label: 'Meilleur cas · annonce de référence', ht: 242_857, ecart: 97_043, part: 29 },
-    photos: [{ src: A + 'lamborghini-urus-s--3-4-avant.jpg', alt: 'Lamborghini Urus S de trois quarts avant', pos: 'center 55%' }, { src: A + 'lamborghini-urus-s--3-4-arriere.jpg', alt: 'Lamborghini Urus S de trois quarts arrière', pos: 'center 55%' }],
+    photos: [{ src: A + 'lamborghini-urus-s--corsiva-3-4-avant.jpg', alt: 'Lamborghini Urus jaune de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: A + 'lamborghini-urus-s--corsiva-3-4-arriere.jpg', alt: 'Lamborghini Urus jaune de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
   {
     id: 'audi-rs-q8-performance', ref: 'CRS-ARSQ8P-2026', marque: 'Audi', modele: 'RS Q8 performance', cat: 'suv', annee: '2025',
@@ -129,7 +130,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 208_800, prixFranceNote: 'Aucune occasion en vente en France : RS Q8 performance 2025 à moins de 10 000 km, 150 000 € + 58 800 € de malus (décote d’âge déduite).', malusFrance: 58_800,
     ecartMarche: 73_900, tvaAllemande: 21_500, ecart: 95_400, part: 46,
     scenario2: { label: 'Face à une RS Q8 neuve en France', ht: 113_351, ecart: 160_899, part: 59, franceTTC: 274_250 },
-    photos: [{ src: A + 'audi-rs-q8-performance--3-4-avant.jpg', alt: 'Audi RS Q8 performance de trois quarts avant', pos: 'center 55%' }, { src: A + 'audi-rs-q8-performance--profil.jpg', alt: 'Audi RS Q8 performance de profil', pos: 'center 55%' }],
+    photos: [{ src: A + 'audi-rs-q8-performance--corsiva-3-4-avant.jpg', alt: 'Audi RS Q8 noire de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: A + 'audi-rs-q8-performance--corsiva-3-4-arriere.jpg', alt: 'Audi RS Q8 noire de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
   {
     id: 'audi-r8-v10-performance', ref: 'CRS-AR8V10-2026', marque: 'Audi', modele: 'R8 V10 performance', cat: 'sportive', annee: '2024',
@@ -141,7 +142,7 @@ export const FICHES: Fiche[] = [
     prixAllemagneTTC: 179_900, prixAllemagneHT: 151_200, prixAllemagneNote: 'Exemplaire retenu, TVA récupérable',
     prixFranceTTC: 239_990, prixFranceNote: 'R8 V10 performance française de 2023, 11 075 km, un propriétaire, malus déjà payé : prix TTC, aucun malus à ajouter.',
     ecartMarche: 60_100, tvaAllemande: 28_700, ecart: 88_800, part: 37,
-    photos: [{ src: A + 'audi-r8-v10-performance--3-4-avant.jpg', alt: 'Audi R8 V10 performance de trois quarts avant', pos: 'center 55%' }, { src: A + 'audi-r8-v10-performance--3-4-arriere.jpg', alt: 'Audi R8 V10 performance de trois quarts arrière', pos: 'center 55%' }],
+    photos: [{ src: A + 'audi-r8-v10-performance--corsiva-3-4-avant.jpg', alt: 'Audi R8 blanche de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: A + 'audi-r8-v10-performance--corsiva-3-4-arriere.jpg', alt: 'Audi R8 blanche de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
   {
     id: 'mercedes-amg-cle-53', ref: 'CRS-MCLE53-2026', marque: 'Mercedes-AMG', modele: 'CLE 53 Coupé', cat: 'coupe', annee: '2025',
@@ -154,7 +155,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 147_900, prixFranceNote: 'CLE 53 Coupé français de 04/2025, 490 km, malus de 70 000 € déjà payé : prix TTC, aucun malus à ajouter.', malusFrance: 70_000,
     ecartMarche: 71_300, tvaAllemande: 12_200, ecart: 83_500, part: 56,
     scenario2: { label: 'Scénario prudent · médiane du marché', ht: 75_622, ecart: 72_278, part: 49 },
-    photos: [{ src: A + 'mercedes-amg-cle-53--3-4-avant.jpg', alt: 'Mercedes-AMG CLE 53 Coupé de trois quarts avant', pos: 'center 55%' }, { src: A + 'mercedes-amg-cle-53--3-4-avant-mouvement.jpg', alt: 'Mercedes-AMG CLE 53 Coupé en mouvement, trois quarts avant', pos: 'center 55%' }],
+    photos: [{ src: A + 'mercedes-amg-cle-53--corsiva-3-4-avant.jpg', alt: 'Mercedes-AMG CLE 53 Coupé grise de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: A + 'mercedes-amg-cle-53--corsiva-3-4-arriere.jpg', alt: 'Mercedes-AMG CLE 53 Coupé grise de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
   {
     id: 'audi-rs6-avant-performance', ref: 'CRS-ARS6P-2026', marque: 'Audi', modele: 'RS6 Avant performance', cat: 'break', annee: '2025',
@@ -167,7 +168,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 179_900, prixFranceNote: 'RS6 Avant performance française de 02/2025, 4 900 km, malus déjà payé : prix TTC, aucun malus à ajouter.',
     ecartMarche: 63_200, tvaAllemande: 18_600, ecart: 81_800, part: 45,
     scenario2: { label: 'Scénario prudent · médiane du marché', ht: 116_802, ecart: 63_098, part: 35 },
-    photos: [{ src: A + 'audi-rs6-avant-performance--3-4-avant.jpg', alt: 'Audi RS6 Avant performance de trois quarts avant', pos: 'center 55%' }, { src: A + 'audi-rs6-avant-performance--profil.jpg', alt: 'Audi RS6 Avant performance de profil', pos: 'center 55%' }],
+    photos: [{ src: A + 'audi-rs6-avant-performance--corsiva-3-4-avant.jpg', alt: 'Audi RS6 Avant grise de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: A + 'audi-rs6-avant-performance--corsiva-3-4-arriere.jpg', alt: 'Audi RS6 Avant grise de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
 ]
 

@@ -6,8 +6,10 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Reveal from '@/components/Reveal'
 import CTA from '@/components/sections/CTA'
 import ArticlesSection, { dateFR } from '@/components/sections/ArticlesSection'
+import FichesArticle from '@/components/sections/FichesArticle'
 import { Section, Wrap, Title, Check, Arrow } from '@/components/ui'
 import { ARTICLES, articleParSlug } from '@/lib/articles'
+import { ficheParId, nomFiche } from '@/lib/acquisitions'
 import { SITE } from '@/lib/site'
 
 export const dynamicParams = false
@@ -33,6 +35,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const a = articleParSlug(params.slug)
   if (!a) notFound()
   const url = `${SITE.url}/articles/${a.slug}`
+  const fiche = ficheParId(a.fiche)
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -75,9 +78,16 @@ export default function Page({ params }: { params: { slug: string } }) {
           <p className="hin mt-6 text-[13.5px]" style={{ ['--d' as string]: '0.14s', color: 'var(--ink-2)' }}>
             Publié le {dateFR(a.date)}{a.updated !== a.date ? ` · mis à jour le ${dateFR(a.updated)}` : ''} · {a.minutes} min de lecture · Par l’équipe {SITE.name}
           </p>
-          <div className="artcover hin mt-10" style={{ ['--d' as string]: '0.22s' }}>
-            <Image src={a.cover} alt={a.coverAlt} fill priority quality={82} sizes="(max-width: 1279px) 100vw, 1200px" className="object-cover" />
-          </div>
+          {fiche ? (
+            <Link href={`/immatriculation?fiche=${fiche.id}#catalogue`} className="artcover artcover-link hin mt-10 block" style={{ ['--d' as string]: '0.22s' }} aria-label={`Voir la fiche ${nomFiche(fiche)} sur le site`}>
+              <Image src={a.cover} alt={a.coverAlt} fill priority quality={82} sizes="(max-width: 1279px) 100vw, 1200px" className="object-cover" />
+              <span className="artcover-cta">Voir la fiche {nomFiche(fiche)} <Arrow className="w-3.5 h-3.5" /></span>
+            </Link>
+          ) : (
+            <div className="artcover hin mt-10" style={{ ['--d' as string]: '0.22s' }}>
+              <Image src={a.cover} alt={a.coverAlt} fill priority quality={82} sizes="(max-width: 1279px) 100vw, 1200px" className="object-cover" />
+            </div>
+          )}
         </Wrap>
       </header>
 
@@ -135,6 +145,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         </Wrap>
       </Section>
 
+      <FichesArticle ids={a.fiches ?? [a.fiche]} />
       <ArticlesSection exclude={a.slug} related={a.related} a="Poursuivre" b="la lecture." lead="Trois autres guides, pour avoir toutes les cartes en main avant d’acheter." />
       <CTA appel title={['Votre voiture, sans malus ni TVA :', 'parlons-en.']} text="Un conseiller chiffre votre projet et vous présente la structure européenne, sans engagement." />
     </>

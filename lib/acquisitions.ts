@@ -93,7 +93,7 @@ export const FICHES: Fiche[] = [
     prixFranceTTC: 239_700, prixFranceNote: '911 Carrera S phase 2 neuve en France, sans option : 159 700 € + 80 000 € de malus. Aucune occasion disponible.', malusFrance: 80_000,
     ecartMarche: 76_500, tvaAllemande: 26_100, ecart: 102_600, part: 43,
     scenario2: { label: 'Meilleur cas · prix plancher', ht: 131_008, ecart: 108_692, part: 45 },
-    photos: [{ src: A + 'porsche-911-carrera-s--corsiva-3-4-arriere.jpg', alt: 'Porsche 911 Carrera S grise de trois quarts arrière, plaque Corsiva', pos: 'center' }, { src: A + 'porsche-911-carrera-s--3-4-avant.jpg', alt: 'Porsche 911 Carrera S grise de trois quarts avant', pos: 'center 55%' }],
+    photos: [{ src: A + 'porsche-911-carrera-s--3-4-avant.jpg', alt: 'Porsche 911 Carrera S grise de trois quarts avant', pos: 'center 55%' }, { src: A + 'porsche-911-carrera-s--corsiva-3-4-arriere.jpg', alt: 'Porsche 911 Carrera S grise de trois quarts arrière, plaque Corsiva', pos: 'center' }],
   },
   {
     id: 'bmw-m4-competition', ref: 'CRS-BM4C-2026', marque: 'BMW', modele: 'M4 Competition', cat: 'coupe', annee: '2025',

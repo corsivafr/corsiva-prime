@@ -6,13 +6,9 @@ import CTA from '@/components/sections/CTA'
 import { ArticleCard } from '@/components/sections/ArticlesSection'
 import { Section, Wrap } from '@/components/ui'
 import { ARTICLES } from '@/lib/articles'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Articles : malus, import, immatriculation',
-  description: 'Nos guides pour payer le juste prix : éviter le malus écologique 2026, importer une voiture d’Allemagne, immatriculer en Europe, exemples chiffrés.',
-  alternates: { canonical: `${SITE.url}/articles` },
-}
+export const metadata: Metadata = metaPage('/articles', 'Articles : malus, import, immatriculation', 'Nos guides pour payer le juste prix : éviter le malus écologique 2026, importer une voiture d’Allemagne, immatriculer en Europe, exemples chiffrés.', 'articles')
 
 export default function Page() {
   const ld = {

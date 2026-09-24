@@ -7,13 +7,9 @@ import Reveal from '@/components/Reveal'
 import ContactForm from '@/components/ContactForm'
 import FAQ from '@/components/sections/FAQ'
 import { Section, Wrap, Title, Lead, Arrow, d } from '@/components/ui'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Contact : import et immatriculation',
-  description: 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime répond 7j/7 de 9h à 18h, vous reçoit à Paris et se déplace partout en France.',
-  alternates: { canonical: `${SITE.url}/contact` },
-}
+export const metadata: Metadata = metaPage('/contact', 'Contact : import et immatriculation', 'Téléphone, WhatsApp, e-mail ou formulaire : l’équipe Corsiva Prime répond 7j/7 de 9h à 18h, vous reçoit à Paris et se déplace partout en France.', 'contact')
 
 export default function Page() {
   const cartes = [

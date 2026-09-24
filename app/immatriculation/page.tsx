@@ -12,14 +12,10 @@ import AcquisitionsCatalogue from '@/components/AcquisitionsCatalogue'
 import { FICHES, nomFiche, budgetPrime } from '@/lib/acquisitions'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 import { euro, PLAFOND_MALUS, ANNEE_BAREME } from '@/lib/malus'
 
-export const metadata: Metadata = {
-  title: 'Éviter le malus : immatriculation européenne',
-  description: 'Structure européenne encadrée par nos avocats partenaires : malus écologique 2026 (jusqu’à 80 000 €) et TVA évités, véhicule libre dans toute l’UE.',
-  alternates: { canonical: `${SITE.url}/immatriculation` },
-}
+export const metadata: Metadata = metaPage('/immatriculation', 'Éviter le malus : immatriculation européenne', 'Structure européenne encadrée par nos avocats partenaires : malus écologique 2026 (jusqu’à 80 000 €) et TVA évités, véhicule libre dans toute l’UE.', 'malus')
 
 const BLOCS = [
   { n: '01', t: 'Une structure européenne encadrée', s: 'Le véhicule est porté par une structure européenne mise en place avec nos avocats partenaires, en Bulgarie et en France. Son fonctionnement vous est présenté en détail lors d’un appel.' },

@@ -7,13 +7,9 @@ import Configurateur from '@/components/Configurateur'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Tarifs : forfait Corsiva Prime 21 000 €',
-  description: 'Import + immatriculation européenne : forfait global de 21 000 € connu à l’avance, hors prix du véhicule. Import seul sur proposition, covering en option.',
-  alternates: { canonical: `${SITE.url}/tarifs` },
-}
+export const metadata: Metadata = metaPage('/tarifs', 'Tarifs : forfait Corsiva Prime 21 000 €', 'Import + immatriculation européenne : forfait global de 21 000 € connu à l’avance, hors prix du véhicule. Import seul sur proposition, covering en option.', 'tarifs')
 
 const PRINCIPES = [
   { t: 'Un chiffrage avant tout engagement', s: 'Vous recevez une proposition écrite, poste par poste, avant la phase de sourcing. Rien n’est engagé sans votre accord.' },

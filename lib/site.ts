@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 /* Données du site — reprises du brief « Document Corsiva Prime » (16 sept. 2026). Aucun chiffre
    inventé : les exemples, phases et arguments sont ceux du dirigeant. */
 
@@ -28,6 +30,21 @@ export const HERO_IMAGES = {
   contact: { d: '/media/hero/contact.jpg', m: '/media/hero/contact-m.jpg' },
 } as const
 export type HeroKey = keyof typeof HERO_IMAGES
+
+/* Métadonnées d'une page. Next ne fusionne pas openGraph : une page qui ne le déclare pas reprend
+   celui du layout, donc l'URL, le titre et l'image de l'accueil dans chaque aperçu de partage. */
+export function metaPage(path: string, title: string, description: string, image: HeroKey): Metadata {
+  const url = `${SITE.url}${path}`
+  const full = `${title} | ${SITE.name}`
+  const src = HERO_IMAGES[image].d
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: 'website', locale: 'fr_FR', siteName: SITE.name, url, title: full, description, images: [{ url: src, alt: full }] },
+    twitter: { card: 'summary_large_image', title: full, description, images: [src] },
+  }
+}
 
 /* Chiffres donnés par le dirigeant (18 sept. 2026). */
 export const STATS = {

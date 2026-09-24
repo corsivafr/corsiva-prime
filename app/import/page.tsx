@@ -13,13 +13,9 @@ import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import { Section, Wrap, SecHead, Title, Lead, Check, d } from '@/components/ui'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Import voiture de luxe Allemagne, tout géré',
-  description: 'Pépites dénichées chez nos concessions partenaires en Allemagne, deal négocié, options au choix, transport fermé et carte grise française : tout est géré.',
-  alternates: { canonical: `${SITE.url}/import` },
-}
+export const metadata: Metadata = metaPage('/import', 'Import voiture de luxe Allemagne, tout géré', 'Pépites dénichées chez nos concessions partenaires en Allemagne, deal négocié, options au choix, transport fermé et carte grise française : tout est géré.', 'import')
 
 const INCLUS = [
   { t: 'On déniche la pépite', s: 'Nos concessions partenaires en Allemagne nous confient leurs meilleures voitures : neuves, configurables, ou occasions récentes triées sur le volet.' },

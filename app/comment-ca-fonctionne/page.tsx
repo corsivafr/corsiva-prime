@@ -9,13 +9,9 @@ import Calendrier from '@/components/Calendrier'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import { Section, Wrap, SecHead, Title, Lead, Check, d } from '@/components/ui'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Importer sans malus : 5 phases, 5 semaines',
-  description: 'Validation, sourcing en Allemagne, structuration européenne, acquisition, immatriculation, livraison en France : le déroulé d’un import Corsiva Prime.',
-  alternates: { canonical: `${SITE.url}/comment-ca-fonctionne` },
-}
+export const metadata: Metadata = metaPage('/comment-ca-fonctionne', 'Importer sans malus : 5 phases, 5 semaines', 'Validation, sourcing en Allemagne, structuration européenne, acquisition, immatriculation, livraison en France : le déroulé d’un import Corsiva Prime.', 'process')
 
 const SEJOUR = [
   'Déplacement organisé de 3 à 4 jours, en parallèle du sourcing',

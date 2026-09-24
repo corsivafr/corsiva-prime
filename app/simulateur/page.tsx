@@ -5,14 +5,10 @@ import Reveal from '@/components/Reveal'
 import SimulateurSection from '@/components/sections/SimulateurSection'
 import CTA from '@/components/sections/CTA'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
-import { SITE } from '@/lib/site'
+import { SITE, metaPage } from '@/lib/site'
 import { euro, malusCO2, malusMasse, decoteOccasion, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE, TVA } from '@/lib/malus'
 
-export const metadata: Metadata = {
-  title: 'Simulateur malus 2026 : votre économie',
-  description: 'Calculez votre économie en important d’Allemagne : écart de prix, TVA de 20 % et malus 2026 (plafond 80 000 €). Règle de calcul et sources officielles.',
-  alternates: { canonical: `${SITE.url}/simulateur` },
-}
+export const metadata: Metadata = metaPage('/simulateur', 'Simulateur malus 2026 : votre économie', 'Calculez votre économie en important d’Allemagne : écart de prix, TVA de 20 % et malus 2026 (plafond 80 000 €). Règle de calcul et sources officielles.', 'home')
 
 const CO2_ROWS = [108, 120, 130, 140, 150, 160, 170, 180, 190, 191, 192]
 const MASSE_ROWS = [1500, 1699, 1799, 1899, 1999, 2200, 2545]

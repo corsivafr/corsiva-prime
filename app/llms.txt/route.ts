@@ -33,7 +33,7 @@ export function GET() {
   l.push('')
   l.push('## Fiches d’acquisition (propositions du 21 septembre 2026, indicatives et non contractuelles)')
   for (const f of FICHES) {
-    l.push(`- ${nomFiche(f)} ${f.annee} (${f.fiche.km.toLocaleString('fr-FR')} km, ${f.fiche.circulation}, ${f.fiche.etat.toLowerCase()}) : prix Allemagne hors taxes ≈ ${euro(f.prixAllemagneHT)} (${f.prixAllemagneNote.toLowerCase()}), prix France équivalent malus compris ${euro(f.prixFranceTTC)}, écart ≈ ${euro(f.ecart)} (${f.part} % du prix français), forfait Corsiva Prime ${euro(FORFAIT_PRIME)} — ${SITE.url}/immatriculation?fiche=${f.id}`)
+    l.push(`- ${nomFiche(f)} ${f.annee} (${f.fiche.km.toLocaleString('fr-FR')} km, ${f.fiche.circulation}, ${f.fiche.etat.toLowerCase()}) : prix Allemagne hors taxes ≈ ${euro(f.prixAllemagneHT)} (${f.prixAllemagneNote.toLowerCase()}), prix France équivalent malus compris ${euro(f.prixFranceTTC)}, écart ≈ ${euro(f.ecart)} (${f.part} % du prix français) — ${SITE.url}/immatriculation?fiche=${f.id}`)
   }
   l.push('')
   l.push('## Pépites du mois (page Import, prix TTC indicatifs hors malus)')

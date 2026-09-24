@@ -1,7 +1,7 @@
 import { euro, malusCO2, malusMasse, decoteOccasion, simuler, ANNEE_BAREME, PLAFOND_MALUS, SEUIL_CO2, SEUIL_MASSE } from '@/lib/malus'
 import { REFERENCES } from '@/lib/catalogue'
 import { MODELES, CATS, calculer, modeleParId, nomModele } from '@/lib/modeles'
-import { ficheParId, FORFAIT_PRIME, budgetPrime, economieNette } from '@/lib/acquisitions'
+import { ficheParId, budgetPrime, economie } from '@/lib/acquisitions'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Articles de référencement. Chaque chiffre légal vient de lib/malus.ts (loi de finances n° 2025-127,
@@ -306,7 +306,7 @@ const TETE: Article[] = [
     metaTitle: 'Acheter une Lamborghini Urus : prix et malus',
     title: `Acheter une Lamborghini Urus en ${ANNEE_BAREME} : prix, malus, import d’Allemagne et immatriculation`,
     h1: ['Acheter une Lamborghini Urus :', 'prix, malus et import.'],
-    description: `Prix France malus compris et prix Allemagne hors taxes d’un Urus S, malus ${ANNEE_BAREME} au plafond, forfait Corsiva Prime : à savoir avant d’acheter un Urus.`,
+    description: `Prix France malus compris et prix Allemagne hors taxes d’un Urus S, malus ${ANNEE_BAREME} au plafond, immatriculation européenne : à savoir avant d’acheter un Urus.`,
     date: '2026-09-22',
     updated: '2026-09-22',
     cover: '/media/photos/urus-avant.jpg',
@@ -333,14 +333,14 @@ const TETE: Article[] = [
         'Transport fermé privé jusqu’à votre adresse, quitus fiscal, certificat de conformité et carte grise française.',
         'Covering en option, posé avant la livraison.',
       ], note: 'L’Urus fait partie des pépites en cours de négociation chez nos concessions partenaires : son prix est communiqué sur demande.' },
-      { h2: `L’immatriculation européenne : ${euro(fU.ecart)} d’écart, forfait connu à l’avance`, paras: [
-        `Porté par une structure européenne encadrée par nos avocats partenaires et immatriculé dans un autre État membre, l’Urus ne supporte ni le malus français ni la TVA de 20 %. Le forfait Corsiva Prime de ${euro(FORFAIT_PRIME)} compris, le budget s’établit à ≈ ${euro(budgetPrime(fU))}, soit ≈ ${euro(economieNette(fU))} de moins que le prix France malus compris.`,
+      { h2: `L’immatriculation européenne : ${euro(fU.ecart)} d’écart`, paras: [
+        `Porté par une structure européenne encadrée par nos avocats partenaires et immatriculé dans un autre État membre, l’Urus ne supporte ni le malus français ni la TVA de 20 %. Le véhicule revient à ≈ ${euro(budgetPrime(fU))} hors taxes, soit ≈ ${euro(economie(fU))} de moins que le prix France malus compris.`,
         'Le véhicule circule librement dans toute l’Union européenne. Les modalités de la structure vous sont présentées lors d’un appel, avec nos avocats partenaires si besoin.',
       ] },
       { h2: 'Le vrai budget, en résumé', list: [
         `Achat en France : ${euro(fU.prixFranceTTC)}, malus compris (Urus S le moins cher relevé).`,
         `Import seul : ≈ ${euro(fU.prixAllemagneHT)} hors taxes + TVA 20 % + malus ${euro(rUrus.malusTotal)} + transport et formalités.`,
-        `Import + immatriculation européenne : ≈ ${euro(fU.prixAllemagneHT)} hors taxes + forfait ${euro(FORFAIT_PRIME)} = ≈ ${euro(budgetPrime(fU))}, sans TVA ni malus.`,
+        `Import + immatriculation européenne : ≈ ${euro(budgetPrime(fU))} hors taxes, sans TVA ni malus.`,
       ] },
     ],
     faq: [

@@ -4,14 +4,14 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Arrow, Check } from '@/components/ui'
-import { FICHES, CATS_ACQ, MARQUES_ACQ, LOGOS_ACQ, FORFAIT_PRIME, OPTION_COVERING, GESTION_STRUCTURE_MOIS, nomFiche, budgetPrime, economieNette, type Fiche } from '@/lib/acquisitions'
+import { FICHES, CATS_ACQ, MARQUES_ACQ, LOGOS_ACQ, OPTION_COVERING, GESTION_STRUCTURE_MOIS, nomFiche, budgetPrime, economie, type Fiche } from '@/lib/acquisitions'
 import { SITE } from '@/lib/site'
 import { euro } from '@/lib/malus'
 
 /* Le catalogue « Zéro malus » : les neuf fiches d'acquisition de Corsiva Prime (septembre 2026).
    Cartes sur le squelette .mcard des pépites ; la fiche s'ouvre dans un volet, comme sur la page Import.
    Tous les montants viennent de lib/acquisitions.ts (les propositions d'acquisition), rien n'est recalculé
-   sauf le budget « véhicule + forfait » et l'économie nette. */
+   sauf le prix du véhicule (± covering) et l'économie. Le forfait n'apparaît pas sur les fiches (page Tarifs). */
 
 type Tri = 'ordre' | 'ecart' | 'prix'
 type Carrosserie = 'toutes' | 'suv' | 'sportive'
@@ -38,7 +38,7 @@ function Carte({ f, i, compact, onOpen }: { f: Fiche; i: number; compact: boolea
         <span className="mtag etat">{f.annee}</span>
       </div>
       <div className="pprice">
-        <span>Prix total, frais Corsiva compris</span>
+        <span>Prix du véhicule, hors taxes</span>
         <b className="num">≈ {euro(budgetPrime(f))}</b>
       </div>
       <div className="mrows">
@@ -46,7 +46,7 @@ function Carte({ f, i, compact, onOpen }: { f: Fiche; i: number; compact: boolea
       </div>
       <div className="mecon">
         <span>Économie réalisée</span>
-        <b className="num">≈ {euro(economieNette(f))}</b>
+        <b className="num">≈ {euro(economie(f))}</b>
       </div>
       <div className="pfoot">
         <span>Sans malus ni TVA</span>
@@ -90,7 +90,7 @@ function Volet({ f, onClose }: { f: Fiche; onClose: () => void }) {
   if (covering) qs.set('options', 'covering')
   const contactHref = `/contact?${qs.toString()}`
   const total = budgetPrime(f, covering)
-  const nette = economieNette(f, covering)
+  const gain = economie(f, covering)
   const logo = LOGOS_ACQ[f.marque]
 
   return (
@@ -170,28 +170,27 @@ function Volet({ f, onClose }: { f: Fiche; onClose: () => void }) {
 
           {/* Budget avec Corsiva Prime */}
           <div className="card p-5 sm:p-6 mt-6" style={{ borderColor: 'rgba(0, 69, 255, 0.35)' }}>
-            <h3 className="text-[18px]">Votre budget avec Corsiva Prime</h3>
-            <p className="text-[13.5px] mt-1.5" style={{ color: 'var(--ink-2)' }}>Un forfait unique, connu à l’avance, arrêté à la signature. Aucun frais additionnel en cours de dossier.</p>
+            <h3 className="text-[18px]">Votre achat avec Corsiva Prime</h3>
+            <p className="text-[13.5px] mt-1.5" style={{ color: 'var(--ink-2)' }}>Le véhicule est facturé hors taxes, sans malus ni TVA française.</p>
             <div className="mrows mt-4">
               <div><span>Véhicule, réglé au vendeur sur facture hors taxes</span><b>≈ {euro(f.prixAllemagneHT)}</b></div>
-              <div><span>Forfait global : sourcing, structuration, acquisition, livraison</span><b>{euro(FORFAIT_PRIME)}</b></div>
               {covering && <div><span>Option covering intégral, teinte au choix</span><b>{euro(OPTION_COVERING)}</b></div>}
-              <div className="tot"><span>Budget total</span><b>≈ {euro(total)}</b></div>
+              {covering && <div className="tot"><span>Véhicule et covering</span><b>≈ {euro(total)}</b></div>}
             </div>
             <div className="mecon mt-3">
-              <span>Économie nette face au prix France</span>
-              <b className="num">≈ {euro(nette)}</b>
+              <span>Économie face au prix France</span>
+              <b className="num">≈ {euro(gain)}</b>
             </div>
             <button type="button" className="opt mt-4 w-full" aria-pressed={covering} onClick={() => setCovering((v) => !v)}>
               <span className="box" aria-hidden="true"><svg viewBox="0 0 20 20" className="w-3 h-3" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10.5l4 4 8-9" /></svg></span>
               <span><span className="block text-[14.5px] font-semibold leading-snug">Covering intégral · {euro(OPTION_COVERING)}</span><span className="block text-[12.5px] mt-0.5" style={{ color: 'var(--ink-2)' }}>Teinte au choix, posé avant l’acheminement vers la France.</span></span>
             </button>
-            <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>Hors forfait : gestion annuelle de la structure (comptabilité et suivi local), {GESTION_STRUCTURE_MOIS} € par mois ; assurance tout risque Europe, multi-conducteur, chiffrée selon profil et usage.</p>
+            <p className="text-[12px] mt-3 leading-relaxed" style={{ color: 'var(--ink-3)' }}>Non compris : gestion annuelle de la structure (comptabilité et suivi local), {GESTION_STRUCTURE_MOIS} € par mois ; assurance tout risque Europe, multi-conducteur, chiffrée selon profil et usage.</p>
           </div>
 
-          {/* Ce que le forfait couvre */}
+          {/* Ce que Corsiva Prime prend en charge */}
           <div className="mt-6">
-            <h3 className="text-[20px]">Ce que le forfait couvre</h3>
+            <h3 className="text-[20px]">Ce que Corsiva Prime prend en charge</h3>
             <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 list-none">
               {[
                 'Sourcing : cahier des charges, qualification des annonces, présélection, négociation, contrôle documentaire',
@@ -236,7 +235,7 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
 
   const list = useMemo(() => {
     const l = FICHES.filter((f) => (marque === 'Toutes' || f.marque === marque) && (carro === 'toutes' || (carro === 'suv' ? f.cat === 'suv' : f.cat !== 'suv')))
-    if (tri === 'ecart') l.sort((a, b) => economieNette(b) - economieNette(a))
+    if (tri === 'ecart') l.sort((a, b) => economie(b) - economie(a))
     else if (tri === 'prix') l.sort((a, b) => budgetPrime(a) - budgetPrime(b))
     return compact ? l.slice(0, 6) : l
   }, [marque, tri, carro, compact])
@@ -275,7 +274,7 @@ export default function AcquisitionsCatalogue({ compact = false }: { compact?: b
         <div className="flex justify-center mt-8"><Link href="/immatriculation#catalogue" className="btn-primary">Voir les {FICHES.length} fiches d’acquisition <Arrow /></Link></div>
       ) : (
         <p className="text-[12.5px] leading-relaxed mt-6 text-center" style={{ color: 'var(--ink-3)', maxWidth: 820, marginLeft: 'auto', marginRight: 'auto' }}>
-          Chiffres des propositions d’acquisition du 21 septembre 2026 : prix Allemagne relevés (annonce retenue ou médiane des annonces éligibles, TVA récupérable), prix France équivalents relevés malus compris. Le véhicule final pourra différer de l’annonce de référence. Indicatif et non contractuel, visuels non contractuels.
+          Chiffres des propositions d’acquisition du 21 septembre 2026 : prix Allemagne relevés (annonce retenue ou médiane des annonces éligibles, TVA récupérable), prix France équivalents malus compris. Le véhicule final pourra différer de l’annonce de référence. Indicatif et non contractuel, visuels non contractuels.
         </p>
       )}
 

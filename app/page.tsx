@@ -57,7 +57,7 @@ export default function Home() {
       <BrandMarquee />
       <Section tone="light" id="catalogue">
         <Wrap>
-          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Neuf fiches d’acquisition étudiées par nos conseillers : le prix France équivalent, malus compris, face au prix allemand hors taxes, et un forfait connu à l’avance. Ouvrez chaque fiche pour le détail, poste par poste.</SecHead>
+          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Neuf fiches d’acquisition étudiées par nos conseillers : le prix France équivalent, malus compris, face au prix allemand hors taxes. Ouvrez chaque fiche pour le détail, poste par poste.</SecHead>
           <Reveal className="rise"><AcquisitionsCatalogue /></Reveal>
         </Wrap>
       </Section>

@@ -9,7 +9,7 @@ import Process from '@/components/sections/Process'
 import FAQ from '@/components/sections/FAQ'
 import CTA from '@/components/sections/CTA'
 import AcquisitionsCatalogue from '@/components/AcquisitionsCatalogue'
-import { FICHES, nomFiche, FORFAIT_PRIME, budgetPrime } from '@/lib/acquisitions'
+import { FICHES, nomFiche, budgetPrime } from '@/lib/acquisitions'
 import BrandMarquee from '@/components/sections/BrandMarquee'
 import { SecHead, Section, Wrap, d } from '@/components/ui'
 import { SITE } from '@/lib/site'
@@ -29,8 +29,8 @@ const BLOCS = [
 ]
 
 /* Les neuf fiches d'acquisition, en données structurées. Chaque produit porte une offre (exigence Google pour les
-   extraits de produits, alerte Search Console du 23 sept. 2026) : le prix total affiché sur la carte, véhicule hors
-   taxes + forfait Corsiva Prime, indicatif. */
+   extraits de produits, alerte Search Console du 23 sept. 2026) : le prix affiché sur la carte, véhicule hors taxes,
+   indicatif (le forfait n'est pas affiché sur les fiches depuis le 24 sept. 2026). */
 const fichesLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -44,7 +44,7 @@ const fichesLd = {
       '@type': 'Product',
       name: `${nomFiche(f)} ${f.annee}`,
       image: `${SITE.url}${f.photos[0].src}`,
-      description: `${f.titre}. ${f.reference} Prix Allemagne hors taxes ≈ ${f.prixAllemagneHT.toLocaleString('fr-FR')} €, prix France équivalent malus compris ${f.prixFranceTTC.toLocaleString('fr-FR')} €, forfait Corsiva Prime ${FORFAIT_PRIME.toLocaleString('fr-FR')} €.`,
+      description: `${f.titre}. ${f.reference} Prix Allemagne hors taxes ≈ ${f.prixAllemagneHT.toLocaleString('fr-FR')} €, prix France équivalent malus compris ${f.prixFranceTTC.toLocaleString('fr-FR')} €.`,
       brand: { '@type': 'Brand', name: f.marque },
       url: `${SITE.url}/immatriculation?fiche=${f.id}`,
       offers: {
@@ -55,7 +55,7 @@ const fichesLd = {
         itemCondition: 'https://schema.org/UsedCondition',
         url: `${SITE.url}/immatriculation?fiche=${f.id}`,
         seller: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-        description: `Prix total indicatif : véhicule hors taxes ≈ ${f.prixAllemagneHT.toLocaleString('fr-FR')} € + forfait Corsiva Prime ${FORFAIT_PRIME.toLocaleString('fr-FR')} € (structuration, exécution, livraison). Hors gestion de la structure et assurance.`,
+        description: `Prix indicatif du véhicule hors taxes ≈ ${f.prixAllemagneHT.toLocaleString('fr-FR')} €, sans malus ni TVA française, avec l’immatriculation européenne Corsiva Prime.`,
       },
     },
   })),
@@ -92,7 +92,7 @@ export default function Page() {
 
       <Section tone="light" id="catalogue">
         <Wrap>
-          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Neuf fiches d’acquisition étudiées par nos conseillers : le prix France équivalent, malus compris, face au prix allemand hors taxes, et un forfait Corsiva Prime connu à l’avance. Ouvrez chaque fiche pour le détail chiffré.</SecHead>
+          <SecHead a="Le vrai prix en France," b="le vrai prix avec Corsiva Prime.">Neuf fiches d’acquisition étudiées par nos conseillers : le prix France équivalent, malus compris, face au prix allemand hors taxes. Ouvrez chaque fiche pour le détail chiffré.</SecHead>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(fichesLd) }} />
           <Reveal className="rise"><AcquisitionsCatalogue /></Reveal>
         </Wrap>

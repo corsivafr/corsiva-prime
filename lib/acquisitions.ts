@@ -4,7 +4,9 @@
    Corsiva (dossier « image prime », 24 septembre 2026), recadrées en 16:10 ; M3 et Classe G du groupe Corsiva.
    Chaque montant est celui de la fiche : prix Allemagne (annonce ou médiane, TTC et hors taxes),
    prix France équivalent (malus déjà compris), écart de marché, TVA allemande non facturée, écart total.
-   Seuls le budget « véhicule + forfait » et l'économie nette sont additionnés ici.
+   Exceptions : prix France de la M3 (neuf, 204 000 €) et du G 63 (290 000 €) fixés par le dirigeant le 24 septembre
+   2026, écarts recalculés (écart total = France − Allemagne HT, écart de marché = écart total − TVA de la fiche).
+   Seuls le prix du véhicule (± covering) et l'économie sont calculés ici ; le forfait n'y entre pas.
    ───────────────────────────────────────────────────────────────────────────── */
 
 /** Forfait global Corsiva Prime : structuration, exécution et livraison, hors prix du véhicule. */
@@ -62,9 +64,9 @@ export const FICHES: Fiche[] = [
     options: ['Pack Innovation', 'Affichage tête haute', 'Caméras 360°', 'Jantes forgées M'],
     fiche: { motorisation: '6 cyl. biturbo · 530 ch', transmission: 'M xDrive · BVA 8', zeroCent: '3,5 s', circulation: '04/2026', km: 7_000, historique: '1 propriétaire', etat: 'Non accidentée' },
     prixAllemagneTTC: 84_690, prixAllemagneHT: 71_200, prixAllemagneNote: 'Exemplaire retenu, TVA récupérable',
-    prixFranceTTC: 145_000, prixFranceNote: 'Prix estimé en France d’une M3 Competition récente à moins de 7 500 km, malus déjà payé : prix TTC, aucun malus à ajouter.',
-    ecartMarche: 60_300, tvaAllemande: 13_500, ecart: 73_800, part: 51,
-    scenario2: { label: 'Scénario prudent · médiane du marché', ht: 78_983, ecart: 66_017, part: 46 },
+    prixFranceTTC: 204_000, prixFranceNote: 'Prix neuf en France d’une M3 Competition, malus compris : prix TTC, aucun malus à ajouter.',
+    ecartMarche: 119_300, tvaAllemande: 13_500, ecart: 132_800, part: 65,
+    scenario2: { label: 'Scénario prudent · médiane du marché', ht: 78_983, ecart: 125_017, part: 61 },
     photos: [{ src: '/media/photos/m3c-face.jpg', alt: 'BMW M3 Competition du groupe Corsiva, vue de face, plaque Corsiva', pos: 'center 55%' }, { src: '/media/photos/m3c-3-4.jpg', alt: 'BMW M3 Competition du groupe Corsiva, trois quarts', pos: 'center 55%' }, { src: '/media/photos/m3-interieur.jpg', alt: 'Intérieur de la BMW M3 Competition', pos: 'center' }],
   },
   {
@@ -75,9 +77,9 @@ export const FICHES: Fiche[] = [
     options: ['Peinture Manufaktur blanc Opalith Magno', 'Pack Night', 'Sièges massants', 'AMG Driver’s Package'],
     fiche: { motorisation: 'V8 4.0 biturbo · 585 ch', transmission: '4MATIC · 9 rapports', zeroCent: '4,5 s', circulation: '05/2024', km: 6_300, historique: '1 propriétaire', etat: 'Non accidenté' },
     prixAllemagneTTC: 205_000, prixAllemagneHT: 172_300, prixAllemagneNote: 'Médiane des 38 G 63 relevés en Allemagne',
-    prixFranceTTC: 269_990, prixFranceNote: 'G 63 le moins cher en vente en France avec malus déjà payé : prix TTC, aucun malus à ajouter.',
-    ecartMarche: 65_000, tvaAllemande: 32_700, ecart: 97_700, part: 36,
-    scenario2: { label: 'Meilleur cas · annonce de référence', ht: 146_370, ecart: 123_620, part: 46 },
+    prixFranceTTC: 290_000, prixFranceNote: 'Prix en France d’un G 63, malus compris : prix TTC, aucun malus à ajouter.',
+    ecartMarche: 85_000, tvaAllemande: 32_700, ecart: 117_700, part: 41,
+    scenario2: { label: 'Meilleur cas · annonce de référence', ht: 146_370, ecart: 143_630, part: 50 },
     photos: [{ src: A + 'mercedes-amg-g-63--corsiva-3-4-avant.jpg', alt: 'Mercedes Classe G grise du groupe Corsiva de trois quarts avant, plaque Corsiva', pos: 'center' }, { src: '/media/photos/g-gris-duo.jpg', alt: 'Mercedes Classe G et BMW M3 du groupe Corsiva', pos: 'center 55%' }],
   },
   {
@@ -175,8 +177,9 @@ export const FICHES: Fiche[] = [
 export const nomFiche = (f: Fiche) => `${f.marque} ${f.modele}`
 export const ficheParId = (id: string) => FICHES.find((f) => f.id === id)
 export const MARQUES_ACQ = ['Toutes', ...Array.from(new Set(FICHES.map((f) => f.marque)))]
-/** Budget client, forfait compris (hors gestion de la structure et assurance). */
-export const budgetPrime = (f: Fiche, covering = false) => f.prixAllemagneHT + FORFAIT_PRIME + (covering ? OPTION_COVERING : 0)
-/** Économie nette face au prix France équivalent, forfait déduit. */
-export const economieNette = (f: Fiche, covering = false) => f.prixFranceTTC - budgetPrime(f, covering)
+/** Prix du véhicule avec Corsiva Prime : hors taxes, covering en option. Le forfait n'est pas affiché sur les fiches
+    (décision du dirigeant, 24 septembre 2026) : il figure sur la page Tarifs. */
+export const budgetPrime = (f: Fiche, covering = false) => f.prixAllemagneHT + (covering ? OPTION_COVERING : 0)
+/** Économie face au prix France équivalent : prix France − prix du véhicule (forfait non déduit, voir budgetPrime). */
+export const economie = (f: Fiche, covering = false) => f.prixFranceTTC - budgetPrime(f, covering)
 export const LOGOS_ACQ: Record<string, string> = { Audi: '/media/logos/audi.svg', BMW: '/media/logos/bmw.svg', Lamborghini: '/media/logos/lamborghini.svg', 'Mercedes-AMG': '/media/logos/amg.svg', Porsche: '/media/logos/porsche.svg' }
